@@ -1,0 +1,1 @@
+window.__RUNTIME_CONFIG__ = {"NODE_ENV":"production","REACT_APP_SERVER_URL":"http:///localhost:8080","REACT_APP_ELASTICSEARCH_URL":"http://localhost:9200"};
