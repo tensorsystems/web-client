@@ -44,7 +44,6 @@ export const APPOINTMENT_LOOKUPS = gql`
   query AppointmentLookups(
     $page: PaginationInput!
     $userTypeTitle: String!
-    $patientId: ID!
   ) {
     rooms(page: $page) {
       totalCount
