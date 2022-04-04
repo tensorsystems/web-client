@@ -41,10 +41,7 @@ import _ from "lodash";
 import { SHOULD_PAY_FOR_CONSULTATION } from "../../api";
 
 export const APPOINTMENT_LOOKUPS = gql`
-  query AppointmentLookups(
-    $page: PaginationInput!
-    $userTypeTitle: String!
-  ) {
+  query AppointmentLookups($page: PaginationInput!, $userTypeTitle: String!) {
     rooms(page: $page) {
       totalCount
       edges {
@@ -100,7 +97,6 @@ export const APPOINTMENT_LOOKUPS = gql`
     }
   }
 `;
-
 
 const GET_APPOINTMENT = gql`
   query GetAppointment($id: ID!) {
@@ -332,7 +328,6 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
     }
   }, [appointmentInput.checkInTime]);
 
-
   useEffect(() => {
     if (shouldPayForConsultationQuery[1].called) {
       if (shouldPayForConsultationQuery[1].data?.payForConsultation) {
@@ -350,7 +345,9 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const patientEncounterLimitQuery = useLazyQuery<
     Query,
     QueryPatientEncounterLimitByUserArgs
-  >(GET_PATIENT_ENCOUNTER_LIMIT);
+  >(GET_PATIENT_ENCOUNTER_LIMIT, {
+    fetchPolicy: "network-only"
+  });
 
   const patientEncounterLimit =
     patientEncounterLimitQuery[1].data?.patientEncounterLimitByUser;
@@ -358,7 +355,9 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const providerAppointmentsQuery = useLazyQuery<
     Query,
     QuerySearchAppointmentsArgs
-  >(SEARCH_APPOINTMENTS);
+  >(SEARCH_APPOINTMENTS, {
+    fetchPolicy: "network-only"
+  });
 
   useEffect(() => {
     if (appointmentInput.userId && appointmentInput.checkInTime) {
@@ -370,6 +369,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
             checkInTime: new Date(appointmentInput.checkInTime),
           },
         },
+        
       });
 
       patientEncounterLimitQuery[0]({
