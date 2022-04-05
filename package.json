@@ -5,10 +5,8 @@
   "homepage": "/",
   "dependencies": {
     "@apollo/client": "^3.5.6",
-    "@craco/craco": "^6.2.0",
     "@headlessui/react": "^1.2.0",
     "@heroicons/react": "^1.0.1",
-    "@tailwindcss/forms": "^0.3.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -17,6 +15,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "apollo-upload-client": "^14.1.3",
+    "buffer": "^6.0.3",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
     "file-saver": "^2.0.5",
@@ -37,7 +36,7 @@
     "react-modal-sheet": "^1.4.1",
     "react-pdf": "^5.3.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.2",
+    "react-scripts": "5.0.0",
     "react-scroll-to-top": "^1.0.5",
     "react-select": "^4.3.1",
     "react-sizeme": "^3.0.1",
@@ -49,9 +48,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js && craco start",
-    "build": "craco build",
-    "test": "craco test",
+    "start": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -73,6 +72,7 @@
     ]
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.0",
     "@types/apollo-upload-client": "^14.1.0",
     "@types/classnames": "^2.2.11",
     "@types/file-saver": "^2.0.3",
@@ -85,8 +85,8 @@
     "@types/react-router-dom": "^5.1.6",
     "@types/react-select": "^4.0.16",
     "@types/react-swipeable-views": "^0.13.0",
-    "autoprefixer": "^9.8.6",
-    "postcss": "^7.0.36",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23"
   }
 }

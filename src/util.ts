@@ -18,6 +18,7 @@
 
 import { differenceInMonths, differenceInYears, format, parseISO } from "date-fns";
 import { EyewearPrescription, Maybe } from "./models/models";
+import { Buffer } from 'buffer';
 
 export const formatDate = (date: string) => {
   return format(
