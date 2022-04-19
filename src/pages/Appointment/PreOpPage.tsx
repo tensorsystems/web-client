@@ -21,7 +21,6 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import PreOpForm from "../../components/PreOpForm";
 import {
   MutationSaveSurgicalProcedureArgs,
@@ -32,6 +31,8 @@ import {
 import { useNotificationDispatch } from "../../notification";
 import useExitPrompt from "../../useExitPrompt";
 import { AppointmentContext } from "../../_context/AppointmentContext";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const SAVE_SURGICAL_PROCEDURE = gql`
   mutation SaveSurgicalProcedure($input: SurgicalProcedureInput!) {
@@ -185,8 +186,8 @@ export const PreOpPage: React.FC<Props> = ({ patientChartId }) => {
 
       <PreOpForm
         register={register}
-        handleChanges={handleChanges}
         locked={patientChartLocked[0]}
+        handleChanges={handleChanges}
       />
     </div>
   );

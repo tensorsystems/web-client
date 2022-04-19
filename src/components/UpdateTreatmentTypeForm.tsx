@@ -29,9 +29,8 @@ import {
   TreatmentTypeUpdateInput,
 } from "../models/models";
 import { useNotificationDispatch } from "../notification";
-import { BILLINGS } from "../pages/Admin/BillingsAdminPage";
-import { SUPPLIES } from "../pages/Admin/SupplyAdminPage";
 import Select from "react-select";
+import { BILLINGS, SUPPLIES } from "../api";
 
 const UPDATE_TREATMENT_TYPE = gql`
   mutation UpdateTreatmentType($input: TreatmentTypeUpdateInput!) {

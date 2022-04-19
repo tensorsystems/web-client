@@ -28,8 +28,8 @@ import {
   QueryBillingsArgs,
 } from "../models/models";
 import { useNotificationDispatch } from "../notification";
-import { BILLINGS } from "../pages/Admin/BillingsAdminPage";
 import Select from "react-select";
+import { BILLINGS } from "../api";
 
 const UPDATE_DIAGNOSTIC_PROCEDURE_TYPE = gql`
   mutation UpdateDiagnosticProcedureType(

@@ -23,7 +23,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import {
   MutationUpdateVitalSignsArgs,
   Patient,
@@ -37,6 +36,8 @@ import { AppointmentContext } from "../../_context/AppointmentContext";
 import { InformationCircleIcon } from "@heroicons/react/solid";
 import ReactTooltip from "react-tooltip";
 import { differenceInMonths, parseISO } from "date-fns";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const GET_VITAL_SIGNS = gql`
   query GetVitalSigns($filter: VitalSignsFilter!) {

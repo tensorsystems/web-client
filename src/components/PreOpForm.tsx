@@ -9,7 +9,7 @@ interface Props {
 const PreOpForm: React.FC<Props> = ({ register, handleChanges, locked }) => {
   return (
     <div>
-      <div className="grid grid-cols-3 gap-x-16 gap-y-7 mt-5">
+      <div className="grid grid-cols-3 gap-x-10 gap-y-4 mt-5">
         <div className="col-span-1"></div>
         <div className="col-span-1 text-center">OD</div>
         <div className="col-span-1 text-center">OS</div>

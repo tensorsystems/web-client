@@ -163,7 +163,8 @@ export const UpdatePatientPage: React.FC<Props> = ({ onAddPage }) => {
         const document: FileUploader = {
           id: patient?.paperRecordDocument?.id,
           fileUrl: getFileUrl({
-            baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+             // @ts-ignore
+            baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: patient?.paperRecordDocument?.fileName,
             hash: patient?.paperRecordDocument?.hash,
             extension: patient?.paperRecordDocument?.extension,
@@ -181,7 +182,8 @@ export const UpdatePatientPage: React.FC<Props> = ({ onAddPage }) => {
         patient?.documents?.map((e: any) => ({
           id: e?.id,
           fileUrl: getFileUrl({
-            baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+             // @ts-ignore
+            baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: e?.fileName,
             hash: e?.hash,
             extension: e?.extension,

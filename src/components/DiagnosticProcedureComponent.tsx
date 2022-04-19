@@ -18,10 +18,9 @@
 
 import { gql, useMutation } from "@apollo/client";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { AUTO_SAVE_INTERVAL } from "..";
 import { FileUploader, FileUploaderComponent } from "./FileUploaderComponent";
 import {
   MutationUpdateDiagnosticProcedureArgs,
@@ -38,6 +37,8 @@ import cn from "classnames";
 import RefractionDistanceComponent from "./RefractionDistanceForm";
 import RefractionNearComponent from "./RefractionNearForm";
 import { getFileUrl } from "../util";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 export const UPDATE_DIAGNOSTIC_PROCEDURE = gql`
   mutation UpdateDiagnosticProcedure($input: DiagnosticProcedureUpdateInput!) {
@@ -163,7 +164,8 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
     values?.images.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+         // @ts-ignore
+        baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
         extension: e?.extension,
@@ -178,7 +180,8 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
     values?.documents.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+         // @ts-ignore
+        baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
         extension: e?.extension,
@@ -206,7 +209,8 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
         (e: any) => ({
           id: e?.id,
           fileUrl: getFileUrl({
-            baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+             // @ts-ignore
+            baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: e?.fileName,
             hash: e?.hash,
             extension: e?.extension,
@@ -224,7 +228,8 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
         (e: any) => ({
           id: e?.id,
           fileUrl: getFileUrl({
-            baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+             // @ts-ignore
+            baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: e?.fileName,
             hash: e?.hash,
             extension: e?.extension,

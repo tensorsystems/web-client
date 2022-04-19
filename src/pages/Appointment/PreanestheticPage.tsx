@@ -38,9 +38,11 @@ import {
 } from "../../components/FileUploaderComponent";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 import useExitPrompt from "../../useExitPrompt";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import { Prompt } from "react-router-dom";
 import _ from "lodash";
+
+const AUTO_SAVE_INTERVAL = 1000;
+
 
 const SAVE_SURGICAL_PROCEDURE = gql`
   mutation SaveSurgicalProcedure($input: SurgicalProcedureInput!) {
@@ -176,7 +178,8 @@ export const PreanestheticPage: React.FC<Props> = ({ patientChartId }) => {
     data?.surgicalProcedure.preanestheticDocuments.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+         // @ts-ignore
+        baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
         extension: e?.extension,

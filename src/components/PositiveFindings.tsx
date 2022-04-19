@@ -20,16 +20,16 @@ import { gql, useQuery } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
+  HpiComponent,
+  Maybe,
   Query,
   QueryOrdersArgs,
   QueryPatientChartArgs,
 } from "../models/models";
-import {
-  OcularMotilityOdDiagram,
-  OcularMotilityOsDiagram,
-} from "./OcularMotilityDiagram";
+import { OcularMotilityOdDiagram } from "./OcularMotilityDiagram/OcularMotilityOdDiagram";
+import { OcularMotilityOsDiagram } from "./OcularMotilityDiagram/OcularMotilityOsDiagram";
 import { SketchDiagram } from "./SketchDiagram";
-import corneaImage from "./SketchDiagram/cornea.png";
+import corneaImage from "../img/cornea.png";
 import circleImage from "../img/circle.png";
 import { LabComponent } from "./LabComponent";
 import { MedicationTable } from "./MedicationTable";
@@ -37,6 +37,8 @@ import { EyeGlassTable } from "./EyeGlassTable";
 import DiagnosticProcedureComponent from "./DiagnosticProcedureComponent";
 // @ts-ignore
 import { SketchField, Tools } from "react-sketch2";
+import _ from "lodash";
+import { groupByHpiComponentType } from "../util";
 
 export const GET_PATIENT_CHART = gql`
   query GetPatientChart($id: ID!, $details: Boolean) {
@@ -742,10 +744,10 @@ const PositiveFindings: React.FC<Props> = ({
               <div className="pl-4 border-l border-indigo-600 mt-3" key={e?.id}>
                 <p className="text-base font-semibold">{e?.title}</p>
                 <ul className="list-inside list-disc pl-3">
-                  {e?.hpiComponents.map((q) => (
-                    <li
-                      key={q?.id}
-                    >{`${q?.hpiComponentType?.title}: ${q?.title}`}</li>
+                  {groupByHpiComponentType(e?.hpiComponents)?.map((q) => (
+                    <li key={q[0]}>{`${q[0]}: ${q[1]
+                      .map((h) => h?.title.trim())
+                      .join(", ")}`}</li>
                   ))}
                 </ul>
               </div>

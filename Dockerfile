@@ -17,13 +17,18 @@
 # -- BUILD --
 FROM node:14-alpine as build
 
+ARG APP_SERVER_URL 
+ARG APP_ELASTICSEARCH_URL
+
 WORKDIR /usr/src/app
 
 COPY package* ./
 COPY . .
 
 RUN npm install
-RUN npm run build
+RUN REACT_APP_SERVER_URL=${APP_SERVER_URL} \ 
+  REACT_APP_ELASTICSEARCH_URL=${APP_ELASTICSEARCH_URL} \ 
+  npm run build
 
 # -- RELEASE --
 FROM nginx:stable-alpine as release

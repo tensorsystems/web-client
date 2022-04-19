@@ -23,9 +23,10 @@ import { AppointmentContext } from "../_context/AppointmentContext";
 import { useNotificationDispatch } from "../notification";
 import { gql, useMutation } from "@apollo/client";
 import useExitPrompt from "../useExitPrompt";
-import { AUTO_SAVE_INTERVAL } from "..";
 import { Prompt } from "react-router-dom";
 import _ from "lodash";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const UPDATE_PATIENT_CHART = gql`
   mutation SavePatientChart($input: PatientChartUpdateInput!) {

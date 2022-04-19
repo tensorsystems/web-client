@@ -34,7 +34,6 @@ import { AppointmentContext } from "../../_context/AppointmentContext";
 import { format, parseISO } from "date-fns";
 import { useBottomSheetDispatch } from "../../bottomsheet";
 import { AddAmendmentForm } from "../../components/AddAmendmentForm";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import useExitPrompt from "../../useExitPrompt";
 import _ from "lodash";
 import { useReactToPrint } from "react-to-print";
@@ -44,6 +43,8 @@ import HistoryPrintComponent from "../../components/HistoryPrintComponent";
 import PositiveFindingsPrint from "../../components/PositiveFindingsPrint";
 import { ReviewOfSystemsPrintComponent } from "../../components/ReviewOfSystemsPrintComponent";
 import { getPatientAge } from "../../util";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const UPDATE_PATIENT_CHART = gql`
   mutation UpdatePatientChart($input: PatientChartUpdateInput!) {
@@ -379,7 +380,8 @@ export const SummaryPage: React.FC<{
           >
             <div className="bg-white p-6" ref={componentRef}>
               <PrintFileHeader
-                qrUrl={`http://${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/#/appointments/${appointment.id}/patient-dashboard`}
+                // @ts-ignore
+                qrUrl={`http://${process.env.REACT_APP_SERVER_URL}/#/appointments/${appointment.id}/patient-dashboard`}
               />
 
               <hr className="border border-solid border-teal-500 bg-teal-400 mt-5" />

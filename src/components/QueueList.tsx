@@ -25,7 +25,7 @@ import {
   DroppableProvided,
   DroppableStateSnapshot,
 } from "react-beautiful-dnd";
-import { Quote } from "./QueueColumn";
+import { Quote } from "../models/queue";
 import QueueItem from "./QueueItem";
 
 export const getBackgroundColor = (

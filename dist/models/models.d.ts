@@ -1,0 +1,10 @@
+import { Appointment } from '@bit/models';
+export { Appointment };
+import { MutationDeleteFromQueueArgs } from '@bit/models';
+export { MutationDeleteFromQueueArgs };
+import { PaginationInput } from '@bit/models';
+export { PaginationInput };
+import { Query } from '@bit/models';
+export { Query };
+import { QueryGetUserAppointmentsArgs } from '@bit/models';
+export { QueryGetUserAppointmentsArgs };

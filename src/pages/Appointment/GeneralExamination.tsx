@@ -21,11 +21,9 @@ import { Switch } from "@headlessui/react";
 import { TrashIcon } from "@heroicons/react/outline";
 import React, { useState } from "react";
 import { Prompt } from "react-router-dom";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import PhysicalExamCategoryList from "../../components/PhysicalExamCategoryList";
 import {
   MutationDeletePhysicalExamFindingArgs,
-  MutationDeletePhysicalExamFindingExamCategoryArgs,
   MutationSavePhysicalExamFindingArgs,
   MutationUpdatePhysicalExamFindingArgs,
   PhysicalExamFinding,
@@ -35,6 +33,8 @@ import {
 import { useNotificationDispatch } from "../../notification";
 import useExitPrompt from "../../useExitPrompt";
 import { AppointmentContext } from "../../_context/AppointmentContext";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const SAVE_PHYSICAL_EXAM_FINDING = gql`
   mutation SavePhysicalExamFinding($input: PhysicalExamFindingInput!) {

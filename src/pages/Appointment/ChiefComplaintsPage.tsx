@@ -36,10 +36,11 @@ import {
 } from "../../models/models";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 import useExitPrompt from "../../useExitPrompt";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import { Prompt } from "react-router-dom";
 import _ from "lodash";
 import HpiComponent from "../../components/ChiefComplaintHpiComponent";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const UPDATE_PATIENT_CHART = gql`
   mutation SavePatientChart($input: PatientChartUpdateInput!) {

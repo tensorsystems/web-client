@@ -22,7 +22,6 @@ import { useForm } from "react-hook-form";
 import { useBottomSheetDispatch } from "../../bottomsheet";
 import { TablePagination } from "../../components/TablePagination";
 import { useNotificationDispatch } from "../../notification";
-import { BILLINGS } from "./BillingsAdminPage";
 import classnames from "classnames";
 import {
   Maybe,
@@ -38,29 +37,8 @@ import {
   SupplyInput,
   SupplyUpdateInput,
 } from "../../models/models";
+import { BILLINGS, SUPPLIES } from "../../api";
 
-export const SUPPLIES = gql`
-  query Supply($page: PaginationInput!, $searchTerm: String) {
-    supplies(page: $page, searchTerm: $searchTerm) {
-      totalCount
-      edges {
-        node {
-          id
-          title
-          active
-          billings {
-            id
-            item
-            code
-          }
-        }
-      }
-      pageInfo {
-        totalPages
-      }
-    }
-  }
-`;
 
 const ROWS_PER_PAGE = 20;
 

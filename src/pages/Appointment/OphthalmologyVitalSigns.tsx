@@ -22,7 +22,6 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import { IopForm } from "../../components/IopForm";
 import { VisualAcuityForm } from "../../components/VisualAcuityForm";
 import {
@@ -36,6 +35,8 @@ import { useNotificationDispatch } from "../../notification";
 import useExitPrompt from "../../useExitPrompt";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 import ReactLoading from "react-loading";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const GET_VITAL_SIGNS = gql`
   query GetVitalSigns($filter: VitalSignsFilter!) {

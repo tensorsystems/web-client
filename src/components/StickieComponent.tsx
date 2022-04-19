@@ -20,13 +20,14 @@ import { gql, useMutation } from "@apollo/client";
 import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { AUTO_SAVE_INTERVAL } from "..";
 import {
   PatientChartUpdateInput,
   MutationUpdatePatientChartArgs,
 } from "../models/models";
 import { useNotificationDispatch } from "../notification";
 import useExitPrompt from "../useExitPrompt";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const UPDATE_PATIENT_CHART = gql`
   mutation UpdatePatientChart($input: PatientChartUpdateInput!) {

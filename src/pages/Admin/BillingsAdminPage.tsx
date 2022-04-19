@@ -17,7 +17,7 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useBottomSheetDispatch } from "../../bottomsheet";
 import { TablePagination } from "../../components/TablePagination";
 import { useNotificationDispatch } from "../../notification";
@@ -30,27 +30,8 @@ import {
 } from "../../models/models";
 import { UpdateBillingForm } from "../../components/UpdateBillingForm";
 import { AddBillingForm } from "../../components/AddBillingForm";
+import { BILLINGS } from "../../api";
 
-export const BILLINGS = gql`
-  query Billings($page: PaginationInput!, $searchTerm: String) {
-    billings(page: $page, searchTerm: $searchTerm) {
-      totalCount
-      edges {
-        node {
-          id
-          item
-          code
-          price
-          credit
-          remark
-        }
-      }
-      pageInfo {
-        totalPages
-      }
-    }
-  }
-`;
 
 const ROWS_PER_PAGE = 20;
 

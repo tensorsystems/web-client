@@ -30,11 +30,12 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import { useForm } from "react-hook-form";
 import useExitPrompt from "../../useExitPrompt";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import _ from "lodash";
 import { useNotificationDispatch } from "../../notification";
 import { Prompt } from "react-router-dom";
 import { getPatientAge } from "../../util";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const UPDATE_PATIENT_CHART = gql`
   mutation UpdatePatientChart($input: PatientChartUpdateInput!) {
@@ -275,7 +276,8 @@ export const MedicalCertificatePage: React.FC<{
 
         <div className="bg-white p-6 " ref={componentRef}>
           <PrintFileHeader
-            qrUrl={`http://${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/#/appointments/${appointment.id}/patient-dashboard`}
+           // @ts-ignore
+            qrUrl={`http://${process.env.REACT_APP_SERVER_URL}/#/appointments/${appointment.id}/patient-dashboard`}
           />
 
           <hr className="border border-solid border-teal-500 bg-teal-400 mt-5" />

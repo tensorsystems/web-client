@@ -17,8 +17,8 @@
 */
 
 import { differenceInMonths, differenceInYears, format, parseISO } from "date-fns";
-import { EyewearPrescription, Maybe } from "./models/models";
-import { Buffer } from 'buffer';
+import _ from "lodash";
+import { EyewearPrescription, HpiComponent, Maybe } from "./models/models";
 
 export const formatDate = (date: string) => {
   return format(
@@ -27,11 +27,25 @@ export const formatDate = (date: string) => {
   );
 }
 
+export function getParsedJwt<T extends object = { [k: string]: string | number }>(
+  token: string,
+): T | undefined {
+  try {
+    return JSON.parse(atob(token.split('.')[1]))
+  } catch {
+    return undefined
+  }
+}
+
 export const parseJwt: any = (token: string) => {
   if(token) {
-    var base64Payload = token.split('.')[1];
-    var payload = Buffer.from(base64Payload, 'base64');
-    return JSON.parse(payload.toString());
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
   }
 };
 
@@ -53,7 +67,7 @@ export const groupBy = <T, K extends keyof T>(
 
 
 interface FileUrlParams {
-  baseUrl: string,
+  baseUrl: string | undefined,
   fileName: string,
   hash: string,
   extension: String
@@ -107,3 +121,14 @@ export const getPatientAge = (dateOfBirth: any) => {
 
   return `${years} years old`;
 }
+
+export const groupByHpiComponentType = (
+  hpiComponents: Maybe<HpiComponent>[] | undefined
+) => {
+  if (hpiComponents) {
+    const grouped = _.groupBy(hpiComponents, "hpiComponentType.title");
+    const entries = Object.entries(grouped);
+
+    return entries;
+  }
+};

@@ -44,7 +44,7 @@ export default function MyAccordion({ title, content, preExpand }: Props) {
         className="shadow-md rounded-md"
         preExpanded={preExpand ? ["my-accordion"] : []}
         onChange={(value) => {
-          if (value.includes("my-accordion")) {
+          if (value.indexOf("my-accordion") !== -1) {
             setExpanded(true);
           } else {
             setExpanded(false);

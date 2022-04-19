@@ -337,15 +337,18 @@ export const HomePage: React.FC = () => {
             onUnmount={() => {
               bottomSheetDispatch({ type: "hide" });
             }}
+            onViewportBoxUpdate={() => {}}
           >
-            <Sheet.Header />
-            <Sheet.Content>{BottomSheetChildren}</Sheet.Content>
+            <Sheet.Header onViewportBoxUpdate={() => {}} />
+            <Sheet.Content onViewportBoxUpdate={() => {}}>
+              {BottomSheetChildren}
+            </Sheet.Content>
           </Sheet.Container>
-
           <Sheet.Backdrop
             onUnmount={() => {
               bottomSheetDispatch({ type: "hide" });
             }}
+            onViewportBoxUpdate={() => {}}
           />
         </Sheet>
       )}

@@ -21,9 +21,8 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { AUTO_SAVE_INTERVAL } from "../..";
+import TreatmentForm from "../../components/TreatmentForm";
 import {
-  PatientChart,
   TreatmentInput,
   MutationSaveTreatmentArgs,
   Query,
@@ -31,6 +30,9 @@ import {
 } from "../../models/models";
 import { useNotificationDispatch } from "../../notification";
 import useExitPrompt from "../../useExitPrompt";
+import { AppointmentContext } from "../../_context/AppointmentContext";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const SAVE_TREATMENT = gql`
   mutation SaveTreatment($input: TreatmentInput!) {
@@ -63,7 +65,8 @@ export const TreatmentObjectivePage: React.FC<Props> = ({ patientChartId }) => {
   const [timer, setTimer] = useState<any>(null);
   const [modified, setModified] = useState<boolean>(false);
   const [showExitPrompt, setShowExitPrompt] = useExitPrompt(false);
-
+  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
+  
   const { register, getValues, reset } = useForm<TreatmentInput>();
 
   const { data, refetch } = useQuery<Query, QueryTreatmentArgs>(GET_TREATMENT, {
@@ -142,37 +145,11 @@ export const TreatmentObjectivePage: React.FC<Props> = ({ patientChartId }) => {
 
       <hr className="mt-5" />
 
-      <div className="mt-4">
-        <label
-          htmlFor="note"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Treatment Note
-        </label>
-        <textarea
-          name="note"
-          ref={register}
-          rows={3}
-          className="mt-1 p-1 pl-4 block w-full sm:text-md border-gray-300 border rounded-md"
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="mt-4">
-        <label
-          htmlFor="result"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Result
-        </label>
-        <textarea
-          name="result"
-          ref={register}
-          rows={3}
-          className="mt-1 p-1 pl-4 block w-full sm:text-md border-gray-300 border rounded-md"
-          onChange={handleChange}
-        />
-      </div>
+      <TreatmentForm
+        register={register}
+        locked={patientChartLocked[0]}
+        handleChange={handleChange}
+      />
     </div>
   );
 };

@@ -21,25 +21,27 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Query,
-  QueryOrdersArgs,
   QueryPatientChartArgs,
+  QuerySurgicalProcedureArgs,
+  QueryTreatmentArgs,
+  SurgicalProcedureInput,
+  TreatmentInput,
 } from "../models/models";
-import {
-  OcularMotilityOdDiagram,
-  OcularMotilityOsDiagram,
-} from "./OcularMotilityDiagram";
 import { SketchDiagram } from "./SketchDiagram";
-import corneaImage from "./SketchDiagram/cornea.png";
-import irisImage from "./SketchDiagram/iris.png";
+import corneaImage from "../img/cornea.png";
+import irisImage from "../img/iris.png";
 import circleImage from "../img/circle.png";
 import { LabComponent } from "./LabComponent";
 import { MedicationTable } from "./MedicationTable";
 import { EyeGlassTable } from "./EyeGlassTable";
 import { FileUploader } from "./FileUploaderComponent";
-import { PreOpPage } from "../pages/Appointment/PreOpPage";
-import { IntraOpPage } from "../pages/Appointment/IntraOpPage";
-import { TreatmentObjectivePage } from "../pages/Appointment/TreatmentObjectivePage";
-import { getFileUrl } from "../util";
+
+import { getFileUrl, groupByHpiComponentType } from "../util";
+import { OcularMotilityOdDiagram } from "./OcularMotilityDiagram/OcularMotilityOdDiagram";
+import { OcularMotilityOsDiagram } from "./OcularMotilityDiagram/OcularMotilityOsDiagram";
+import PreOpForm from "./PreOpForm";
+import IntraOpForm from "./IntraOpForm";
+import TreatmentForm from "./TreatmentForm";
 
 export const GET_PATIENT_CHART = gql`
   query GetPatientChart($id: ID!, $details: Boolean) {
@@ -425,6 +427,124 @@ const GET_ORDERS = gql`
     }
   }
 `;
+
+const GET_SURGERY = gql`
+  query GetSurgery($patientChartId: ID!) {
+    surgicalProcedure(patientChartId: $patientChartId) {
+      id
+      rightCorrected
+      leftCorrected
+      rightIop
+      leftIop
+      rightAnteriorSegment
+      leftAnteriorSegment
+      rightPosteriorSegment
+      leftPosteriorSegment
+      rightBiometry
+      leftBiometry
+      diabetes
+      hpn
+      asthma
+      cardiacDisease
+      allergies
+      bloodPressure
+      bloodSugar
+      uriAnalysis
+      orderNote
+      la
+      ga
+      retrobulbar
+      peribulbar
+      topical
+      conjFlapLimbal
+      conjFlapFornix
+      sectionLimbal
+      sectionCorneral
+      sectionScleralTunnel
+      capsulotomyLinear
+      capsulotomyCanOpener
+      capsulotomyCcc
+      iolPlacementBag
+      iolSulcus
+      iolBagSulcus
+      irodectpmyNone
+      irodectpmyPl
+      irodectpmySl
+      sphincterectomy
+      lensExtractionIcce
+      lensExtractionEcce
+      lensExtractionPhaco
+      sutureNone
+      sutureContinuous
+      sutureInterrupted
+      drapes
+      ringer
+      bss
+      air
+      hpmc
+      healon
+      pilo
+      adrenalin
+      antibiotic
+      steroid
+      suture80
+      suture90
+      suture100
+      irrigatingSolution
+      visco
+      interacameral
+      subconj
+      suture
+      silk
+      nylon
+      pcTear
+      vitreousLoss
+      descematesStrip
+      endothelialDamage
+      nucluesDrop
+      iridoDialysis
+      irisDamage
+      retainedCortex
+      hyphema
+      complicationsOthers
+      complicationsNote
+      vitrectomy
+      typeOfIolAc
+      typeOfIolPc
+      typeOfIol
+      iolModel
+      company
+      aclol
+      aclolPlanned
+      aclolUnplanned
+      unplanned
+      additionalNotes
+      specialInstructions
+      treatment
+      assistantName
+      performOnEye
+      surgicalProcedureType {
+        id
+        title
+      }
+    }
+  }
+`;
+
+const GET_TREATMENT = gql`
+  query GetTreatment($patientChartId: ID!) {
+    treatment(patientChartId: $patientChartId) {
+      id
+      note
+      result
+      treatmentType {
+        id
+        title
+      }
+    }
+  }
+`;
+
 interface Props {
   patientChartId: string;
   showHistory?: boolean;
@@ -464,18 +584,148 @@ const PositiveFindingsPrint: React.FC<Props> = ({
     }
   );
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
-  const ordersQuery = useQuery<Query, QueryOrdersArgs>(GET_ORDERS, {
-    variables: {
-      page: { page: 0, size: 100 },
-      filter: {
+  const surgeryQuery = useQuery<Query, QuerySurgicalProcedureArgs>(
+    GET_SURGERY,
+    {
+      variables: {
         patientChartId,
       },
+    }
+  );
+
+  const surgicalProcedureForm = useForm<SurgicalProcedureInput>({
+    defaultValues: {
+      patientChartId: patientChartId,
     },
   });
+
+  useEffect(() => {
+    const surgicalProcedure = surgeryQuery.data?.surgicalProcedure;
+    if (surgicalProcedure) {
+      surgicalProcedureForm.reset({
+        rightCorrected: surgicalProcedure.rightCorrected,
+        leftCorrected: surgicalProcedure.leftCorrected,
+        rightIop: surgicalProcedure.rightIop,
+        leftIop: surgicalProcedure.leftIop,
+        rightAnteriorSegment: surgicalProcedure.rightAnteriorSegment,
+        leftAnteriorSegment: surgicalProcedure.leftAnteriorSegment,
+        rightPosteriorSegment: surgicalProcedure.rightPosteriorSegment,
+        leftPosteriorSegment: surgicalProcedure.leftPosteriorSegment,
+        rightBiometry: surgicalProcedure.rightBiometry,
+        leftBiometry: surgicalProcedure.leftBiometry,
+        bloodPressure: surgicalProcedure.bloodPressure,
+        bloodSugar: surgicalProcedure.bloodSugar,
+        uriAnalysis: surgicalProcedure.uriAnalysis,
+        diabetes: surgicalProcedure.diabetes,
+        asthma: surgicalProcedure.asthma,
+        hpn: surgicalProcedure.hpn,
+        cardiacDisease: surgicalProcedure.cardiacDisease,
+        allergies: surgicalProcedure.allergies,
+        assistantName: surgicalProcedure.assistantName,
+        performOnEye: surgicalProcedure.performOnEye,
+        la: surgicalProcedure.la,
+        ga: surgicalProcedure.ga,
+        retrobulbar: surgicalProcedure.retrobulbar,
+        peribulbar: surgicalProcedure.peribulbar,
+        topical: surgicalProcedure.topical,
+        conjFlapLimbal: surgicalProcedure.conjFlapLimbal,
+        conjFlapFornix: surgicalProcedure.conjFlapFornix,
+        sectionLimbal: surgicalProcedure.sectionLimbal,
+        sectionCorneral: surgicalProcedure.sectionCorneral,
+        sectionScleralTunnel: surgicalProcedure.sectionScleralTunnel,
+        capsulotomyLinear: surgicalProcedure.capsulotomyLinear,
+        capsulotomyCanOpener: surgicalProcedure.capsulotomyCanOpener,
+        capsulotomyCcc: surgicalProcedure.capsulotomyCcc,
+        iolPlacementBag: surgicalProcedure.iolPlacementBag,
+        iolSulcus: surgicalProcedure.iolSulcus,
+        iolBagSulcus: surgicalProcedure.iolBagSulcus,
+        irodectpmyNone: surgicalProcedure.irodectpmyNone,
+        irodectpmyPl: surgicalProcedure.irodectpmyPl,
+        irodectpmySl: surgicalProcedure.irodectpmySl,
+        sphincterectomy: surgicalProcedure.sphincterectomy,
+        lensExtractionIcce: surgicalProcedure.lensExtractionIcce,
+        lensExtractionEcce: surgicalProcedure.lensExtractionEcce,
+        lensExtractionPhaco: surgicalProcedure.lensExtractionPhaco,
+        sutureNone: surgicalProcedure.sutureNone,
+        sutureContinuous: surgicalProcedure.sutureContinuous,
+        sutureInterrupted: surgicalProcedure.sutureInterrupted,
+        drapes: surgicalProcedure.drapes,
+        ringer: surgicalProcedure.ringer,
+        bss: surgicalProcedure.bss,
+        air: surgicalProcedure.air,
+        hpmc: surgicalProcedure.hpmc,
+        healon: surgicalProcedure.healon,
+        pilo: surgicalProcedure.pilo,
+        adrenalin: surgicalProcedure.adrenalin,
+        antibiotic: surgicalProcedure.antibiotic,
+        steroid: surgicalProcedure.steroid,
+        suture80: surgicalProcedure.suture80,
+        suture90: surgicalProcedure.suture90,
+        suture100: surgicalProcedure.suture100,
+        irrigatingSolution: surgicalProcedure.irrigatingSolution,
+        visco: surgicalProcedure.visco,
+        interacameral: surgicalProcedure.interacameral,
+        subconj: surgicalProcedure.subconj,
+        suture: surgicalProcedure.suture,
+        silk: surgicalProcedure.silk,
+        nylon: surgicalProcedure.nylon,
+        pcTear: surgicalProcedure.pcTear,
+        vitreousLoss: surgicalProcedure.vitreousLoss,
+        descematesStrip: surgicalProcedure.descematesStrip,
+        endothelialDamage: surgicalProcedure.endothelialDamage,
+        nucluesDrop: surgicalProcedure.nucluesDrop,
+        iridoDialysis: surgicalProcedure.iridoDialysis,
+        irisDamage: surgicalProcedure.irisDamage,
+        retainedCortex: surgicalProcedure.retainedCortex,
+        hyphema: surgicalProcedure.hyphema,
+        complicationsOthers: surgicalProcedure.complicationsOthers,
+        complicationsNote: surgicalProcedure.complicationsNote,
+        vitrectomy: surgicalProcedure.vitrectomy,
+        typeOfIolAc: surgicalProcedure.typeOfIolAc,
+        typeOfIolPc: surgicalProcedure.typeOfIolPc,
+        typeOfIol: surgicalProcedure.typeOfIol,
+        iolModel: surgicalProcedure.iolModel,
+        company: surgicalProcedure.company,
+        aclol: surgicalProcedure.aclol,
+        aclolPlanned: surgicalProcedure.aclolPlanned,
+        aclolUnplanned: surgicalProcedure.aclolUnplanned,
+        unplanned: surgicalProcedure.unplanned,
+        additionalNotes: surgicalProcedure.additionalNotes,
+        specialInstructions: surgicalProcedure.specialInstructions,
+        treatment: surgicalProcedure.treatment,
+      });
+    }
+  }, [surgeryQuery.data?.surgicalProcedure]);
+
+  const treatmentQuery = useQuery<Query, QueryTreatmentArgs>(GET_TREATMENT, {
+    variables: {
+      patientChartId,
+    },
+  });
+
+  const treatmentForm = useForm<TreatmentInput>({
+    defaultValues: {
+      patientChartId: patientChartId,
+    },
+  });
+
+  useEffect(() => {
+    const treatment = treatmentQuery.data?.treatment;
+
+    if (treatment !== undefined) {
+      treatmentForm.reset({
+        note: treatment.note,
+        result: treatment.result,
+        patientChartId: treatment.patientChartId,
+      });
+    }
+  }, [treatmentQuery.data?.treatment]);
+
+  useEffect(() => {
+    refetch();
+    surgeryQuery.refetch();
+    treatmentQuery.refetch();
+  }, []);
 
   const [selectedColor] = useState("#000000");
   const [selectedLineWeight] = useState(3);
@@ -732,13 +982,13 @@ const PositiveFindingsPrint: React.FC<Props> = ({
 
           <div className="mt-1 pl-3">
             {patientChart.chiefComplaints.map((e) => (
-              <div key={e?.id}>
-                <p className="">{e?.title}</p>
+              <div className="pl-4 border-l border-indigo-600 mt-3" key={e?.id}>
+                <p className="text-base font-semibold">{e?.title}</p>
                 <ul className="list-inside list-disc pl-3">
-                  {e?.hpiComponents.map((q) => (
-                    <li
-                      key={q?.id}
-                    >{`${q?.hpiComponentType?.title}: ${q?.title}`}</li>
+                  {groupByHpiComponentType(e?.hpiComponents)?.map((q) => (
+                    <li key={q[0]}>{`${q[0]}: ${q[1]
+                      .map((h) => h?.title.trim())
+                      .join(", ")}`}</li>
                   ))}
                 </ul>
               </div>
@@ -1565,7 +1815,8 @@ const PositiveFindingsPrint: React.FC<Props> = ({
                   e?.images.map((e: any) => ({
                     id: e?.id,
                     fileUrl: getFileUrl({
-                      baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+                      // @ts-ignore
+                      baseUrl: process.env.REACT_APP_SERVER_URL,
                       fileName: e?.fileName,
                       hash: e?.hash,
                       extension: e?.extension,
@@ -1580,7 +1831,8 @@ const PositiveFindingsPrint: React.FC<Props> = ({
                   e?.documents.map((e: any) => ({
                     id: e?.id,
                     fileUrl: getFileUrl({
-                      baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+                      // @ts-ignore
+                      baseUrl: process.env.REACT_APP_SERVER_URL,
                       fileName: e?.fileName,
                       hash: e?.hash,
                       extension: e?.extension,
@@ -1683,34 +1935,45 @@ const PositiveFindingsPrint: React.FC<Props> = ({
       {showSurgery && (
         <div className="text-sm mt-2">
           <div className="page-break" />
-          <p className="text-xl tracking-wider text-gray-800 font-light mt-5">
-            Pre-Op
-          </p>
+
+          <div className="text-xl tracking-wider text-gray-800 font-light mt-5">{`${surgeryQuery?.data?.surgicalProcedure?.surgicalProcedureType.title} Pre-op`}</div>
+
           <hr className="mt-5 mb-5" />
 
-          <PreOpPage patientChartId={patientChartId} />
+          <PreOpForm
+            register={surgicalProcedureForm.register}
+            locked={true}
+            handleChanges={() => {}}
+          />
         </div>
       )}
 
       {showSurgery && (
         <div className="text-sm mt-2">
           <div className="page-break" />
-          <p className="text-xl tracking-wider text-gray-800 font-light mt-5">
-            Intra-OP
-          </p>
+          <div className="text-xl tracking-wider text-gray-800 font-light mt-5">{`${surgeryQuery?.data?.surgicalProcedure?.surgicalProcedureType.title} Intra-op`}</div>
           <hr className="mt-5 mb-5" />
-          <IntraOpPage patientChartId={patientChartId} />
+          <IntraOpForm
+            locked={true}
+            register={surgicalProcedureForm.register}
+            aclolUnplanned={
+              surgeryQuery.data?.surgicalProcedure.aclolUnplanned ?? false
+            }
+            handleChanges={() => {}}
+          />
         </div>
       )}
 
       {showTreatment && (
         <div className="text-sm mt-2">
           <div className="page-break" />
-          <p className="text-xl tracking-wider text-gray-800 font-light mt-5">
-            Treatment
-          </p>
+          <div className="text-xl tracking-wider text-gray-800 font-light mt-5">{`${treatmentQuery?.data?.treatment?.treatmentType.title} Intra-op`}</div>
           <hr className="mt-5 mb-5" />
-          <TreatmentObjectivePage patientChartId={patientChartId} />
+          <TreatmentForm
+            locked={true}
+            register={treatmentForm.register}
+            handleChange={() => {}}
+          />
         </div>
       )}
 

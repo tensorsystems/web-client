@@ -29,7 +29,8 @@ export const PatientDocuments: React.FC<{
   const paperRecordDocument: FileUploader = {
     id: data?.paperRecordDocument?.id,
     fileUrl: getFileUrl({
-      baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+       // @ts-ignore
+      baseUrl: process.env.REACT_APP_SERVER_URL,
       fileName: data?.paperRecordDocument?.fileName ?? "",
       hash: data?.paperRecordDocument?.hash ?? "",
       extension: data?.paperRecordDocument?.extension ?? "",
@@ -44,7 +45,8 @@ export const PatientDocuments: React.FC<{
     data?.documents?.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+         // @ts-ignore
+        baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
         extension: e?.extension,

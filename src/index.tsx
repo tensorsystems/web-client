@@ -40,7 +40,6 @@ import history from "./history";
 
 import "material-icons-font/material-icons-font.css";
 
-export const AUTO_SAVE_INTERVAL = 1000;
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -55,11 +54,12 @@ const authLink = setContext((_, { headers }) => {
 });
 
 /*const httpLink = createHttpLink({
-  uri: `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/query`,
+  uri: `${process.env.REACT_APP_SERVER_URL}/query`,
 });*/
 
 const terminatingLink = createUploadLink({
-  uri: `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/query`,
+   // @ts-ignore
+  uri: `${process.env.REACT_APP_SERVER_URL}/query`,
 });
 
 export const typeDefs = gql`

@@ -76,7 +76,8 @@ export default function AutocompleteInput(props: Props) {
       };
 
       fetch(
-        `${window.__RUNTIME_CONFIG__.REACT_APP_ELASTICSEARCH_URL}/${uri}/_search?size=5`,
+        // @ts-ignore
+        `${process.env.REACT_APP_ELASTICSEARCH_URL}/${uri}/_search?size=5`,
         {
           method: "POST",
           headers: {

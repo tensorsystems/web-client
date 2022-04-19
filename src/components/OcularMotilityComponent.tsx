@@ -19,11 +19,8 @@
 import React from "react";
 import AutocompleteInput from "./AutocompleteInput";
 import { AppointmentContext } from "../_context/AppointmentContext";
-import {
-  OcularMotilityOdDiagram,
-  OcularMotilityOsDiagram,
-} from "./OcularMotilityDiagram";
-
+import { OcularMotilityOdDiagram } from "./OcularMotilityDiagram/OcularMotilityOdDiagram";
+import { OcularMotilityOsDiagram } from "./OcularMotilityDiagram/OcularMotilityOsDiagram";
 interface Props {
   register: any;
   control: any;

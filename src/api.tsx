@@ -18,6 +18,50 @@
 
 import { gql } from "@apollo/client";
 
+export const BILLINGS = gql`
+  query Billings($page: PaginationInput!, $searchTerm: String) {
+    billings(page: $page, searchTerm: $searchTerm) {
+      totalCount
+      edges {
+        node {
+          id
+          item
+          code
+          price
+          credit
+          remark
+        }
+      }
+      pageInfo {
+        totalPages
+      }
+    }
+  }
+`;
+
+export const SUPPLIES = gql`
+  query Supply($page: PaginationInput!, $searchTerm: String) {
+    supplies(page: $page, searchTerm: $searchTerm) {
+      totalCount
+      edges {
+        node {
+          id
+          title
+          active
+          billings {
+            id
+            item
+            code
+          }
+        }
+      }
+      pageInfo {
+        totalPages
+      }
+    }
+  }
+`;
+
 export const FIND_TODAYS_CHECKED_IN_APPOINTMENTS = gql`
   query FindTodaysCheckedInAppointments(
     $page: PaginationInput!

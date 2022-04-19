@@ -18,7 +18,7 @@
 
 import React from "react";
 import { DraggableProvided } from "react-beautiful-dnd";
-import { AuthorColors, Quote } from "./QueueColumn";
+import { Quote, AuthorColors } from "../models/queue";
 
 interface Props {
   quote: Quote;

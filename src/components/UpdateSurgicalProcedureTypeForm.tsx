@@ -29,9 +29,8 @@ import {
   Query,
 } from "../models/models";
 import { useNotificationDispatch } from "../notification";
-import { BILLINGS } from "../pages/Admin/BillingsAdminPage";
-import { SUPPLIES } from "../pages/Admin/SupplyAdminPage";
 import Select from "react-select";
+import { BILLINGS, SUPPLIES } from "../api";
 
 const UPDATE_SURGICAL_PROCEDURE_TYPE = gql`
   mutation UpdateSurgicalProcedureType(

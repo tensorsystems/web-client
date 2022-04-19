@@ -40,7 +40,7 @@ import classnames from "classnames";
 import _ from "lodash";
 import { SHOULD_PAY_FOR_CONSULTATION } from "../../api";
 
-export const APPOINTMENT_LOOKUPS = gql`
+const APPOINTMENT_LOOKUPS = gql`
   query AppointmentLookups($page: PaginationInput!, $userTypeTitle: String!) {
     rooms(page: $page) {
       totalCount

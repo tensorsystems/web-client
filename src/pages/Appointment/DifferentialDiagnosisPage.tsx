@@ -20,21 +20,20 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNotificationDispatch } from "../../notification";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import { DiagnosisList } from "../../components/DiagnosisList";
 import {
   MutationDeletePatientDiagnosisArgs,
   MutationSavePatientDiagnosisArgs,
   MutationUpdatePatientChartArgs,
-  PatientChart,
   PatientChartUpdateInput,
   Query,
-  QueryPatientDiagnosesArgs,
 } from "../../models/models";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 import { Prompt } from "react-router-dom";
 import useExitPrompt from "../../useExitPrompt";
 import _ from "lodash";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const GET_DATA = gql`
   query PatientDiagnoses(

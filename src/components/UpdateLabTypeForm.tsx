@@ -29,8 +29,8 @@ import {
   QueryBillingsArgs,
 } from "../models/models";
 import { useNotificationDispatch } from "../notification";
-import { BILLINGS } from "../pages/Admin/BillingsAdminPage";
 import Select from "react-select";
+import { BILLINGS } from "../api";
 
 const UPDATE_LAB_TYPE = gql`
   mutation UpdateLabType($input: LabTypeUpdateInput!) {

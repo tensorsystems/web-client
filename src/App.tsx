@@ -28,7 +28,7 @@ import { parseJwt } from "./util";
 import { isAfter } from "date-fns";
 import { isLoggedInVar } from "./cache";
 import { useApolloClient } from "@apollo/client";
-import "./App.css";
+import "./App_styles.css";
 
 import { Transition } from "@headlessui/react";
 import classnames from "classnames";
@@ -54,7 +54,7 @@ const App: React.FC = () => {
 
     if (token !== null) {
       const claim = parseJwt(token);
-      if (claim !== null) {
+      if (claim !== undefined) {
         const tokenExpired = isAfter(new Date(), new Date(claim.exp * 1000));
 
         if (tokenExpired) {

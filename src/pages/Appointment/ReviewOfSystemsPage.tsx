@@ -21,7 +21,6 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { AUTO_SAVE_INTERVAL } from "../..";
 import SystemSymptomsList from "../../components/SystemSymptomsList";
 import {
   MutationDeleteReviewOfSystemArgs,
@@ -35,6 +34,8 @@ import {
 import { useNotificationDispatch } from "../../notification";
 import useExitPrompt from "../../useExitPrompt";
 import { AppointmentContext } from "../../_context/AppointmentContext";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const UPDATE_PATIENT_HISTORY = gql`
   mutation UpdatePatientHistory($input: PatientHistoryUpdateInput!) {

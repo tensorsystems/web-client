@@ -52,7 +52,8 @@ const MedicalPrescriptionPrint: React.FC<Props> = ({
         <div className="relative text-sm mt-5">
           <div className="bg-white p-6" ref={componentRef}>
             <PrintFileHeader
-              qrUrl={`http://${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/#/appointments/null/patient-dashboard`}
+              // @ts-ignore
+              qrUrl={`http://${process.env.REACT_APP_SERVER_URL}/#/appointments/null/patient-dashboard`}
             />
             <hr className="border border-solid border-teal-500 bg-teal-400 mt-5" />
 
@@ -157,7 +158,12 @@ const MedicalPrescriptionPrint: React.FC<Props> = ({
                 </div>
                 <div>
                   <span className="font-semibold">Date: </span>
-                  <span>{format(parseISO(medicalPrescriptionOrder.createdAt), "MMM d, y")}</span>
+                  <span>
+                    {format(
+                      parseISO(medicalPrescriptionOrder.createdAt),
+                      "MMM d, y"
+                    )}
+                  </span>
                 </div>
                 <div>
                   <span className="font-semibold">Signature: </span>
@@ -168,7 +174,8 @@ const MedicalPrescriptionPrint: React.FC<Props> = ({
                     <img
                       className="h-auto w-32"
                       src={getFileUrl({
-                        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+                         // @ts-ignore
+                        baseUrl: process.env.REACT_APP_SERVER_URL,
                         fileName: user?.signature.fileName,
                         hash: user?.signature.hash,
                         extension: user?.signature.extension,

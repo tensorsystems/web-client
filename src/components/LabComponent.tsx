@@ -21,7 +21,6 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { AUTO_SAVE_INTERVAL } from "..";
 import {
   FileUploader,
   FileUploaderComponent,
@@ -39,6 +38,8 @@ import { useNotificationDispatch } from "../notification";
 import useExitPrompt from "../useExitPrompt";
 import classnames from "classnames";
 import { getFileUrl } from "../util";
+
+const AUTO_SAVE_INTERVAL = 1000;
 
 const UPDATE_LAB = gql`
   mutation UpdateLab($input: LabUpdateInput!) {
@@ -360,7 +361,8 @@ export const LabComponent: React.FC<Props> = ({
     values?.images.map((e) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+         // @ts-ignore
+        baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName ?? "",
         hash: e?.hash ?? "",
         extension: e?.extension ?? "",
@@ -375,7 +377,8 @@ export const LabComponent: React.FC<Props> = ({
     values?.documents.map((e) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+         // @ts-ignore
+        baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName ?? "",
         hash: e?.hash ?? "",
         extension: e?.extension ?? "",
@@ -399,7 +402,8 @@ export const LabComponent: React.FC<Props> = ({
       const incomingImages = data.updateLab.images.map((e: any) => ({
         id: e?.id,
         fileUrl: getFileUrl({
-          baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+           // @ts-ignore
+          baseUrl: process.env.REACT_APP_SERVER_URL,
           fileName: e?.fileName,
           hash: e?.hash,
           extension: e?.extension,
@@ -415,7 +419,8 @@ export const LabComponent: React.FC<Props> = ({
       const incomingDocuments = data.updateLab.documents.map((e: any) => ({
         id: e?.id,
         fileUrl: getFileUrl({
-          baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
+           // @ts-ignore
+          baseUrl: process.env.REACT_APP_SERVER_URL,
           fileName: e?.fileName,
           hash: e?.hash,
           extension: e?.extension,
