@@ -1,0 +1,16 @@
+{
+  "name": "@tensoremr/components",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [],
+  "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
+  "license": "Apache-2.0",
+  "main": "lib/components.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}
