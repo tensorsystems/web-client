@@ -25,7 +25,7 @@ import {
   Query,
   QueryLabTypesArgs,
 } from "../models/models";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 
 const LAB_TYPES = gql`
   query LabTypes($page: PaginationInput!, $searchTerm: String) {

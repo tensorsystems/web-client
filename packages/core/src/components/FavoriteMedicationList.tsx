@@ -22,11 +22,10 @@ import { TablePagination } from "./TablePagination";
 import {
   FavoriteMedication,
   MutationDeleteFavoriteMedicationArgs,
-  Query,
   FavoriteMedicationConnection,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { useNotificationDispatch } from "@tensoremr/notification";
+import { AppointmentContext } from "@tensoremr/context";
 
 const DELETE_FAVORITE_MEDICATION = gql`
   mutation DeleteFavoriteMedication($id: ID!) {

@@ -20,7 +20,7 @@ import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import React, { useContext, useState } from "react";
 import { Query, QueryExamCategoriesArgs } from "../models/models";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import {
   BookmarkIcon as BookmarkSolidIcon,
 } from "@heroicons/react/solid";

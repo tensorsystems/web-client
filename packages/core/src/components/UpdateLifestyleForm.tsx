@@ -27,7 +27,7 @@ import {
   Query,
   QueryLifestyleTypesArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const UPDATE_LIFESTYLE = gql`
   mutation UpdateLifestyle($input: LifestyleUpdateInput!) {

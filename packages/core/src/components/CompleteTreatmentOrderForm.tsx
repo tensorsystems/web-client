@@ -17,14 +17,14 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import MenuComponent from "./MenuComponent";
 import classnames from "classnames";
 import { PrinterIcon, SortAscendingIcon } from "@heroicons/react/outline";
 import { useForm } from "react-hook-form";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { Menu } from "@headlessui/react";
-import AccordionItem from "./AccordionItem";
+import { AccordionItem } from "@tensoremr/components";
 import cn from "classnames";
 import {
   ConfirmTreatmentOrderInput,

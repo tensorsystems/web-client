@@ -18,9 +18,9 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { DiagnosticProcedureTypes } from "../../components/DiagnosticProcedureTypes";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import {
   DiagnosticProcedureStatus,
   DiagnosticProcedureType,
@@ -31,7 +31,7 @@ import {
 } from "../../models/models";
 import classnames from "classnames";
 import { OrderDiagnosticProcedureForm } from "../../components/OrderDiagnosticProcedureForm";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import DiagnosticProcedureComponent from "../../components/DiagnosticProcedureComponent";
 
 export const GET_DIAGNOSTIC_PROCEDURE_ORDER = gql`

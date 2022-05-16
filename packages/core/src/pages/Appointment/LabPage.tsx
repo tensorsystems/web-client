@@ -18,11 +18,11 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { LabTypesComponent } from "../../components/LabTypes";
 import classnames from "classnames";
 import { LabComponent } from "../../components/LabComponent";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import {
   LabStatus,
   LabType,
@@ -32,7 +32,7 @@ import {
   QueryLabOrderArgs,
 } from "../../models/models";
 import { OrderLabForm } from "../../components/OrderLabForm";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 
 const GET_LAB_ORDER = gql`
   query LabOrder($patientChartId: ID!) {

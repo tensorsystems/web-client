@@ -20,7 +20,7 @@ import { gql, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import React from "react";
 import { Query, QueryPatientHistoryArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const GET_HISTORY = gql`
   query GetHistory($id: ID!) {

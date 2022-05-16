@@ -18,9 +18,9 @@
 
 import React, { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import classnames from "classnames";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import {
   Maybe,
   PaginationInput,

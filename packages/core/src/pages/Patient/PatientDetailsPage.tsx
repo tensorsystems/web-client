@@ -19,7 +19,7 @@
 import { gql, useQuery } from "@apollo/client";
 
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { format, parseISO } from "date-fns";
 import classNames from "classnames";
 import { PatientTabs } from "./PatientTabs";

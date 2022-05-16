@@ -26,7 +26,7 @@ interface Props {
 }
 
 export default function SearchBarAppointments(props: Props) {
-  const { appointments, currentDateTime } = props;
+  const { appointments } = props;
 
   return (
     <table className="w-full table text-sm border-l border-teal-500">

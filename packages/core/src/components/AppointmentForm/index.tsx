@@ -18,11 +18,11 @@
 
 import React, { useEffect, useState } from "react";
 
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { useForm } from "react-hook-form";
 import { formatDate } from "../../util";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { format, getDay, parseISO } from "date-fns";
 
 import {

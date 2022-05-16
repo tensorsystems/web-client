@@ -22,7 +22,7 @@ import { Maybe } from "graphql/jsutils/Maybe";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { PastInjury, PastInjuryUpdateInput, MutationUpdatePastInjuryArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const UPDATE_PAST_INJURY = gql`
   mutation UpdatePastInjury($input: PastInjuryUpdateInput!) {

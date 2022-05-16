@@ -18,9 +18,9 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import classnames from "classnames";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { SurgicalProcedureTypes } from "../../components/SurgicalProcedureTypes";
 import { format, parseISO } from "date-fns";
 import { OrderSurgicalProcedureForm } from "../../components/OrderSurgicalProcedureForm";

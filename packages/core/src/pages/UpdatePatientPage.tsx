@@ -22,7 +22,7 @@ import { parseISO } from "date-fns/esm";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
-import { Component404 } from "../components/404/404";
+import { Component404 } from "@tensoremr/components";
 import { FileUploader } from "../components/FileUploaderComponent";
 import { PatientRegistrationContactInfoForm } from "../components/PatientRegistrationContactInfoForm";
 import { PatientRegistrationDemographicForm } from "../components/PatientRegistrationDemographicForm";
@@ -36,7 +36,7 @@ import {
   Query,
 } from "../models/models";
 import { Page } from "../models/page";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { formatDate, getFileUrl } from "../util";
 
 const PATIENT_DETAILS = gql`

@@ -22,7 +22,7 @@ import { MedicalPrescription } from "../models/models";
 import { Menu } from "@headlessui/react";
 import { PrinterIcon, PencilIcon } from "@heroicons/react/outline";
 import MenuComponent from "./MenuComponent";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 
 interface Props {
   items: Array<any> | null | undefined;

@@ -23,7 +23,7 @@ import {
   EyewearShopUpdateInput,
   MutationUpdateEyewearShopArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const UPDATE_EYEWEAR_SHOP = gql`
   mutation UpdateEyewearShop($input: EyewearShopUpdateInput!) {

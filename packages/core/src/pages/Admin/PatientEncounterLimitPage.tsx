@@ -25,7 +25,7 @@ import {
   Query,
   QueryPatientEncounterLimitsArgs,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import cn from "classnames";
 
 export const PATIENT_ENCOUNTER_LIMITS = gql`

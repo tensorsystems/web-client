@@ -19,8 +19,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
-import { useNotificationDispatch } from "../../notification";
-
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { useForm } from "react-hook-form";
 import { ChiefComplaintTypes } from "../../components/ChiefComplaintTypes";
 import {
@@ -34,7 +33,7 @@ import {
   QueryChiefComplaintsArgs,
   QueryHpiComponentTypesArgs,
 } from "../../models/models";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import useExitPrompt from "../../useExitPrompt";
 import { Prompt } from "react-router-dom";
 import _ from "lodash";

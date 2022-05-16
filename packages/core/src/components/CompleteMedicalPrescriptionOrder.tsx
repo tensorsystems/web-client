@@ -26,7 +26,7 @@ import {
   Query,
   QueryAppointmentArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import MedicalPrescriptionPrint from "./MedicalPrescriptionPrint";
 
 const GET_DATA = gql`

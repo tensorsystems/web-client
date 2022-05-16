@@ -23,16 +23,16 @@ import circleImage from "../../img/circle.png";
 import { SketchField, Tools } from "react-sketch2";
 import { useForm } from "react-hook-form";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import {
   Appointment,
   PatientChartUpdateInput,
   MutationUpdatePatientChartArgs,
   Query,
 } from "../../models/models";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import { format, parseISO } from "date-fns";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { AddAmendmentForm } from "../../components/AddAmendmentForm";
 import useExitPrompt from "../../useExitPrompt";
 import _ from "lodash";

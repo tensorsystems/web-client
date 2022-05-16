@@ -19,8 +19,8 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MutationUpdatePatientChartArgs, PatientChart } from "../models/models";
-import { AppointmentContext } from "../_context/AppointmentContext";
-import { useNotificationDispatch } from "../notification";
+import { AppointmentContext } from "@tensoremr/context";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { gql, useMutation } from "@apollo/client";
 import useExitPrompt from "../useExitPrompt";
 import { Prompt } from "react-router-dom";

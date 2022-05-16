@@ -23,7 +23,7 @@ import {
   PatientQueueInput,
   QueueType,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const SAVE_PATIENT_QUEUE = gql`
   mutation SavePatientQueue($input: PatientQueueInput!) {

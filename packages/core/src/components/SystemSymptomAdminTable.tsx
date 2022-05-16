@@ -19,7 +19,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import {
   Maybe,
   MutationSaveSystemSymptomArgs,
@@ -33,7 +33,7 @@ import {
   SystemSymptomInput,
   SystemSymptomUpdateInput,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { TablePagination } from "./TablePagination";
 
 const SYSTEM_SYMPTOMS = gql`

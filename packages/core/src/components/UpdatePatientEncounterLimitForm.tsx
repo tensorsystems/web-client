@@ -17,7 +17,7 @@
 */
 
 import React from "react";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { useForm } from "react-hook-form";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import {

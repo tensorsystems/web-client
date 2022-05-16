@@ -1,2 +1,2 @@
-import { AppointmentContext } from '@tensoremr/appointment-context';
-export { AppointmentContext, };
+import AppointmentStore, { AppointmentContext } from '@tensoremr/appointment-context';
+export { AppointmentStore, AppointmentContext, };

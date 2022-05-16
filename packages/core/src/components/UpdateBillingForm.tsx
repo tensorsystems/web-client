@@ -20,7 +20,7 @@ import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Billing, BillingInput, MutationUpdateBillingArgs, MutationDeleteBillingArgs } from '../models/models';
-import { useNotificationDispatch } from '../notification';
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const UPDATE_BILLING = gql`
   mutation UpdateBilling($input: BillingInput!, $id: ID!) {

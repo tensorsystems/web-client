@@ -28,9 +28,9 @@ import {
   Query,
   QueryTreatmentArgs,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import useExitPrompt from "../../useExitPrompt";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 
 const AUTO_SAVE_INTERVAL = 1000;
 

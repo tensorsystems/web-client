@@ -25,7 +25,7 @@ import {
   QueryTreatmentTypesArgs,
   Query,
 } from "../models/models";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 
 const TREATMENT_TYPES = gql`
   query TreatmentTypes($page: PaginationInput!, $searchTerm: String) {

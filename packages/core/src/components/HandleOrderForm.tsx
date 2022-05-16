@@ -25,7 +25,7 @@ import {
   MutationConfirmPaymentArgs,
   MutationRequestPaymentWaiverArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import MenuComponent from "./MenuComponent";
 import classnames from "classnames";
 

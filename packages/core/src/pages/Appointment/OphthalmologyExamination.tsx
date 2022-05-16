@@ -34,7 +34,7 @@ import { PupilsComponent } from "../../components/PupilsComponent";
 import { SlitLampExamComponent } from "../../components/SlitLampExamComponent";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import useExitPrompt from "../../useExitPrompt";
 import _ from "lodash";
 import ReactLoading from "react-loading";

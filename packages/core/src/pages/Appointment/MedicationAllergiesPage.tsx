@@ -18,10 +18,10 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { AddMedicalPrescriptionForm } from "../../components/AddMedicalPrescriptionForm";
 import { UpdateMedicalPrescriptionForm } from "../../components/UpdateMedicationForm";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { MedicationTable } from "../../components/MedicationTable";
 import { AddAllergyForm } from "../../components/AddAllergyForm";
 import { AllergyTable } from "../../components/AllergyTable";
@@ -34,7 +34,7 @@ import {
   QueryAllergiesArgs,
   QuerySearchMedicalPrescriptionsArgs,
 } from "../../models/models";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 
 interface Props {
   patientChartId: string | undefined;

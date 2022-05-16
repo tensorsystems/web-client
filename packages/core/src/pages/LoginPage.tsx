@@ -19,7 +19,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { isLoggedInVar, accessToken } from "../cache";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { useHistory } from "react-router-dom";
 import Logo from "../img/logo-dark.png";
 import ReactLoading from "react-loading";

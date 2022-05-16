@@ -32,7 +32,7 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 import { Page } from "../../models/page";
 import { parseJwt } from "../../util";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { AppointmentForm } from "../../components/AppointmentForm";
 
 const TOOLBAR_LOOKUPS = gql`

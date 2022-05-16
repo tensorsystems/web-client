@@ -22,7 +22,7 @@ import { Maybe } from "graphql/jsutils/Maybe";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { PastHospitalization, PastHospitalizationUpdateInput, MutationUpdatePastHospitalizationArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { formatDate } from "../util";
 
 const UPDATE_PAST_HOSPITALIZATION = gql`

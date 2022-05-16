@@ -30,8 +30,8 @@ import {
 } from "@apollo/client";
 import { cache } from "./cache";
 import { createUploadLink } from "apollo-upload-client";
-import { NotificationProvider } from "./notification";
-import { BottomSheetProvider } from "./bottomsheet";
+import { NotificationProvider } from "@tensoremr/notification";
+import { BottomSheetProvider } from "@tensoremr/bottom-sheet";
 import { Router } from "react-router-dom";
 import { setContext } from "@apollo/client/link/context";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";

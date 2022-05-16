@@ -31,9 +31,9 @@ import {
   QueryVitalSignsArgs,
   VitalSignsUpdateInput,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import useExitPrompt from "../../useExitPrompt";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import ReactLoading from "react-loading";
 
 const AUTO_SAVE_INTERVAL = 1000;

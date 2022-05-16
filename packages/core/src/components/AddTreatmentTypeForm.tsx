@@ -26,7 +26,7 @@ import {
   QuerySuppliesArgs,
   TreatmentTypeInput,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import Select from "react-select";
 import { BILLINGS, SUPPLIES } from "../api";
 

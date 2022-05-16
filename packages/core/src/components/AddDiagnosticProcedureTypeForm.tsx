@@ -27,7 +27,7 @@ import {
   Query,
   QueryBillingsArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const SAVE_DIAGNOSTIC_PROCEDURE_TYPE = gql`
   mutation SaveDiagnosticProcedureType($input: DiagnosticProcedureTypeInput!) {

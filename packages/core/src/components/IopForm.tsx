@@ -17,7 +17,7 @@
 */
 
 import React from "react";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import _ from "lodash";
 
 interface IopProps {

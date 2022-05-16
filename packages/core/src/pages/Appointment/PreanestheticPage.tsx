@@ -31,12 +31,12 @@ import classnames from "classnames";
 import { formatDate, getFileUrl } from "../../util";
 import { format, parseISO } from "date-fns";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import {
   FileUploader,
   FileUploaderComponent,
 } from "../../components/FileUploaderComponent";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import useExitPrompt from "../../useExitPrompt";
 import { Prompt } from "react-router-dom";
 import _ from "lodash";

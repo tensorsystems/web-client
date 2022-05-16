@@ -18,7 +18,7 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { TablePagination } from "../../components/TablePagination";
 import {
   Maybe,
@@ -30,7 +30,7 @@ import {
   Query,
   QueryPaymentWaiversArgs,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import classnames from "classnames";
 
 export const PAYMENT_WAIVERS = gql`

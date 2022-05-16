@@ -19,8 +19,8 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { OrdersToolbar } from "../components/OrdersToolbar";
-import { useBottomSheetDispatch } from "../bottomsheet";
-import { useNotificationDispatch } from "../notification";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { PAYMENT_WAIVER_REQUEST } from "./DiagnosticOrdersPage";
 import {
   LabOrder,

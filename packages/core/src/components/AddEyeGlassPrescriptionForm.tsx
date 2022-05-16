@@ -26,7 +26,7 @@ import {
   Query,
   QueryEyewearShopsArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import RefractionDistanceComponent from "./RefractionDistanceForm";
 import RefractionNearComponent from "./RefractionNearForm";
 import Select from "react-select";

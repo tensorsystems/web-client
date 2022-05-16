@@ -21,7 +21,7 @@ import { Maybe } from 'graphql/jsutils/Maybe';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FamilyIllness, FamilyIllnessUpdateInput, MutationUpdateFamilyIllnessArgs, Query, QueryPastIllnessTypesArgs } from '../models/models';
-import { useNotificationDispatch } from '../notification';
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const GET_PAST_ILLNESS_TYPES = gql`
   query PastIllnessTypes($page: PaginationInput!) {

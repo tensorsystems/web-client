@@ -31,7 +31,7 @@ import { format, parseISO } from "date-fns";
 import { useForm } from "react-hook-form";
 import useExitPrompt from "../../useExitPrompt";
 import _ from "lodash";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { Prompt } from "react-router-dom";
 import { getPatientAge } from "../../util";
 

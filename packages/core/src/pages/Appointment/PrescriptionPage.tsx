@@ -18,10 +18,10 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { AddMedicalPrescriptionForm } from "../../components/AddMedicalPrescriptionForm";
 import { UpdateMedicalPrescriptionForm } from "../../components/UpdateMedicationForm";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { FavoriteMedicationList } from "../../components/FavoriteMedicationList";
 import { MedicationTable } from "../../components/MedicationTable";
 import {
@@ -35,7 +35,7 @@ import {
 import { AddEyeGlassPrescriptionForm } from "../../components/AddEyeGlassPrescriptionForm";
 import { EyeGlassTable } from "../../components/EyeGlassTable";
 import { UpdateEyewearPrescriptionForm } from "../../components/UpdateEyeGlassPrescriptionForm";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import { useReactToPrint } from "react-to-print";
 import {
   parseJwt,

@@ -21,7 +21,7 @@ import React, { useState } from "react";
 
 import { SketchTool } from "../components/SketchTool";
 import AutocompleteInput from "./AutocompleteInput";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import _ from "lodash";
 // @ts-ignore
 import { SketchField, Tools } from "react-sketch2";

@@ -23,7 +23,7 @@ import corneaImage from "../../img/cornea.png";
 import { SketchTool } from "../SketchTool";
 
 import AutocompleteInput from "../AutocompleteInput";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import _ from "lodash";
 import { SketchDiagram } from "../SketchDiagram";
 // @ts-ignore

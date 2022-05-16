@@ -20,7 +20,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FamilyIllnessInput, MutationSaveFamilyIllnessArgs, Query, QueryPastIllnessTypesArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const GET_PAST_ILLNESS_TYPES = gql`
   query PastIllnessTypes($page: PaginationInput!) {

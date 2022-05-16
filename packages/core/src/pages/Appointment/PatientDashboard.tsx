@@ -20,8 +20,8 @@ import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import classnames from "classnames";
 import { format, isSameDay, parseISO } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
-import AccordionItem from "../../components/AccordionItem";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
+import { AccordionItem } from "@tensoremr/components";
 import AllPatientDocuments from "../../components/AllPatientDocuments";
 import {
   FileUploader,

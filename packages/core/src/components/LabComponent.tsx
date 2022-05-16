@@ -34,7 +34,7 @@ import {
   LabStatus,
   MutationDeleteLabImageArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import useExitPrompt from "../useExitPrompt";
 import classnames from "classnames";
 import { getFileUrl } from "../util";

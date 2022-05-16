@@ -19,7 +19,7 @@
 import React, { useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import {
   Query,
   PaginationInput,
@@ -33,7 +33,7 @@ import {
   MutationUpdateChiefComplaintTypeArgs,
   MutationDeleteChiefComplaintTypeArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { TablePagination } from "./TablePagination";
 const CHIEF_COMPLAINT_TYPES = gql`
   query ChiefComplaintTypes($page: PaginationInput!) {

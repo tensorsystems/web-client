@@ -20,7 +20,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { StatCard } from "../components/StatCard";
 import classNames from "classnames";
 
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { TablePagination } from "../components/TablePagination";
 import { useHistory } from "react-router-dom";
 import { PaginationInput, Query } from "../models/models";

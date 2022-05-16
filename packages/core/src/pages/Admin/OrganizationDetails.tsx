@@ -30,7 +30,7 @@ import {
   OrganizationDetailsInput,
   Query,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { getFileUrl } from "../../util";
 
 const GET_ORGANIZATION_DETAILS = gql`

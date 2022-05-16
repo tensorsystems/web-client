@@ -30,7 +30,7 @@ import {
 } from "../../models/models";
 import Modal from "../Modal";
 import { TablePagination } from "../TablePagination";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import "./index.css";
 import cn from "classnames";
 import { Menu, Transition } from "@headlessui/react";

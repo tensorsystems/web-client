@@ -29,7 +29,7 @@ import {
   QueryGetChatMessagesArgs,
   QueryUserArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { parseJwt } from "../util";
 import { ChatAvatar } from "./ChatAvatar";
 import { ChatBubble } from "./ChatBubble";

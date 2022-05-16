@@ -26,7 +26,7 @@ import {
   Query,
   ReferralType,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { parseJwt } from "../util";
 
 const ORDER_REFERRAL = gql`

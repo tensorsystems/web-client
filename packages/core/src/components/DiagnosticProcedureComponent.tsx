@@ -31,7 +31,7 @@ import {
   MutationDeleteDiagnosticImageArgs,
   DiagnosticProcedureStatus,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import useExitPrompt from "../useExitPrompt";
 import cn from "classnames";
 import RefractionDistanceComponent from "./RefractionDistanceForm";

@@ -21,7 +21,7 @@ import { Page } from "../models/page";
 import { MainLayout } from "../layouts/main_layout";
 import { HomeTabs } from "../components/HomeTabs";
 
-import { useBottomSheetDispatch, useBottonSheetState } from "../bottomsheet";
+import { useBottomSheetDispatch, useBottonSheetState } from "@tensoremr/bottom-sheet";
 
 // @ts-ignore
 import Sheet from "react-modal-sheet";

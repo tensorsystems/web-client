@@ -24,7 +24,7 @@ import {
   PatientChartUpdateInput,
   MutationUpdatePatientChartArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import useExitPrompt from "../useExitPrompt";
 
 const AUTO_SAVE_INTERVAL = 1000;

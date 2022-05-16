@@ -25,7 +25,7 @@ import {
   Query,
   QueryDiagnosticProcedureTypesArgs,
 } from "../models/models";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 
 const DIAGNOSTIC_PROCEDURE_TYPES = gql`
   query DiagnosticProcedureTypes($page: PaginationInput!, $searchTerm: String) {

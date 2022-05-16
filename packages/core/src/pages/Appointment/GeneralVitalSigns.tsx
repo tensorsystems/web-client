@@ -30,9 +30,9 @@ import {
   QueryVitalSignsArgs,
   VitalSignsUpdateInput,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import useExitPrompt from "../../useExitPrompt";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import { InformationCircleIcon } from "@heroicons/react/solid";
 import ReactTooltip from "react-tooltip";
 import { differenceInMonths, parseISO } from "date-fns";

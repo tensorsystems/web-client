@@ -25,7 +25,7 @@ import {
   QuerySurgicalProcedureTypesArgs,
   SurgicalProcedureType,
 } from "../models/models";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 
 const SURGICAL_PROCEDURE_TYPES = gql`
   query SurgicalProcedureTypes($page: PaginationInput!, $searchTerm: String) {

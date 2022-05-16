@@ -18,8 +18,8 @@
 
 import React, { useState } from "react";
 import { Footer } from "./footer";
-import { Header } from "../../components/Header";
-import { Actionbar } from "../../components/ActionBar";
+import { Header } from "@tensoremr/components";
+import { Actionbar } from "@tensoremr/components";
 import classNames from "classnames";
 import { Page } from "../../models/page";
 interface Props {

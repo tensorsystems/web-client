@@ -22,7 +22,7 @@ import { AppointmentsPage } from "./AppointmentsPage";
 import { parseJwt } from "../../util";
 import { AppointmentDetails } from "./AppointmentDetails";
 import { Page } from "../../models/page";
-import AppointmentStore from "../../_context/AppointmentContext";
+import { AppointmentStore } from "@tensoremr/context";
 
 export const AppointmentPage: React.FC<{
   onUpdateTab: (page: any) => void;

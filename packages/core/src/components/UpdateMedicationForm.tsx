@@ -26,9 +26,8 @@ import {
   MutationDeleteMedicalPrescriptionArgs,
   Query,
   QueryPharmaciesArgs,
-  MedicalPrescriptionOrder,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import Select from "react-select";
 
 const UPDATE_MEDICATION_PRESCRIPTION = gql`

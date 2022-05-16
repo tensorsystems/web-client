@@ -20,7 +20,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { formatDate } from "../util";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import {
   PatientInput,
   MutationSavePatientArgs,
@@ -38,7 +38,7 @@ import { PatientRegistrationContactInfoForm } from "../components/PatientRegistr
 import { PatientRegistrationEmergencyInfoForm } from "../components/PatientRegistrationEmergencyInfoForm";
 import { PatientRegistrationDocumentsForm } from "../components/PatientRegistrationDocumentsForm";
 import { AppointmentForm } from "../components/AppointmentForm";
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { useEffect } from "react";
 import { newPatientCache } from "../cache";
 

@@ -20,7 +20,7 @@ import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { MutationOrderTreatmentArgs, OrderTreatmentInput, TreatmentType } from '../models/models';
-import { useNotificationDispatch } from '../notification';
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const ORDER_TREATMENT = gql`
   mutation OrderTreatment($input: OrderTreatmentInput!) {

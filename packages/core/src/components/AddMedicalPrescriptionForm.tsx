@@ -29,7 +29,7 @@ import {
   QuerySearchMedicalPrescriptionsArgs,
   MutationSavePastMedicationArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import Select from "react-select";
 import ReactLoading from "react-loading";
 

@@ -33,8 +33,8 @@ import {
   QueueType,
 } from "../models/models";
 import { useEffect } from "react";
-import { useNotificationDispatch } from "../notification";
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useNotificationDispatch } from "@tensoremr/notification";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import AddQueueForm from "../components/AddQueueForm";
 import { parseJwt } from "../util";
 import _ from "lodash";

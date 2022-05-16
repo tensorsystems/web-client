@@ -25,7 +25,7 @@ import {
   Query,
   QueryGetByUserTypeTitleArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const SAVE_PATIENT_ENCOUNTER_LIMIT = gql`
   mutation SavePatientEncounterLimit($input: PatientEncounterLimitInput!) {

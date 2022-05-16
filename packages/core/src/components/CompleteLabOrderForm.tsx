@@ -18,7 +18,7 @@
 
 import { gql, useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import MenuComponent from "./MenuComponent";
 import { Menu } from "@headlessui/react";
 import { PrinterIcon, SortAscendingIcon } from "@heroicons/react/outline";

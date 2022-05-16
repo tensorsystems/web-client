@@ -19,7 +19,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { OrdersToolbar } from "../components/OrdersToolbar";
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import {
   OrderFilterInput,
   PaginationInput,

@@ -18,7 +18,7 @@
 
 import React from "react";
 import AutocompleteInput from "./AutocompleteInput";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import _ from "lodash";
 
 interface Props {

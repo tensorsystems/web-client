@@ -17,7 +17,7 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import classnames from "classnames";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import {
@@ -33,15 +33,12 @@ import {
 } from "../models/models";
 import { useForm } from "react-hook-form";
 import cn from "classnames";
-import AccordionItem from "./AccordionItem";
+import { AccordionItem } from "@tensoremr/components";
 import { getDay, parseISO } from "date-fns";
 import { SHOULD_PAY_FOR_CONSULTATION } from "../api";
 
 const APPOINTMENT_LOOKUPS = gql`
-  query AppointmentLookups(
-    $page: PaginationInput!
-    $userTypeTitle: String!
-  ) {
+  query AppointmentLookups($page: PaginationInput!, $userTypeTitle: String!) {
     rooms(page: $page) {
       totalCount
       edges {

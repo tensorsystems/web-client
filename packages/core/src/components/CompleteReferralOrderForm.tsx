@@ -17,12 +17,12 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import classnames from "classnames";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import cn from "classnames";
-import AccordionItem from "./AccordionItem";
+import { AccordionItem } from "@tensoremr/components";
 import {
   ConfirmReferralOrderInput,
   MutationConfirmReferralOrderArgs,

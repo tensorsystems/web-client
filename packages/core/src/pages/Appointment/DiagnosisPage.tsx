@@ -19,7 +19,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { DiagnosisList } from "../../components/DiagnosisList";
 import {
   PatientChartUpdateInput,
@@ -28,7 +28,7 @@ import {
   MutationDeletePatientDiagnosisArgs,
   Query,
 } from "../../models/models";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { AppointmentContext } from "@tensoremr/context";
 import useExitPrompt from "../../useExitPrompt";
 import { Prompt } from "react-router-dom";
 import _ from "lodash";

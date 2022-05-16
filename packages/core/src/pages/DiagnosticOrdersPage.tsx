@@ -20,8 +20,8 @@ import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { OrdersToolbar } from "../components/OrdersToolbar";
 import { DiagnosticOrdersTable } from "../components/DiagnosticOrdersTable";
-import { useBottomSheetDispatch } from "../bottomsheet";
-import { useNotificationDispatch } from "../notification";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import {
   DiagnosticProcedureOrder,
   OrderFilterInput,

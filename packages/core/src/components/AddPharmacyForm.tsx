@@ -19,7 +19,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { MutationCreatePharmacyArgs, PharmacyInput } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const SAVE_PHARMACY = gql`
   mutation SavePharmacy($input: PharmacyInput!) {

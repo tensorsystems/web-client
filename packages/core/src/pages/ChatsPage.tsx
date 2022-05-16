@@ -18,7 +18,7 @@
 
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { Query } from "../models/models";
 import { ChatComponent } from "../components/ChatComponent";
 import { ChatList } from "../components/ChatList";

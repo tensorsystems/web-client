@@ -18,14 +18,15 @@
 
 import React, { useState } from "react";
 import classnames from "classnames";
-import { Page } from "../../models/page";
+import { Page } from "@tensoremr/models";
 import { useApolloClient } from "@apollo/client";
-import { isLoggedInVar } from "../../cache";
-import Logo from "../../img/logo.png";
-import { SearchBar } from "../SearchBar";
+import { isLoggedInVar } from "@tensoremr/cache";
+import Logo from "./logo.png";
+import HeaderSearchBar from "./header-search-bar";
 import { useHistory } from "react-router-dom";
-import { parseJwt } from "../../util";
+import { parseJwt } from "@tensoremr/util";
 import { Menu, Transition } from "@headlessui/react";
+
 interface Props {
   setSearchFocused: (focused: boolean) => void;
   searchFocused: boolean;
@@ -59,20 +60,20 @@ export const Header: React.FC<Props> = ({
       <nav className="bg-gray-800">
         <div className="mx-auto px-6 py-1">
           <div className="flex items-center justify-between h-16">
-            <div className="flex flex-grow items-center">
+            <div className="flex items-center">
               <div>
                 <img className="h-auto w-44" src={Logo} />
               </div>
-              <div className="items-baseline flex-grow relative mx-36">
-                <SearchBar
-                  searchFocused={searchFocused}
-                  setSearchFocused={setSearchFocused}
-                  onChangePage={onChangePage}
-                  onAddPage={onAddPage}
-                />
-              </div>
             </div>
-            <div className="hidden md:block flex-grow-0">
+            <div className="flex-1 relative container mx-auto">
+              <HeaderSearchBar
+                searchFocused={searchFocused}
+                setSearchFocused={setSearchFocused}
+                onChangePage={onChangePage}
+                onAddPage={onAddPage}
+              />
+            </div>
+            <div>
               <div className="ml-4 flex items-center md:ml-6">
                 <button
                   className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700"
@@ -172,85 +173,6 @@ export const Header: React.FC<Props> = ({
                   </Menu>
                 </div>
               </div>
-            </div>
-            <div className="-mr-2 flex md:hidden">
-              <button
-                onClick={() => setNavBarOpen(!isNavBarOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
-              >
-                <svg
-                  className="block h-6 w-6"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-
-                <svg
-                  className="hidden h-6 w-6"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className={classnames("md:hidden", { hidden: !isNavBarOpen })}>
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3"></div>
-          <div className="pt-4 pb-3 border-t border-gray-700">
-            <div className="flex items-center px-5 space-x-3">
-              <div className="flex-shrink-0">
-                <img
-                  className="h-10 w-10 rounded-full"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt=""
-                />
-              </div>
-              <div className="space-y-1">
-                <div className="text-base font-medium leading-none text-white">
-                  Tom Cook
-                </div>
-                <div className="text-sm font-medium leading-none text-gray-400">
-                  tom@example.com
-                </div>
-              </div>
-            </div>
-            <div className="mt-3 px-2 space-y-1">
-              <a
-                href="#"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-              >
-                Your Profile
-              </a>
-
-              <a
-                href="#"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-              >
-                Settings
-              </a>
-
-              <a
-                href="#"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-              >
-                Sign out
-              </a>
             </div>
           </div>
         </div>

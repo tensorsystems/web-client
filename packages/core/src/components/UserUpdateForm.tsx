@@ -18,7 +18,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import {
   FileUploader,
   FileUploaderComponent,

@@ -20,7 +20,7 @@ import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { PastInjuryInput, MutationSavePastInjuryArgs } from '../models/models';
-import { useNotificationDispatch } from '../notification';
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { formatDate } from '../util';
 
 const SAVE_PAST_INJURY = gql`

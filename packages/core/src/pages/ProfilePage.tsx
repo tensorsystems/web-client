@@ -40,7 +40,7 @@ import {
 } from "../models/models";
 import { format } from "date-fns";
 import { parseISO } from "date-fns/esm";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { ProfileTabs } from "./ProfileTabs";
 import { Tabs } from "../components/Tabs";
 import ReactLoading from "react-loading";

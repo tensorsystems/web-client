@@ -20,7 +20,7 @@ import { gql, useQuery } from "@apollo/client";
 import React, { Fragment, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./components/protected_route";
-import { useNotificationDispatch, useNotificationState } from "./notification";
+import { useNotificationDispatch, useNotificationState } from "@tensoremr/notification";
 import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";

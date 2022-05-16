@@ -19,14 +19,14 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import React from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { OrderFollowUpForm } from "../../components/OrderFollowUpForm";
 import {
   MutationDeleteFollowUpArgs,
   Query,
   QueryFollowUpOrderArgs,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 
 const GET_FOLLOW_UP_ORDER = gql`
   query FollowUpOrder($patientChartId: ID!) {

@@ -19,9 +19,9 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { Query, PaginationInput, QueryLifestyleTypesArgs, Maybe, LifestyleTypeEdge, LifestyleTypeInput, MutationSaveLifestyleTypesArgs, LifestyleType, MutationUpdateLifestyleTypeArgs, MutationDeleteLifestyleTypeArgs, LifestyleTypeUpdateInput } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/notification";
 import { TablePagination } from "./TablePagination";
 
 const LIFESTYLE_TYPES = gql`
