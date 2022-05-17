@@ -19,7 +19,7 @@
 import React, { useState, useEffect } from "react";
 import { Page } from "../models/page";
 import { MainLayout } from "../layouts/main_layout";
-import { HomeTabs } from "../components/HomeTabs";
+import { HomeTabs } from "@tensoremr/components";
 
 import { useBottomSheetDispatch, useBottonSheetState } from "@tensoremr/bottom-sheet";
 

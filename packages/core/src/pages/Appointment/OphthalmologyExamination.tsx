@@ -31,7 +31,7 @@ import { FunduscopyComponent } from "../../components/FunduscopyComponent";
 import { OcularMotilityComponent } from "../../components/OcularMotilityComponent";
 import { OpticDiscComponent } from "../../components/OpticDiscComponent";
 import { PupilsComponent } from "../../components/PupilsComponent";
-import { SlitLampExamComponent } from "../../components/SlitLampExamComponent";
+import { SlitLampExamComponent } from "@tensoremr/components";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
 import { useNotificationDispatch } from "@tensoremr/notification";

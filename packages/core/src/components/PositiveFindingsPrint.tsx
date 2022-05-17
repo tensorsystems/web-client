@@ -27,7 +27,7 @@ import {
   SurgicalProcedureInput,
   TreatmentInput,
 } from "../models/models";
-import { SketchDiagram } from "./SketchDiagram";
+import { SketchDiagram } from "@tensoremr/components";
 import corneaImage from "../img/cornea.png";
 import irisImage from "../img/iris.png";
 import circleImage from "../img/circle.png";
@@ -37,8 +37,7 @@ import { EyeGlassTable } from "./EyeGlassTable";
 import { FileUploader } from "./FileUploaderComponent";
 
 import { getFileUrl, groupByHpiComponentType } from "../util";
-import { OcularMotilityOdDiagram } from "./OcularMotilityDiagram/OcularMotilityOdDiagram";
-import { OcularMotilityOsDiagram } from "./OcularMotilityDiagram/OcularMotilityOsDiagram";
+import { OcularMotilityOdDiagram, OcularMotilityOsDiagram } from "@tensoremr/components";
 import PreOpForm from "./PreOpForm";
 import IntraOpForm from "./IntraOpForm";
 import TreatmentForm from "./TreatmentForm";

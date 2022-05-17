@@ -20,15 +20,12 @@ import { gql, useQuery } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
-  HpiComponent,
-  Maybe,
   Query,
   QueryOrdersArgs,
   QueryPatientChartArgs,
 } from "../models/models";
-import { OcularMotilityOdDiagram } from "./OcularMotilityDiagram/OcularMotilityOdDiagram";
-import { OcularMotilityOsDiagram } from "./OcularMotilityDiagram/OcularMotilityOsDiagram";
-import { SketchDiagram } from "./SketchDiagram";
+import { OcularMotilityOdDiagram, OcularMotilityOsDiagram } from "@tensoremr/components";
+import { SketchDiagram } from "@tensoremr/components";
 import corneaImage from "../img/cornea.png";
 import circleImage from "../img/circle.png";
 import { LabComponent } from "./LabComponent";

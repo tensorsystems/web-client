@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { SketchTool } from "../components/SketchTool";
+import { SketchTool } from "@tensoremr/components";
 import AutocompleteInput from "./AutocompleteInput";
 import { AppointmentContext } from "@tensoremr/context";
 import _ from "lodash";

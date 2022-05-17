@@ -27,7 +27,7 @@ import { PaginationInput, Query } from "../models/models";
 import { gql, useQuery } from "@apollo/client";
 import { Page } from "../models/page";
 import CheckInForm from "../components/CheckInForm";
-import { AppointmentForm } from "../components/AppointmentForm";
+import { AppointmentForm } from "@tensoremr/components";
 import { debounce } from "lodash-es";
 
 const HOME_STATS = gql`

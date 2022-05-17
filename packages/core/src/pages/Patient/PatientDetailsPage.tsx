@@ -23,7 +23,7 @@ import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { format, parseISO } from "date-fns";
 import classNames from "classnames";
 import { PatientTabs } from "./PatientTabs";
-import { AppointmentForm } from "../../components/AppointmentForm";
+import { AppointmentForm } from "@tensoremr/components";
 import { Appointment, PaginationInput, Query } from "../../models/models";
 import { PatientBasicInfo } from "../../components/PatientBasicInfo";
 import { PatientContactInfo } from "../../components/PatientContactInfo";

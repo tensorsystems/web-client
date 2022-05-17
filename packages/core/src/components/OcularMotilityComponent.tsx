@@ -19,8 +19,7 @@
 import React from "react";
 import AutocompleteInput from "./AutocompleteInput";
 import { AppointmentContext } from "@tensoremr/context";
-import { OcularMotilityOdDiagram } from "./OcularMotilityDiagram/OcularMotilityOdDiagram";
-import { OcularMotilityOsDiagram } from "./OcularMotilityDiagram/OcularMotilityOsDiagram";
+import { OcularMotilityOdDiagram, OcularMotilityOsDiagram } from "@tensoremr/components";
 interface Props {
   register: any;
   control: any;

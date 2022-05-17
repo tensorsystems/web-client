@@ -37,7 +37,7 @@ import { PatientRegistrationDemographicForm } from "../components/PatientRegistr
 import { PatientRegistrationContactInfoForm } from "../components/PatientRegistrationContactInfoForm";
 import { PatientRegistrationEmergencyInfoForm } from "../components/PatientRegistrationEmergencyInfoForm";
 import { PatientRegistrationDocumentsForm } from "../components/PatientRegistrationDocumentsForm";
-import { AppointmentForm } from "../components/AppointmentForm";
+import { AppointmentForm } from "@tensoremr/components";
 import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { useEffect } from "react";
 import { newPatientCache } from "../cache";
