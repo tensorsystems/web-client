@@ -20,7 +20,7 @@ import { gql, QueryResult, useQuery } from "@apollo/client";
 import classNames from "classnames";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { TablePagination } from "../../components/TablePagination";
+import { TablePagination, useBottomSheetDispatch } from "@tensoremr/components";
 import {
   Appointment,
   AppointmentConnection,
@@ -32,7 +32,6 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 import { Page } from "../../models/page";
 import { parseJwt } from "../../util";
-import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { AppointmentForm } from "@tensoremr/components";
 
 const TOOLBAR_LOOKUPS = gql`

@@ -19,7 +19,6 @@
 import { gql, useQuery } from "@apollo/client";
 
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { format, parseISO } from "date-fns";
 import classNames from "classnames";
 import { PatientTabs } from "./PatientTabs";
@@ -35,8 +34,8 @@ import { PatientDocuments } from "../../components/PatientDocuments";
 import { CalendarIcon, LoginIcon } from "@heroicons/react/outline";
 import CheckInForm from "../../components/CheckInForm";
 import PatientOrders from "./PatientOrders";
-import { Tabs } from "../../components/Tabs";
-import { TablePagination } from "../../components/TablePagination";
+import { Tabs } from "@tensoremr/components";
+import { TablePagination, useBottomSheetDispatch } from "@tensoremr/components";
 
 export const GET_DATA = gql`
   query Data(

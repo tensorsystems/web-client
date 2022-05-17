@@ -33,7 +33,7 @@ import {
   QueryExamCategoriesArgs,
 } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const EXAM_CATEGORIES = gql`
   query ExamCategories($page: PaginationInput!) {

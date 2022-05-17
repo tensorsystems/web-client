@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { Query, PaginationInput, QueryRoomsArgs, Maybe, RoomEdge, RoomInput, MutationSaveRoomArgs, Room, MutationUpdateRoomArgs, MutationDeleteRoomArgs } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const ROOMS = gql`
   query Rooms($page: PaginationInput!) {

@@ -17,11 +17,11 @@
 */
 
 import React, { useCallback, useEffect, useState } from "react";
-import { StatCard } from "../components/StatCard";
+import { StatCard } from "@tensoremr/stat-card";
 import classNames from "classnames";
 
 import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
-import { TablePagination } from "../components/TablePagination";
+import { TablePagination } from "@tensoremr/components";
 import { useHistory } from "react-router-dom";
 import { PaginationInput, Query } from "../models/models";
 import { gql, useQuery } from "@apollo/client";

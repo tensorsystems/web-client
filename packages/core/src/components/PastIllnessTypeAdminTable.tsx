@@ -34,7 +34,7 @@ import {
   PastIllnessTypeUpdateInput,
 } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const PAST_ILLNESS_TYPES = gql`
   query PastIllnessTypes($page: PaginationInput!) {

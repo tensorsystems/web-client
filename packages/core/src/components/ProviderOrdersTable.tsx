@@ -18,7 +18,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import classnames from "classnames";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 import { gql, useLazyQuery } from "@apollo/client";
 import {
   Maybe,

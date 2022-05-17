@@ -33,7 +33,7 @@ import {
   MutationDeleteAppointmentStatusArgs,
 } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const APPOINTMENT_STATUSES = gql`
   query AppointmentStatuses($page: PaginationInput!) {

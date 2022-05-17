@@ -60,7 +60,7 @@ import {
 import { parseJwt } from "../../util";
 import { FollowUpPage } from "./FollowUpPage";
 import { PreanestheticPage } from "./PreanestheticPage";
-import Modal from "../../components/Modal";
+import { Modal } from "@tensoremr/components";
 import { useNotificationDispatch } from "@tensoremr/notification";
 import { AppointmentContext } from "@tensoremr/context";
 import { Page } from "../../models/page";
@@ -489,7 +489,7 @@ export const AppointmentDetails: React.FC<{
   ) {
     return (
       <div className="flex justify-center mt-10 h-screen">
-        { /* @ts-ignore */ }
+        {/* @ts-ignore */}
         <ReactLoading
           type={"spinningBubbles"}
           color={"gray"}

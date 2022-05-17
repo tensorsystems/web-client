@@ -23,7 +23,7 @@ import {
   DiagnosticProcedureOrder,
   DiagnosticProcedureOrderStatus,
 } from "../models/models";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 interface Props {
   orders: Array<DiagnosticProcedureOrder>;

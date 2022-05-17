@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 import { Diagnosis, DiagnosisEdge, DiagnosisInput, DiagnosisUpdateInput, Maybe, MutationDeleteDiagnosisArgs, MutationSaveDiagnosisArgs, MutationUpdateDiagnosisArgs, PaginationInput, Query, QueryDiagnosesArgs } from "../models/models";
 import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const DIAGNOSIS = gql`
   query Diagnoses($page: PaginationInput!) {

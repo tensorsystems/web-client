@@ -18,7 +18,7 @@
 
 import React from "react";
 import { SimilarPatients } from "../models/models";
-import { Spinner } from "./Spinner";
+import { Spinner } from "@tensoremr/components";
 
 interface Props {
   loading: boolean;

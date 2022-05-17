@@ -18,7 +18,7 @@
 
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 import {
   FavoriteMedication,
   MutationDeleteFavoriteMedicationArgs,

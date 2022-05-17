@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { Query, PaginationInput, QueryVisitTypesArgs, Maybe, VisitTypeEdge, VisitTypeInput, MutationSaveVisitTypeArgs, VisitType, MutationUpdateVisitTypeArgs, MutationDeleteVisitTypeArgs } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const VISIT_TYPES = gql`
   query VisitTypes($page: PaginationInput!) {

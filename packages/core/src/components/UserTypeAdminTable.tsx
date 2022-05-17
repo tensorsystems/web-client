@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { Query, PaginationInput, QueryUserTypesArgs, Maybe, UserTypeEdge, UserTypeInput, MutationSaveUserTypeArgs, UserType, MutationUpdateUserTypeArgs, MutationDeleteUserTypeArgs, UserTypeUpdateInput } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const USER_TYPE = gql`
   query UserTypes($page: PaginationInput!) {

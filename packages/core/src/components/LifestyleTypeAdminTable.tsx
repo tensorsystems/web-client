@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
 import { Query, PaginationInput, QueryLifestyleTypesArgs, Maybe, LifestyleTypeEdge, LifestyleTypeInput, MutationSaveLifestyleTypesArgs, LifestyleType, MutationUpdateLifestyleTypeArgs, MutationDeleteLifestyleTypeArgs, LifestyleTypeUpdateInput } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const LIFESTYLE_TYPES = gql`
   query LifestyleTypes($page: PaginationInput!) {

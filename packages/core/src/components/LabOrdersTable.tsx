@@ -20,7 +20,7 @@ import { format, parseISO } from "date-fns";
 import React from "react";
 import classnames from "classnames";
 import { LabOrder, LabOrderStatus } from "../models/models";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 interface Props {
   orders: Array<LabOrder>;

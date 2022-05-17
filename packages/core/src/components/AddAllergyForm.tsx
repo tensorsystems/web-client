@@ -20,7 +20,7 @@ import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { AllergyInput, MutationSaveAllergyArgs } from "../models/models";
-import { useNotificationDispatch } from "@tensoremr/notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const SAVE_ALLERGY = gql`
   mutation SaveAllergy($input: AllergyInput!) {

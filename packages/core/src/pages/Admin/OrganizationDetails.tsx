@@ -24,7 +24,7 @@ import {
   FileUploader,
   FileUploaderComponent,
 } from "../../components/FileUploaderComponent";
-import { Spinner } from "../../components/Spinner";
+import { Spinner } from "@tensoremr/components";
 import {
   MutationSaveOrganizationDetailsArgs,
   OrganizationDetailsInput,

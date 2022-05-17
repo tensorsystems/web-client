@@ -34,7 +34,8 @@ import {
   MutationDeleteChiefComplaintTypeArgs,
 } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
+
 const CHIEF_COMPLAINT_TYPES = gql`
   query ChiefComplaintTypes($page: PaginationInput!) {
     chiefComplaintTypes(page: $page) {

@@ -42,7 +42,7 @@ import { format } from "date-fns";
 import { parseISO } from "date-fns/esm";
 import { useNotificationDispatch } from "@tensoremr/notification";
 import { ProfileTabs } from "./ProfileTabs";
-import { Tabs } from "../components/Tabs";
+import { Tabs } from "@tensoremr/components";
 import ReactLoading from "react-loading";
 import { useForm } from "react-hook-form";
 import { getFileUrl } from "../util";

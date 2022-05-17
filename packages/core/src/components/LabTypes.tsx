@@ -18,7 +18,7 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 import {
   LabType,
   PaginationInput,

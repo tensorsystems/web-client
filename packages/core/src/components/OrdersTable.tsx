@@ -19,7 +19,7 @@
 import { format, parseISO } from "date-fns";
 import React from "react";
 import { OrderConnection, Order } from "../models/models";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 import classnames from "classnames";
 
 interface Props {

@@ -17,8 +17,8 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { StatCard } from "../components/StatCard";
-import { WorkflowTable } from "../components/WorkflowTable";
+import { StatCard } from "@tensoremr/stat-card";
+import { WorkflowTable } from "@tensoremr/components";
 import { useHistory } from "react-router-dom";
 import { Page } from "../models/page";
 import { Appointment, Order, Query } from "../models/models";

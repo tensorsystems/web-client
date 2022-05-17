@@ -34,7 +34,7 @@ import {
   QueryExamFindingsArgs,
 } from "../models/models";
 import { useNotificationDispatch } from "@tensoremr/notification";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 
 const EXAM_FINDINGS = gql`
   query ExamFindings($page: PaginationInput!) {

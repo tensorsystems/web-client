@@ -19,7 +19,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useBottomSheetDispatch } from "@tensoremr/bottom-sheet";
-import { TablePagination } from "../../components/TablePagination";
+import { TablePagination } from "@tensoremr/components";
 import { useNotificationDispatch } from "@tensoremr/notification";
 import {
   PaginationInput,
