@@ -1,2 +1,0 @@
-"use strict";function e(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}Object.defineProperty(exports,"__esModule",{value:!0});var t=e(require("react")),r=t.default.createContext({});exports.AppointmentContext=r,exports.default=function(e){var a=e.children,u=t.default.useState(!1),n={patientChartLocked:[u[0],u[1]]};return t.default.createElement(r.Provider,{value:n},a)};
-//# sourceMappingURL=index.js.map
