@@ -29,6 +29,7 @@ import { FIND_TODAYS_CHECKED_IN_APPOINTMENTS } from "../api";
 
 interface Props {
   onSuccess: (appointment: Appointment) => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 

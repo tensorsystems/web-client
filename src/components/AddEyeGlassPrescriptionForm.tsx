@@ -26,7 +26,6 @@ import {
   Query,
   QueryEyewearShopsArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 import RefractionDistanceComponent from "./RefractionDistanceForm";
 import RefractionNearComponent from "./RefractionNearForm";
 import Select from "react-select";
@@ -69,12 +68,12 @@ interface AddEyeGlassPrescriptionFormProps {
   patientChartId: string | undefined;
   refraction: DiagnosticProcedure | undefined | null;
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddEyeGlassPrescriptionForm: React.FC<AddEyeGlassPrescriptionFormProps> =
-  ({ history, patientId, patientChartId, refraction, onSuccess, onCancel }) => {
-    const notifDispatch = useNotificationDispatch();
+  ({ history, patientId, patientChartId, refraction, onSuccess, onError, onCancel }) => {
     const { register, handleSubmit } = useForm<any>();
     const refractionForm = useForm<DiagnosticProcedure>();
 
@@ -119,12 +118,7 @@ export const AddEyeGlassPrescriptionForm: React.FC<AddEyeGlassPrescriptionFormPr
         onSuccess();
       },
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     });
 

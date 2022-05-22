@@ -443,6 +443,14 @@ const PatientQueuePage: React.FC = () => {
             });
             refetch();
           }}
+          onError={(message) => {
+            notifDispatch({
+              type: "show",
+              notifTitle: "Error",
+              notifSubTitle: message,
+              variant: "failure",
+            });
+          }}
           onCancel={() => bottomSheetDispatch({ type: "hide" })}
         />
       ),
@@ -458,6 +466,14 @@ const PatientQueuePage: React.FC = () => {
           onSuccess={(appointment: Appointment) => {
             bottomSheetDispatch({ type: "hide" });
             setAddToQueue(appointment);
+          }}
+          onError={(message) => {
+            notifDispatch({
+              type: "show",
+              notifTitle: "Error",
+              notifSubTitle: message,
+              variant: "failure",
+            });
           }}
           onCancel={() => bottomSheetDispatch({ type: "hide" })}
         />

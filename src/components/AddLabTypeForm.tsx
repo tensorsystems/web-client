@@ -25,7 +25,6 @@ import {
   Query,
   QueryBillingsArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 import Select from "react-select";
 import { BILLINGS } from "../api";
 
@@ -39,14 +38,15 @@ const SAVE_LAB_TYPE = gql`
 
 interface AddLabTypeProps {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddLabTypeForm: React.FC<AddLabTypeProps> = ({
   onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<LabTypeInput>({
     defaultValues: {
       active: true,
@@ -66,12 +66,7 @@ export const AddLabTypeForm: React.FC<AddLabTypeProps> = ({
         onSuccess();
       },
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );

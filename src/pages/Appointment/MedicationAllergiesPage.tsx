@@ -162,6 +162,15 @@ const PastMedications: React.FC<Props> = ({ patientChartId, patientId }) => {
             });
             refetch();
           }}
+          
+          onError={(message) => {
+            notifDispatch({
+              type: "show",
+              notifTitle: "Error",
+              notifSubTitle: message,
+              variant: "failure",
+            });
+          }}
           onCancel={() => bottomSheetDispatch({ type: "hide" })}
           onPrescribeAnother={onPrescribeAnother}
           title={"Add Past Medication"}
@@ -197,6 +206,14 @@ const PastMedications: React.FC<Props> = ({ patientChartId, patientId }) => {
                       variant: "success",
                     });
                     refetch();
+                  }}
+                  onError={(message) => {
+                    notifDispatch({
+                      type: "show",
+                      notifTitle: "Error",
+                      notifSubTitle: message,
+                      variant: "failure",
+                    });
                   }}
                   onCancel={() => bottomSheetDispatch({ type: "hide" })}
                   onPrescribeAnother={onPrescribeAnother}
@@ -337,6 +354,14 @@ const Allergies: React.FC<{ patientHistoryId: string | undefined }> = ({
                       variant: "success",
                     });
                     refetch();
+                  }}
+                  onError={(message) => {
+                    notifDispatch({
+                      type: "show",
+                      notifTitle: "Error",
+                      notifSubTitle: message,
+                      variant: "failure",
+                    });
                   }}
                   onCancel={() => bottomSheetDispatch({ type: "hide" })}
                 />

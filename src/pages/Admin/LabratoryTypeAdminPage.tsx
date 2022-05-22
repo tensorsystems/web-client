@@ -143,6 +143,14 @@ export const LabTypePage: React.FC = () => {
 
                               refetch();
                             }}
+                            onError={(message) => {
+                              notifDispatch({
+                                type: "show",
+                                notifTitle: "Error",
+                                notifSubTitle: message,
+                                variant: "failure",
+                              });
+                            }}
                             onCancel={() =>
                               bottomSheetDispatch({ type: "hide" })
                             }

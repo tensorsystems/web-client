@@ -25,7 +25,6 @@ import {
   Query,
   QueryGetByUserTypeTitleArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 
 const SAVE_PATIENT_ENCOUNTER_LIMIT = gql`
   mutation SavePatientEncounterLimit($input: PatientEncounterLimitInput!) {
@@ -47,14 +46,15 @@ const GET_PROVIDERS = gql`
 
 interface Props {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddPatientEncounterLimitForm: React.FC<Props> = ({
   onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<PatientEncounterLimitInput>();
 
   const { data } = useQuery<Query, QueryGetByUserTypeTitleArgs>(GET_PROVIDERS, {
@@ -71,12 +71,7 @@ export const AddPatientEncounterLimitForm: React.FC<Props> = ({
       onSuccess();
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

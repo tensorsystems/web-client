@@ -26,7 +26,6 @@ import {
   QuerySuppliesArgs,
   SurgicalProcedureTypeInput,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 import Select from "react-select";
 import { BILLINGS, SUPPLIES } from "../api";
 
@@ -40,12 +39,12 @@ const SAVE_SURGICAL_PROCEDURE_TYPE = gql`
 
 interface AddSurgicalProcedureTypeProps {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddSurgicalProcedureTypeForm: React.FC<AddSurgicalProcedureTypeProps> =
-  ({ onSuccess, onCancel }) => {
-    const notifDispatch = useNotificationDispatch();
+  ({ onSuccess, onError, onCancel }) => {
     const { register, handleSubmit } = useForm<SurgicalProcedureTypeInput>({
       defaultValues: {
         active: true,
@@ -71,12 +70,7 @@ export const AddSurgicalProcedureTypeForm: React.FC<AddSurgicalProcedureTypeProp
         onSuccess();
       },
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     });
 

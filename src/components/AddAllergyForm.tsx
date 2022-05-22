@@ -20,7 +20,6 @@ import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { AllergyInput, MutationSaveAllergyArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 
 const SAVE_ALLERGY = gql`
   mutation SaveAllergy($input: AllergyInput!) {
@@ -33,15 +32,16 @@ const SAVE_ALLERGY = gql`
 interface Props {
   patientHistoryId: string | undefined;
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddAllergyForm: React.FC<Props> = ({
   patientHistoryId,
   onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<AllergyInput>();
 
   const [save, { error }] = useMutation<any, MutationSaveAllergyArgs>(
@@ -51,12 +51,7 @@ export const AddAllergyForm: React.FC<Props> = ({
         onSuccess();
       },
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );

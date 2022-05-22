@@ -20,7 +20,6 @@ import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { AmendmentInput, MutationCreateAmendmentArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 
 const CREATE_AMENDMENT = gql`
   mutation CreateAmendment($input: AmendmentInput!) {
@@ -33,15 +32,16 @@ const CREATE_AMENDMENT = gql`
 interface Props {
   patientChartId: string | undefined;
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddAmendmentForm: React.FC<Props> = ({
   patientChartId,
   onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
 
   const { register, handleSubmit } = useForm<AmendmentInput>();
 
@@ -53,12 +53,7 @@ export const AddAmendmentForm: React.FC<Props> = ({
       onSuccess();
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

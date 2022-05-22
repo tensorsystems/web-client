@@ -27,7 +27,6 @@ import {
   Query,
   QueryBillingsArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 
 const SAVE_DIAGNOSTIC_PROCEDURE_TYPE = gql`
   mutation SaveDiagnosticProcedureType($input: DiagnosticProcedureTypeInput!) {
@@ -39,12 +38,12 @@ const SAVE_DIAGNOSTIC_PROCEDURE_TYPE = gql`
 
 interface AddDiagnosticProcedureTypeProps {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddDiagnosticProcedureTypeForm: React.FC<AddDiagnosticProcedureTypeProps> =
-  ({ onSuccess, onCancel }) => {
-    const notifDispatch = useNotificationDispatch();
+  ({ onSuccess, onError, onCancel }) => {
     const { register, handleSubmit } = useForm<DiagnosticProcedureTypeInput>({
       defaultValues: {
         active: true,
@@ -65,12 +64,7 @@ export const AddDiagnosticProcedureTypeForm: React.FC<AddDiagnosticProcedureType
         onSuccess();
       },
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     });
 

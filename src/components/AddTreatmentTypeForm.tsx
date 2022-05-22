@@ -26,7 +26,6 @@ import {
   QuerySuppliesArgs,
   TreatmentTypeInput,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 import Select from "react-select";
 import { BILLINGS, SUPPLIES } from "../api";
 
@@ -40,14 +39,15 @@ const SAVE_TREATMENT_TYPE = gql`
 
 interface AddTreatmentTypeProps {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddTreatmentTypeForm: React.FC<AddTreatmentTypeProps> = ({
   onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<TreatmentTypeInput>({
     defaultValues: {
       active: true,
@@ -72,12 +72,7 @@ export const AddTreatmentTypeForm: React.FC<AddTreatmentTypeProps> = ({
         onSuccess();
       },
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );

@@ -23,7 +23,6 @@ import {
   PatientQueueInput,
   QueueType,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 
 const SAVE_PATIENT_QUEUE = gql`
   mutation SavePatientQueue($input: PatientQueueInput!) {
@@ -36,11 +35,11 @@ const SAVE_PATIENT_QUEUE = gql`
 
 interface Props {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
-const AddQueueForm: React.FC<Props> = ({ onSuccess, onCancel }) => {
-  const notifDispatch = useNotificationDispatch();
+const AddQueueForm: React.FC<Props> = ({ onSuccess, onError, onCancel }) => {
   const { register, handleSubmit } = useForm<PatientQueueInput>();
 
   const [save, { error }] = useMutation<any, MutationSavePatientQueueArgs>(
@@ -48,12 +47,7 @@ const AddQueueForm: React.FC<Props> = ({ onSuccess, onCancel }) => {
     {
       onCompleted: () => onSuccess(),
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );

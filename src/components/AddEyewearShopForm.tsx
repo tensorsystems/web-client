@@ -32,6 +32,7 @@ const SAVE_EYEWEAR_SHOP = gql`
 
 interface Props {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
@@ -47,14 +48,7 @@ export const AddEyewearShopForm: React.FC<Props> = (props: Props) => {
     SAVE_EYEWEAR_SHOP,
     {
       onCompleted: () => props.onSuccess(),
-      onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
-      },
+      onError: (error) => props.onError(error.message),
     }
   );
 

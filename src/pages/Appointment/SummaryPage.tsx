@@ -595,6 +595,14 @@ export const SummaryPage: React.FC<{
                                 });
                                 bottomSheetDispatch({ type: "hide" });
                               }}
+                              onError={(message) => {
+                                notifDispatch({
+                                  type: "show",
+                                  notifTitle: "Error",
+                                  notifSubTitle: message,
+                                  variant: "failure",
+                                });
+                              }}
                               onCancel={() =>
                                 bottomSheetDispatch({ type: "hide" })
                               }

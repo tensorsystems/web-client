@@ -344,6 +344,14 @@ export const PrescriptionPage: React.FC<Props> = ({
             refetch();
             favoriteMedicationsQuery.refetch();
           }}
+          onError={(message) => {
+            notifDispatch({
+              type: "show",
+              notifTitle: "Error",
+              notifSubTitle: message,
+              variant: "failure",
+            });
+          }}
           onPrescribeAnother={onPrescribeAnother}
           onCancel={() => bottomSheetDispatch({ type: "hide" })}
           title={"Prescribe Medication"}
@@ -383,6 +391,14 @@ export const PrescriptionPage: React.FC<Props> = ({
                     });
                     refetch();
                     favoriteMedicationsQuery.refetch();
+                  }}
+                  onError={(message) => {
+                    notifDispatch({
+                      type: "show",
+                      notifTitle: "Error",
+                      notifSubTitle: message,
+                      variant: "failure",
+                    });
                   }}
                   onCancel={() => {
                     favoriteMedicationsQuery.refetch();
@@ -443,6 +459,14 @@ export const PrescriptionPage: React.FC<Props> = ({
                           refetch();
                           favoriteMedicationsQuery.refetch();
                         }}
+                        onError={(message) => {
+                          notifDispatch({
+                            type: "show",
+                            notifTitle: "Error",
+                            notifSubTitle: message,
+                            variant: "failure",
+                          });
+                        }}
                         onPrescribeAnother={onPrescribeAnother}
                         onCancel={() => bottomSheetDispatch({ type: "hide" })}
                         title={"Prescribe Medication"}
@@ -469,6 +493,14 @@ export const PrescriptionPage: React.FC<Props> = ({
                           });
 
                           refetch();
+                        }}
+                        onError={(message) => {
+                          notifDispatch({
+                            type: "show",
+                            notifTitle: "Error",
+                            notifSubTitle: message,
+                            variant: "failure",
+                          });
                         }}
                         onCancel={() => bottomSheetDispatch({ type: "hide" })}
                       />

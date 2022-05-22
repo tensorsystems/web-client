@@ -20,7 +20,6 @@ import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { BillingInput, MutationSaveBillingArgs } from '../models/models';
-import { useNotificationDispatch } from '../notification';
 
 const SAVE_BILLING = gql`
   mutation SaveBilling($input: BillingInput!) {
@@ -32,11 +31,11 @@ const SAVE_BILLING = gql`
 
 interface AddBillingProps {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
-export const AddBillingForm: React.FC<AddBillingProps> = ({ onSuccess, onCancel }) => {
-  const notifDispatch = useNotificationDispatch();
+export const AddBillingForm: React.FC<AddBillingProps> = ({ onSuccess, onError, onCancel }) => {
   const { register, handleSubmit } = useForm<BillingInput>({
     defaultValues: {
       credit: false,
@@ -50,12 +49,7 @@ export const AddBillingForm: React.FC<AddBillingProps> = ({ onSuccess, onCancel 
         onSuccess();
       },
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );

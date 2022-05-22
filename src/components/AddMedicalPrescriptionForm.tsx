@@ -29,7 +29,6 @@ import {
   QuerySearchMedicalPrescriptionsArgs,
   MutationSavePastMedicationArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 import Select from "react-select";
 import ReactLoading from "react-loading";
 
@@ -104,6 +103,7 @@ interface Props {
   values?: FavoriteMedication | undefined;
   title: string;
   onSuccess: () => void;
+  onError: (message: string) => void;
   onPrescribeAnother: () => void;
   onCancel: () => void;
 }
@@ -115,10 +115,10 @@ export const AddMedicalPrescriptionForm: React.FC<Props> = ({
   values,
   title,
   onSuccess,
+  onError,
   onPrescribeAnother,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit, getValues, reset } = useForm<any>({
     defaultValues: {
       ...values,
@@ -213,12 +213,7 @@ export const AddMedicalPrescriptionForm: React.FC<Props> = ({
       }
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 
@@ -234,12 +229,7 @@ export const AddMedicalPrescriptionForm: React.FC<Props> = ({
       }
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 
@@ -249,12 +239,7 @@ export const AddMedicalPrescriptionForm: React.FC<Props> = ({
   >(SAVE_FAVORITE_MEDICATION, {
     onCompleted(data) {},
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

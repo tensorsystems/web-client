@@ -19,7 +19,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { MutationCreatePharmacyArgs, PharmacyInput } from "../models/models";
-import { useNotificationDispatch } from "../notification";
 
 const SAVE_PHARMACY = gql`
   mutation SavePharmacy($input: PharmacyInput!) {
@@ -31,11 +30,11 @@ const SAVE_PHARMACY = gql`
 
 interface Props {
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
 export const AddPharmacyForm = (props: Props) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<PharmacyInput>({
     defaultValues: {
       active: true,
@@ -46,14 +45,7 @@ export const AddPharmacyForm = (props: Props) => {
     SAVE_PHARMACY,
     {
       onCompleted: () => props.onSuccess(),
-      onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
-      },
+      onError: (error) => props.onError(error.message),
     }
   );
 
