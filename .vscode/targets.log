@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Sun May 22 10:04:00 2022
+# Make data base, printed on Mon May 23 10:07:38 2022
 
 # Variables
 
@@ -19,7 +16,11 @@ make: *** No rule to make target `all'.  Stop.
 # automatic
 ?F = $(notdir $?)
 # environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
 PROVIDE_FULLSTACK_ACTION = true
+# environment
+LC_CTYPE = UTF-8
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -45,9 +46,9 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-2324c60e-9931-4590-b65f-5fac8cd3bfd7.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-2ba2eee6-f131-4184-b157-531cd70ddf8f.sock
 # environment
-VSCODE_CWD = /
+VSCODE_CWD = /Users/kidustiliksew/Desktop/work/emr/emr-2020
 # environment
 PATH = /opt/homebrew/bin:/opt/homebrew/bin:/Users/kidustiliksew/google-cloud-sdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/kidustiliksew/development/flutter/bin:/Users/kidustiliksew/go/bin
 # environment
@@ -65,7 +66,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 UUID = f9beaa15-95e4-4fa7-be0e-bfa13e68c5f2
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.M4V1dhNtmK/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.XsdXJ0AlMU/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -81,7 +82,9 @@ HOME = /Users/kidustiliksew
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/kidustiliksew/Library/Application Support/Code/CachedData/da15b6fd3ef856477bf6f4fb29ba1b7af717770d
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/kidustiliksew/Library/Application Support/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
 LOGNAME = kidustiliksew
 # environment
@@ -99,19 +102,23 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-SHLVL = 1
+SHLVL = 3
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = kidustiliksew
 # makefile
 .DEFAULT_GOAL := build-image
+# environment
+TERM_SESSION_ID = 596F73F4-ED36-4BD8-B875-04A899E32162
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # environment
 UTM_SOURCE = vscode
+# environment
+TERM_PROGRAM = Apple_Terminal
 # default
 .VARIABLES := 
 # environment
@@ -119,7 +126,7 @@ TMPDIR = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/kidustiliksew/Library/Application Support/Code/1.67.1-main.sock
+VSCODE_IPC_HOOK = /Users/kidustiliksew/Library/Application Support/Code/1.67.2-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -127,7 +134,9 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.67930424.67930430
+TERM_PROGRAM_VERSION = 443
+# environment
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.67930424.67930430.CE0D448B-E0A3-4C70-A8E0-A55F51BF8C65
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
@@ -155,10 +164,11 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 1257
+TERM = xterm-256color
+# environment
+VSCODE_PID = 14807
 # variable set hash-table stats:
- 
-# Load=71/1024=7%, Rehash=0, Collisions=2/95=2%
+# Load=78/1024=8%, Rehash=0, Collisions=2/102=2%
 
 # Pattern-specific Variable Values
 
@@ -166,9 +176,9 @@ VSCODE_PID = 1257
 
 # Directories
 
-# . (device 16777232, inode 69516877): 27 files, no impossibilities.
+# . (device 16777233, inode 69516877): 28 files, no impossibilities.
 
-# 27 files, no impossibilities in 1 directories.
+# 28 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -246,6 +256,8 @@ build-image:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun May 22 10:04:00 2022
+# Finished Make data base on Mon May 23 10:07:38 2022
 
  
+make: *** No rule to make target `all'.  Stop.
+

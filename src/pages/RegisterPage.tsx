@@ -17,7 +17,7 @@
 */
 
 import { useHistory } from "react-router-dom";
-import { UserRegistrationForm } from "../components/UserRegistrationForm";
+import { UserRegistrationForm } from "./admin/user/UserRegistrationForm";
 
 export const RegisterPage: React.FC = () => {
   const history = useHistory();

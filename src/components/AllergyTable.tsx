@@ -89,9 +89,7 @@ export const AllergyTable: React.FC<Props> = ({ items, onEdit, readOnly }) => {
 
         {items?.map((e) => (
           <tr key={e?.node.id}>
-            <td className="px-6 py-4 text-sm text-gray-900">
-              {e?.node.title}
-            </td>
+            <td className="px-6 py-4 text-sm text-gray-900">{e?.node.title}</td>
             <td className="px-6 py-4 text-sm text-gray-900">
               {e?.node.issueOccurrence}
             </td>

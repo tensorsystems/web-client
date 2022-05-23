@@ -44,7 +44,7 @@ import { SurgicalOrdersPage } from "./SurgicalOrdersPage";
 import { TreatmentOrdersPage } from "./TreatmentOrdersPage";
 import { LabOrdersPage } from "./LabOrdersPage";
 import { ChatsPage } from "./ChatsPage";
-import { AdminHome } from "./Admin/Admin";
+import { AdminHome } from "./admin";
 import { UpdatePatientPage } from "./UpdatePatientPage";
 import { Component404 } from "../components/404/404";
 import { ReferralOrdersPage } from "./ReferralOrdersPage";

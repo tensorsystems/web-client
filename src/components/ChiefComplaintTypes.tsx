@@ -43,7 +43,7 @@ import { AppointmentContext } from "../_context/AppointmentContext";
 const GET_DATA = gql`
   query GetData(
     $page: PaginationInput!
-    $searchTerm: String!
+    $searchTerm: String
     $favorites: Boolean
   ) {
     chiefComplaintTypes(
@@ -113,7 +113,7 @@ export const ChiefComplaintTypes: React.FC<{
     {
       variables: {
         page: paginationInput,
-        searchTerm: searchTerm,
+        searchTerm: searchTerm.length > 3 ? searchTerm : undefined,
         favorites: showFavorites,
       },
     }

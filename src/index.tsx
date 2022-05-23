@@ -35,11 +35,10 @@ import { BottomSheetProvider } from "./bottomsheet";
 import { Router } from "react-router-dom";
 import { setContext } from "@apollo/client/link/context";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-
+import { StatCard } from "./components/StatCard";
 import history from "./history";
 
 import "material-icons-font/material-icons-font.css";
-
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -58,7 +57,7 @@ const authLink = setContext((_, { headers }) => {
 });*/
 
 const terminatingLink = createUploadLink({
-   // @ts-ignore
+  // @ts-ignore
   uri: `${process.env.REACT_APP_SERVER_URL}/query`,
 });
 
@@ -81,6 +80,8 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     },
   },
 });
+
+export { StatCard };
 
 ReactDOM.render(
   <React.StrictMode>

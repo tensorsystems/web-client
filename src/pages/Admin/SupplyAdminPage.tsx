@@ -39,7 +39,6 @@ import {
 } from "../../models/models";
 import { BILLINGS, SUPPLIES } from "../../api";
 
-
 const ROWS_PER_PAGE = 20;
 
 export const SupplyPage: React.FC = () => {
