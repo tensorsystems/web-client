@@ -21,17 +21,17 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
+  IFileUploader,
   FileUploader,
-  FileUploaderComponent,
-} from "../../components/FileUploaderComponent";
-import { Spinner } from "../../components/Spinner";
+  Spinner,
+  useNotificationDispatch
+} from "@tensoremr/components";
 import {
   MutationSaveOrganizationDetailsArgs,
   OrganizationDetailsInput,
   Query,
-} from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
-import { getFileUrl } from "../../util";
+} from "@tensoremr/models";
+import { getFileUrl } from "@tensoremr/util";
 
 const GET_ORGANIZATION_DETAILS = gql`
   query GetOrganizationDetails {
@@ -75,7 +75,7 @@ export const OrganizationDetails: React.FC = () => {
 
   const { data, refetch } = useQuery<Query, any>(GET_ORGANIZATION_DETAILS);
 
-  const [logos, setLogos] = useState<Array<FileUploader>>();
+  const [logos, setLogos] = useState<Array<IFileUploader>>();
 
   const [save, { loading }] = useMutation<
     any,
@@ -121,7 +121,7 @@ export const OrganizationDetails: React.FC = () => {
         const od = {
           id: organizationDetails?.logo.id,
           fileUrl: getFileUrl({
-             // @ts-ignore
+            // @ts-ignore
             baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: organizationDetails?.logo.fileName,
             hash: organizationDetails?.logo.hash,
@@ -155,7 +155,7 @@ export const OrganizationDetails: React.FC = () => {
     });
   };
 
-  const handleLogoChange = (change: Array<FileUploader>) => {
+  const handleLogoChange = (change: Array<IFileUploader>) => {
     setLogos(change);
   };
 
@@ -302,7 +302,7 @@ export const OrganizationDetails: React.FC = () => {
             <label className="block text-sm font-medium text-gray-700 mb-4">
               Logo
             </label>
-            <FileUploaderComponent
+            <FileUploader
               multiSelect={false}
               accept={"image"}
               values={logos}

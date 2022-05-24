@@ -18,9 +18,11 @@
 
 import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
-import { TablePagination } from "../../../components/TablePagination";
-import { useNotificationDispatch } from "../../../notification";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 import classnames from "classnames";
 import {
   Maybe,
@@ -28,7 +30,7 @@ import {
   Query,
   QuerySurgicalProcedureTypesArgs,
   SurgicalProcedureTypeEdge,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import { UpdateSurgicalProcedureTypeForm } from "./UpdateSurgicalProcedureTypeForm";
 import { AddSurgicalProcedureTypeForm } from "./AddSurgicalProcedureTypeForm";
 

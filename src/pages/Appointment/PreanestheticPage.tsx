@@ -31,7 +31,7 @@ import classnames from "classnames";
 import { formatDate, getFileUrl } from "../../util";
 import { format, parseISO } from "date-fns";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import {
   FileUploader,
   FileUploaderComponent,
@@ -42,7 +42,6 @@ import { Prompt } from "react-router-dom";
 import _ from "lodash";
 
 const AUTO_SAVE_INTERVAL = 1000;
-
 
 const SAVE_SURGICAL_PROCEDURE = gql`
   mutation SaveSurgicalProcedure($input: SurgicalProcedureInput!) {
@@ -164,7 +163,6 @@ export const PreanestheticPage: React.FC<Props> = ({ patientChartId }) => {
     }
   );
 
-
   useEffect(() => {
     refetch();
   }, []);
@@ -178,7 +176,7 @@ export const PreanestheticPage: React.FC<Props> = ({ patientChartId }) => {
     data?.surgicalProcedure.preanestheticDocuments.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,

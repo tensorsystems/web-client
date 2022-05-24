@@ -31,7 +31,7 @@ import {
   MutationSaveHpiComponentArgs,
 } from "../models/models";
 import ReactLoading from "react-loading";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import ReactTooltip from "react-tooltip";
 
 const GET_HPI_COMPONENT_TYPES = gql`

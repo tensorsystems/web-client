@@ -16,12 +16,18 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { Maybe } from 'graphql/jsutils/Maybe';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { FamilyIllness, FamilyIllnessUpdateInput, MutationUpdateFamilyIllnessArgs, Query, QueryPastIllnessTypesArgs } from '../models/models';
-import { useNotificationDispatch } from '../notification';
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { Maybe } from "graphql/jsutils/Maybe";
+import React from "react";
+import { useForm } from "react-hook-form";
+import {
+  FamilyIllness,
+  FamilyIllnessUpdateInput,
+  MutationUpdateFamilyIllnessArgs,
+  Query,
+  QueryPastIllnessTypesArgs,
+} from "../models/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const GET_PAST_ILLNESS_TYPES = gql`
   query PastIllnessTypes($page: PaginationInput!) {
@@ -58,7 +64,7 @@ export const UpdateFamilyIllnessForm: React.FC<UpdateFamilyIllnessProps> = ({
   values,
   onSuccess,
   onCancel,
-  onSaveChange
+  onSaveChange,
 }) => {
   const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<FamilyIllnessUpdateInput>({

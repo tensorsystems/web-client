@@ -23,7 +23,7 @@ import circleImage from "../../img/circle.png";
 import { SketchField, Tools } from "react-sketch2";
 import { useForm } from "react-hook-form";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import {
   Appointment,
   PatientChartUpdateInput,
@@ -32,7 +32,7 @@ import {
 } from "../../models/models";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 import { format, parseISO } from "date-fns";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { AddAmendmentForm } from "../../components/AddAmendmentForm";
 import useExitPrompt from "../../useExitPrompt";
 import _ from "lodash";

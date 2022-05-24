@@ -17,7 +17,7 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import MenuComponent from "./MenuComponent";
 import classnames from "classnames";
 import { PrinterIcon, SortAscendingIcon } from "@heroicons/react/outline";
@@ -195,7 +195,6 @@ const CompleteTreatmentOrderForm: React.FC<Props> = ({
 
   const [dailyLimit, setDailyLimit] = useState<number>(-1);
 
-
   const lookupQuery = useQuery<Query, any>(APPOINTMENT_LOOKUPS, {
     variables: { page: paginationInput, userTypeTitle: "Physician" },
   });
@@ -335,7 +334,6 @@ const CompleteTreatmentOrderForm: React.FC<Props> = ({
     .flat()
     .some((e) => e.status === "PAYMENT_WAIVER_REQUESTED");
 
-
   const providerAppointments =
     providerAppointmentsQuery[1].data?.searchAppointments;
   const scheduledToday = providerAppointments?.totalCount ?? 0;
@@ -345,7 +343,6 @@ const CompleteTreatmentOrderForm: React.FC<Props> = ({
   const overbooked =
     dailyLimit < scheduledToday && scheduledToday < dailyLimit + overbook;
   const fullyBooked = scheduledToday >= dailyLimit + overbook;
-
 
   const showProviderStats =
     selectedOrder.orderedBy?.id !== undefined &&

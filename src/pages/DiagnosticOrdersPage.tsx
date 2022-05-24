@@ -20,8 +20,8 @@ import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { OrdersToolbar } from "../components/OrdersToolbar";
 import { DiagnosticOrdersTable } from "../components/DiagnosticOrdersTable";
-import { useBottomSheetDispatch } from "../bottomsheet";
-import { useNotificationDispatch } from "../notification";
+import { useBottomSheetDispatch } from "@tensoremr/components";
+import { useNotificationDispatch } from "@tensoremr/components";
 import {
   DiagnosticProcedureOrder,
   OrderFilterInput,
@@ -62,7 +62,7 @@ const SEARCH_DIAGNOSTIC_ORDERS = gql`
             firstName
             lastName
             userTypes {
-              title 
+              title
             }
           }
           diagnosticProcedures {

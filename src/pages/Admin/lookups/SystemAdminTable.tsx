@@ -19,7 +19,6 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
 import {
   Query,
   PaginationInput,
@@ -31,9 +30,12 @@ import {
   System,
   SystemUpdateInput,
   MutationUpdateSystemArgs,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
-import { TablePagination } from "../../../components/TablePagination";
+} from "@tensoremr/models";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 
 const SYSTEMS = gql`
   query Systems($page: PaginationInput!) {
@@ -52,7 +54,7 @@ const SYSTEMS = gql`
   }
 `;
 
-const SystemAdminTable: React.FC = () => {
+export const SystemAdminTable: React.FC = () => {
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
     page: 1,
     size: 5,
@@ -452,5 +454,3 @@ const UpdateSystemForm: React.FC<UpdateSystemProps> = ({
     </div>
   );
 };
-
-export default SystemAdminTable;

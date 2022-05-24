@@ -20,7 +20,7 @@ import { useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import gql from "graphql-tag";
 import React, { useState } from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { TablePagination } from "../../components/TablePagination";
 import {
   PaginationInput,
@@ -29,7 +29,7 @@ import {
   ReferralOrder,
   ReferralOrderStatus,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import cn from "classnames";
 import CompleteReferralOrderForm from "../../components/CompleteReferralOrderForm";
 

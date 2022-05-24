@@ -19,7 +19,6 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
 import {
   ExamFinding,
   ExamFindingEdge,
@@ -31,11 +30,13 @@ import {
   PaginationInput,
   Query,
   QueryExamCategoriesArgs,
-  QueryExamFindingArgs,
   QueryExamFindingsArgs,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
-import { TablePagination } from "../../../components/TablePagination";
+} from "@tensoremr/models";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 
 const EXAM_FINDINGS = gql`
   query ExamFindings($page: PaginationInput!) {

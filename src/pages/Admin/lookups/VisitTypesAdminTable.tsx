@@ -19,10 +19,23 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
-import { Query, PaginationInput, QueryVisitTypesArgs, Maybe, VisitTypeEdge, VisitTypeInput, MutationSaveVisitTypeArgs, VisitType, MutationUpdateVisitTypeArgs, MutationDeleteVisitTypeArgs } from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
-import { TablePagination } from "../../../components/TablePagination";
+import {
+  Query,
+  PaginationInput,
+  QueryVisitTypesArgs,
+  Maybe,
+  VisitTypeEdge,
+  VisitTypeInput,
+  MutationSaveVisitTypeArgs,
+  VisitType,
+  MutationUpdateVisitTypeArgs,
+  MutationDeleteVisitTypeArgs,
+} from "@tensoremr/models";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 
 const VISIT_TYPES = gql`
   query VisitTypes($page: PaginationInput!) {

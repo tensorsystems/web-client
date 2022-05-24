@@ -18,9 +18,7 @@
 
 import React, { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
-import { TablePagination } from "../../../components/TablePagination";
-import { useNotificationDispatch } from "../../../notification";
+import { useNotificationDispatch, useBottomSheetDispatch, TablePagination } from "@tensoremr/components";
 import classnames from "classnames";
 import {
   DiagnosticProcedureTypeEdge,
@@ -28,7 +26,7 @@ import {
   PaginationInput,
   Query,
   QueryDiagnosticProcedureTypesArgs,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import { UpdateDiagnosticProcedureTypeForm } from "./UpdateDiagnosticProcedureTypeForm";
 import { AddDiagnosticProcedureTypeForm } from "./AddDiagnosticProcedureTypeForm";
 

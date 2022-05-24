@@ -24,7 +24,7 @@ import {
   OrderFollowUpInput,
   MutationOrderFollowUpArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const ORDER_FOLLOWUP = gql`
   mutation OrderFollowup($input: OrderFollowUpInput!) {

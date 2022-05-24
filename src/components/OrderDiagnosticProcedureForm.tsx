@@ -24,7 +24,7 @@ import {
   OrderDiagnosticProcedureInput,
   MutationOrderDiagnosticProcedureArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const ORDER_DIAGNOSTIC_PROCEDURE = gql`
   mutation OrderDiagnosticProcedure($input: OrderDiagnosticProcedureInput!) {

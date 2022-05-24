@@ -22,7 +22,7 @@ import { FileViewer } from "./FileViewer";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 import { gql, useMutation } from "@apollo/client";
 import { FileUpdateInput, MutationUpdateFileArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const UPDATE_FILE = gql`
   mutation UpdateFile($input: FileUpdateInput!) {
@@ -153,7 +153,6 @@ export const FileUploaderComponent: React.FC<Props> = ({
   } else {
     acceptString = "*/*";
   }
-
 
   return (
     <div>

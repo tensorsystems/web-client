@@ -19,7 +19,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { DiagnosisList } from "../../components/DiagnosisList";
 import {
   MutationDeletePatientDiagnosisArgs,

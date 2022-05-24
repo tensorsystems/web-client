@@ -19,7 +19,6 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
 import {
   Maybe,
   MutationSaveSystemSymptomArgs,
@@ -32,9 +31,8 @@ import {
   SystemSymptomEdge,
   SystemSymptomInput,
   SystemSymptomUpdateInput,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
-import { TablePagination } from "../../../components/TablePagination";
+} from "@tensoremr/models";
+import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
 
 const SYSTEM_SYMPTOMS = gql`
   query SystemSymptoms($page: PaginationInput!) {
@@ -58,7 +56,7 @@ const SYSTEM_SYMPTOMS = gql`
   }
 `;
 
-const SystemSymptomAdminTable: React.FC = () => {
+export const SystemSymptomAdminTable: React.FC = () => {
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
     page: 1,
     size: 5,
@@ -338,7 +336,9 @@ const AddSystemSymptomForm: React.FC<AddSystemSymptomProps> = ({
           </button>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <p className="text-2xl font-extrabold tracking-wider">Add System Symtom</p>
+          <p className="text-2xl font-extrabold tracking-wider">
+            Add System Symtom
+          </p>
           <div className="mt-4">
             <label
               htmlFor="title"
@@ -439,7 +439,7 @@ const UpdateSystemSymptomForm: React.FC<UpdateSystemSymptomProps> = ({
   );
 
   const onUpdateSubmit = (data: SystemSymptomUpdateInput) => {
-    if(values?.id) {
+    if (values?.id) {
       data.id = values?.id;
       save({ variables: { input: data } });
     }
@@ -524,5 +524,3 @@ const UpdateSystemSymptomForm: React.FC<UpdateSystemSymptomProps> = ({
     </div>
   );
 };
-
-export default SystemSymptomAdminTable;

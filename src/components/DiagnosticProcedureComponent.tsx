@@ -31,7 +31,7 @@ import {
   MutationDeleteDiagnosticImageArgs,
   DiagnosticProcedureStatus,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import useExitPrompt from "../useExitPrompt";
 import cn from "classnames";
 import RefractionDistanceComponent from "./RefractionDistanceForm";
@@ -164,7 +164,7 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
     values?.images.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
@@ -180,7 +180,7 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
     values?.documents.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
@@ -209,7 +209,7 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
         (e: any) => ({
           id: e?.id,
           fileUrl: getFileUrl({
-             // @ts-ignore
+            // @ts-ignore
             baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: e?.fileName,
             hash: e?.hash,
@@ -228,7 +228,7 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
         (e: any) => ({
           id: e?.id,
           fileUrl: getFileUrl({
-             // @ts-ignore
+            // @ts-ignore
             baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: e?.fileName,
             hash: e?.hash,

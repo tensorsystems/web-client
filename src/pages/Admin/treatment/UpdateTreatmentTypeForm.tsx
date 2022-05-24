@@ -27,10 +27,10 @@ import {
   QuerySuppliesArgs,
   TreatmentType,
   TreatmentTypeUpdateInput,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
+} from "@tensoremr/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 import Select from "react-select";
-import { BILLINGS, SUPPLIES } from "../../../api";
+import { BILLINGS, SUPPLIES } from "@tensoremr/api";
 
 const UPDATE_TREATMENT_TYPE = gql`
   mutation UpdateTreatmentType($input: TreatmentTypeUpdateInput!) {

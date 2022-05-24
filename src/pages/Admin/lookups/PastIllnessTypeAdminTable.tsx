@@ -19,7 +19,6 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
 import {
   Query,
   PaginationInput,
@@ -32,9 +31,12 @@ import {
   MutationUpdatePastIllnessTypeArgs,
   MutationDeletePastIllnessTypeArgs,
   PastIllnessTypeUpdateInput,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
-import { TablePagination } from "../../../components/TablePagination";
+} from "@tensoremr/models";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 
 const PAST_ILLNESS_TYPES = gql`
   query PastIllnessTypes($page: PaginationInput!) {
@@ -396,7 +398,7 @@ const UpdatePastIllnessTypeForm: React.FC<UpdatePastIllnessTypeProps> = ({
       },
     }
   );
-  
+
   const [deletePastIllnessType] = useMutation<
     any,
     MutationDeletePastIllnessTypeArgs

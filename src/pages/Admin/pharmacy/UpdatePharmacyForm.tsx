@@ -23,8 +23,9 @@ import {
   MutationUpdatePharmacyArgs,
   Pharmacy,
   PharmacyUpdateInput,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
+} from "@tensoremr/models";
+
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const UPDATE_PHARMACY = gql`
   mutation UpdatePharmacy($input: PharmacyUpdateInput!) {

@@ -26,10 +26,10 @@ import {
   MutationUpdateDiagnosticProcedureTypeArgs,
   Query,
   QueryBillingsArgs,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
+} from "@tensoremr/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 import Select from "react-select";
-import { BILLINGS } from "../../../api";
+import { BILLINGS } from "@tensoremr/api";
 
 const UPDATE_DIAGNOSTIC_PROCEDURE_TYPE = gql`
   mutation UpdateDiagnosticProcedureType(

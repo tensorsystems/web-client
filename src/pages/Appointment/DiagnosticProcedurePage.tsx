@@ -18,9 +18,9 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { DiagnosticProcedureTypes } from "../../components/DiagnosticProcedureTypes";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import {
   DiagnosticProcedureStatus,
   DiagnosticProcedureType,

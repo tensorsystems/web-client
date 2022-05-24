@@ -18,10 +18,10 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { AddMedicalPrescriptionForm } from "../../components/AddMedicalPrescriptionForm";
 import { UpdateMedicalPrescriptionForm } from "../../components/UpdateMedicationForm";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { MedicationTable } from "../../components/MedicationTable";
 import { AddAllergyForm } from "../../components/AddAllergyForm";
 import { AllergyTable } from "../../components/AllergyTable";
@@ -162,7 +162,6 @@ const PastMedications: React.FC<Props> = ({ patientChartId, patientId }) => {
             });
             refetch();
           }}
-          
           onError={(message) => {
             notifDispatch({
               type: "show",

@@ -16,12 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { gql, useMutation } from '@apollo/client';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { PastInjuryInput, MutationSavePastInjuryArgs } from '../models/models';
-import { useNotificationDispatch } from '../notification';
-import { formatDate } from '../util';
+import { gql, useMutation } from "@apollo/client";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { PastInjuryInput, MutationSavePastInjuryArgs } from "../models/models";
+import { useNotificationDispatch } from "@tensoremr/components";
+import { formatDate } from "../util";
 
 const SAVE_PAST_INJURY = gql`
   mutation SavePastInjury($input: PastInjuryInput!) {
@@ -141,4 +141,3 @@ export const SavePastInjuryForm: React.FC<{
     </div>
   );
 };
-

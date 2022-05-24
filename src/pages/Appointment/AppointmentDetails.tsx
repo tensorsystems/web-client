@@ -61,7 +61,7 @@ import { parseJwt } from "../../util";
 import { FollowUpPage } from "./FollowUpPage";
 import { PreanestheticPage } from "./PreanestheticPage";
 import Modal from "../../components/Modal";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 import { Page } from "../../models/page";
 import { MedicalCertificatePage } from "./MedicalCertificatePage";

@@ -19,7 +19,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
+import { useBottomSheetDispatch, useNotificationDispatch } from "@tensoremr/components";
 import {
   Query,
   PaginationInput,
@@ -31,8 +31,7 @@ import {
   HpiComponentType,
   HpiComponentTypeUpdateInput,
   MutationUpdateHpiComponentTypeArgs,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
+} from "@tensoremr/models";
 
 const HPI_COMPONENT_TYPES = gql`
   query HpiComponentTypes($page: PaginationInput!) {

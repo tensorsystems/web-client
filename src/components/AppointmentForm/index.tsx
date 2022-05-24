@@ -18,11 +18,11 @@
 
 import React, { useEffect, useState } from "react";
 
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { useForm } from "react-hook-form";
 import { formatDate } from "../../util";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { format, getDay, parseISO } from "date-fns";
 
 import {
@@ -346,7 +346,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
     Query,
     QueryPatientEncounterLimitByUserArgs
   >(GET_PATIENT_ENCOUNTER_LIMIT, {
-    fetchPolicy: "network-only"
+    fetchPolicy: "network-only",
   });
 
   const patientEncounterLimit =
@@ -356,7 +356,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
     Query,
     QuerySearchAppointmentsArgs
   >(SEARCH_APPOINTMENTS, {
-    fetchPolicy: "network-only"
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
@@ -369,7 +369,6 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
             checkInTime: new Date(appointmentInput.checkInTime),
           },
         },
-        
       });
 
       patientEncounterLimitQuery[0]({

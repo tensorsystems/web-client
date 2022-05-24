@@ -19,7 +19,6 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
 import {
   ExamCategory,
   ExamCategoryEdge,
@@ -31,9 +30,8 @@ import {
   PaginationInput,
   Query,
   QueryExamCategoriesArgs,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
-import { TablePagination } from "../../../components/TablePagination";
+} from "@tensoremr/models";
+import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
 
 const EXAM_CATEGORIES = gql`
   query ExamCategories($page: PaginationInput!) {
@@ -61,9 +59,12 @@ export const ExamCategoryAdminTable: React.FC = () => {
   const bottomSheetDispatch = useBottomSheetDispatch();
   const notifDispatch = useNotificationDispatch();
 
-  const { data, refetch } = useQuery<Query, QueryExamCategoriesArgs>(EXAM_CATEGORIES, {
-    variables: { page: paginationInput },
-  });
+  const { data, refetch } = useQuery<Query, QueryExamCategoriesArgs>(
+    EXAM_CATEGORIES,
+    {
+      variables: { page: paginationInput },
+    }
+  );
 
   useEffect(() => {
     refetch();
@@ -306,7 +307,9 @@ const AddExamCategoryForm: React.FC<AddExamCategoryProps> = ({
           </button>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <p className="text-2xl font-extrabold tracking-wider">Add Exam Category</p>
+          <p className="text-2xl font-extrabold tracking-wider">
+            Add Exam Category
+          </p>
           <div className="mt-4">
             <label
               htmlFor="title"

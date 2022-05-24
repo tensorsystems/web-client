@@ -29,7 +29,7 @@ import {
   QueryGetChatMessagesArgs,
   QueryUserArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { parseJwt } from "../util";
 import { ChatAvatar } from "./ChatAvatar";
 import { ChatBubble } from "./ChatBubble";
@@ -125,7 +125,7 @@ export const ChatComponent: React.FC<Props> = ({
         id: member?.id,
         fullName: member?.displayName,
       });
-    
+
       chatMessagesQuery[0]({
         variables: {
           id: chat.id,

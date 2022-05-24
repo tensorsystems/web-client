@@ -19,8 +19,11 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { PastHospitalizationInput, MutationSavePastHospitalizationArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import {
+  PastHospitalizationInput,
+  MutationSavePastHospitalizationArgs,
+} from "../models/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { formatDate } from "../util";
 
 const SAVE_PAST_HOSPITALIZATION = gql`

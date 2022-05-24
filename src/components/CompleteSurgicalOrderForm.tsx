@@ -17,7 +17,7 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import MenuComponent from "./MenuComponent";
 import classnames from "classnames";
 import { PrinterIcon, SortAscendingIcon } from "@heroicons/react/outline";

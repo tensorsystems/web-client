@@ -19,7 +19,7 @@
 import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { BillingInput, MutationSaveBillingArgs } from '../../../models/models';
+import { BillingInput, MutationSaveBillingArgs } from '@tensoremr/models';
 
 const SAVE_BILLING = gql`
   mutation SaveBilling($input: BillingInput!) {

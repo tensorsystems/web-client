@@ -20,7 +20,7 @@ import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LabType, MutationOrderLabArgs, OrderLabInput } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import Select from "react-select";
 
 const ORDER_LAB = gql`

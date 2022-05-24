@@ -18,7 +18,7 @@
 
 import { gql, useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import MenuComponent from "./MenuComponent";
 import { Menu } from "@headlessui/react";
 import { PrinterIcon, SortAscendingIcon } from "@heroicons/react/outline";
@@ -30,7 +30,6 @@ import {
 } from "../models/models";
 import { useForm } from "react-hook-form";
 import classnames from "classnames";
-
 
 const CONFIRM_LAB_ORDER = gql`
   mutation ConfirmLabOrder($id: ID!, $invoiceNo: String!) {

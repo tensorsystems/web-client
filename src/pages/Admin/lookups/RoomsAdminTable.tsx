@@ -19,10 +19,23 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
-import { Query, PaginationInput, QueryRoomsArgs, Maybe, RoomEdge, RoomInput, MutationSaveRoomArgs, Room, MutationUpdateRoomArgs, MutationDeleteRoomArgs } from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
-import { TablePagination } from "../../../components/TablePagination";
+import {
+  Query,
+  PaginationInput,
+  QueryRoomsArgs,
+  Maybe,
+  RoomEdge,
+  RoomInput,
+  MutationSaveRoomArgs,
+  Room,
+  MutationUpdateRoomArgs,
+  MutationDeleteRoomArgs,
+} from "@tensoremr/models";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 
 const ROOMS = gql`
   query Rooms($page: PaginationInput!) {
@@ -249,22 +262,19 @@ interface AddRoomProps {
 const AddRoomForm: React.FC<AddRoomProps> = ({ onSuccess, onCancel }) => {
   const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<RoomInput>();
-  const [save, { error }] = useMutation<any, MutationSaveRoomArgs>(
-    SAVE_ROOM,
-    {
-      onCompleted(data) {
-        onSuccess();
-      },
-      onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
-      },
-    }
-  );
+  const [save, { error }] = useMutation<any, MutationSaveRoomArgs>(SAVE_ROOM, {
+    onCompleted(data) {
+      onSuccess();
+    },
+    onError(error) {
+      notifDispatch({
+        type: "show",
+        notifTitle: "Error",
+        notifSubTitle: error.message,
+        variant: "failure",
+      });
+    },
+  });
 
   const onSubmit = (data: RoomInput) => {
     save({ variables: { input: data } });

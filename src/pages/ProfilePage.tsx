@@ -40,7 +40,7 @@ import {
 } from "../models/models";
 import { format } from "date-fns";
 import { parseISO } from "date-fns/esm";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { ProfileTabs } from "./ProfileTabs";
 import { Tabs } from "../components/Tabs";
 import ReactLoading from "react-loading";
@@ -187,7 +187,7 @@ export default function ProfilePage() {
 
     if (user?.signature) {
       const fileUrl = getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: user?.signature.fileName,
         hash: user?.signature.hash,
@@ -208,7 +208,7 @@ export default function ProfilePage() {
 
     if (user?.profilePic) {
       const fileUrl = getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: user?.profilePic.fileName,
         hash: user?.profilePic.hash,

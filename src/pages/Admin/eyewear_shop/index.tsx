@@ -18,15 +18,13 @@
 
 import React, { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
-import { TablePagination } from "../../../components/TablePagination";
-import { useNotificationDispatch } from "../../../notification";
+import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
 import {
   EyewearShopEdge,
   Maybe,
   Query,
   QueryEyewearShopsArgs,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import { AddEyewearShopForm } from "./AddEyewearShopForm";
 import { UpdateEyewearShopForm } from "./UpdateEyewearShopForm";
 
@@ -113,7 +111,7 @@ export const EyewearShopAdminPage: React.FC = () => {
                   scope="col"
                   className="px-6 py-3 bg-gray-700 text-gray-100 text-right"
                 >
-                  <button 
+                  <button
                     onClick={() => {
                       bottomSheetDispatch({
                         type: "show",

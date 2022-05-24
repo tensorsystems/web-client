@@ -36,7 +36,7 @@ import {
   Query,
 } from "../models/models";
 import { Page } from "../models/page";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { formatDate, getFileUrl } from "../util";
 
 const PATIENT_DETAILS = gql`
@@ -163,7 +163,7 @@ export const UpdatePatientPage: React.FC<Props> = ({ onAddPage }) => {
         const document: FileUploader = {
           id: patient?.paperRecordDocument?.id,
           fileUrl: getFileUrl({
-             // @ts-ignore
+            // @ts-ignore
             baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: patient?.paperRecordDocument?.fileName,
             hash: patient?.paperRecordDocument?.hash,
@@ -182,7 +182,7 @@ export const UpdatePatientPage: React.FC<Props> = ({ onAddPage }) => {
         patient?.documents?.map((e: any) => ({
           id: e?.id,
           fileUrl: getFileUrl({
-             // @ts-ignore
+            // @ts-ignore
             baseUrl: process.env.REACT_APP_SERVER_URL,
             fileName: e?.fileName,
             hash: e?.hash,
@@ -234,7 +234,6 @@ export const UpdatePatientPage: React.FC<Props> = ({ onAddPage }) => {
       },
     }
   );
-
 
   const handleDocumentsChange = (files: Array<FileUploader>) => {
     setDocuments(files);

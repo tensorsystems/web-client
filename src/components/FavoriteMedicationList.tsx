@@ -25,7 +25,7 @@ import {
   Query,
   FavoriteMedicationConnection,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { AppointmentContext } from "../_context/AppointmentContext";
 
 const DELETE_FAVORITE_MEDICATION = gql`
@@ -35,13 +35,20 @@ const DELETE_FAVORITE_MEDICATION = gql`
 `;
 
 export const FavoriteMedicationList: React.FC<{
-  userFavoriteMedications: FavoriteMedicationConnection | undefined
+  userFavoriteMedications: FavoriteMedicationConnection | undefined;
   onItemClick: (item: FavoriteMedication) => void;
   refetch: () => void;
   handleNextClick: () => void;
   handlePreviousClick: () => void;
   setSearchTerm: (searchTerm: string) => void;
-}> = ({ userFavoriteMedications, onItemClick, refetch, handleNextClick, handlePreviousClick, setSearchTerm }) => {
+}> = ({
+  userFavoriteMedications,
+  onItemClick,
+  refetch,
+  handleNextClick,
+  handlePreviousClick,
+  setSearchTerm,
+}) => {
   const notifDispatch = useNotificationDispatch();
 
   const { patientChartLocked } = React.useContext<any>(AppointmentContext);

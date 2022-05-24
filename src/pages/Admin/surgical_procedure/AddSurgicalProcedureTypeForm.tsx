@@ -25,9 +25,9 @@ import {
   QueryBillingsArgs,
   QuerySuppliesArgs,
   SurgicalProcedureTypeInput,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import Select from "react-select";
-import { BILLINGS, SUPPLIES } from "../../../api";
+import { BILLINGS, SUPPLIES } from "@tensoremr/api";
 
 const SAVE_SURGICAL_PROCEDURE_TYPE = gql`
   mutation SaveSurgicalProcedureType($input: SurgicalProcedureTypeInput!) {

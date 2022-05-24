@@ -19,9 +19,11 @@
 import React, { useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../bottomsheet";
-import { TablePagination } from "../../components/TablePagination";
-import { useNotificationDispatch } from "../../notification";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 import classnames from "classnames";
 import {
   Maybe,
@@ -36,8 +38,8 @@ import {
   SupplyEdge,
   SupplyInput,
   SupplyUpdateInput,
-} from "../../models/models";
-import { BILLINGS, SUPPLIES } from "../../api";
+} from "@tensoremr/models";
+import { BILLINGS, SUPPLIES } from "@tensoremr/api";
 
 const ROWS_PER_PAGE = 20;
 

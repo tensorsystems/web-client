@@ -18,11 +18,11 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { LabTypesComponent } from "../../components/LabTypes";
 import classnames from "classnames";
 import { LabComponent } from "../../components/LabComponent";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import {
   LabStatus,
   LabType,

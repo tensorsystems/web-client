@@ -18,19 +18,21 @@
 
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
-import { TablePagination } from "../../../components/TablePagination";
-import { useNotificationDispatch } from "../../../notification";
+import {
+  TablePagination,
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+} from "@tensoremr/components";
 import {
   PaginationInput,
   QueryBillingsArgs,
   Maybe,
   BillingEdge,
   Query,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import { UpdateBillingForm } from "./UpdateBillingForm";
 import { AddBillingForm } from "./AddBillingForm";
-import { BILLINGS } from "../../../api";
+import { BILLINGS } from "@tensoremr/api";
 
 const ROWS_PER_PAGE = 20;
 

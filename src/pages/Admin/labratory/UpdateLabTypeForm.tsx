@@ -20,17 +20,16 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
-  LabStatus,
   LabType,
   LabTypeUpdateInput,
   MutationDeleteLabTypeArgs,
   MutationUpdateLabTypeArgs,
   Query,
   QueryBillingsArgs,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
+} from "@tensoremr/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 import Select from "react-select";
-import { BILLINGS } from "../../../api";
+import { BILLINGS } from "@tensoremr/api";
 
 const UPDATE_LAB_TYPE = gql`
   mutation UpdateLabType($input: LabTypeUpdateInput!) {
@@ -67,7 +66,6 @@ export const UpdateLabTypeForm: React.FC<UpdateLabTypeProps> = ({
   const { data } = useQuery<Query, QueryBillingsArgs>(BILLINGS, {
     variables: { page: { page: 0, size: 1000 } },
   });
-
 
   useEffect(() => {
     const billings = values?.billings.map((e) => ({

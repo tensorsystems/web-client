@@ -18,15 +18,17 @@
 
 import React, { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
-import { TablePagination } from "../../../components/TablePagination";
-import { useNotificationDispatch } from "../../../notification";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 import {
   Maybe,
   PharmacyEdge,
   Query,
   QueryPharmaciesArgs,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import { AddPharmacyForm } from "./AddPharmacyForm";
 import { UpdatePharmacyForm } from "./UpdatePharmacyForm";
 

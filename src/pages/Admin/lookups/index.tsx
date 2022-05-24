@@ -25,8 +25,8 @@ import { ExamFindingAdminTable } from "./ExamFindingAdminTable";
 import { LifestyleTypesTable } from "./LifestyleTypeAdminTable";
 import { PastIllnessTypesTable } from "./PastIllnessTypeAdminTable";
 import { RoomsTable } from "./RoomsAdminTable";
-import SystemAdminTable from "./SystemAdminTable";
-import SystemSymptomAdminTable from "./SystemSymptomAdminTable";
+import { SystemAdminTable } from "./SystemAdminTable";
+import { SystemSymptomAdminTable } from "./SystemSymptomAdminTable";
 import { UserTypesTable } from "./UserTypeAdminTable";
 import { VisitTypesTable } from "./VisitTypesAdminTable";
 

@@ -24,8 +24,8 @@ import {
   Query,
   QueryAppointmentArgs,
 } from "../models/models";
-import { useBottomSheetDispatch } from "../bottomsheet";
-import { useNotificationDispatch } from "../notification";
+import { useBottomSheetDispatch } from "@tensoremr/components";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { format, isToday, parseISO } from "date-fns";
 import { useForm } from "react-hook-form";
 import ReactLoading from "react-loading";

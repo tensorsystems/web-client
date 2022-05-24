@@ -21,8 +21,8 @@ import gql from "graphql-tag";
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import { HistoryItemComponent } from "../../components/HistoryItemComponent";
-import { useBottomSheetDispatch } from "../../bottomsheet";
-import { useNotificationDispatch } from "../../notification";
+import { useBottomSheetDispatch } from "@tensoremr/components";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { UpdatePastIllnessForm } from "../../components/UpdatePastIllnessForm";
 import { SavePastIllnessForm } from "../../components/SavePastIllnessForm";
 import { SavePastHospitalizationForm } from "../../components/SavePastHospitalizationForm";
@@ -198,7 +198,7 @@ export const HistoryPage: React.FC<{
       const record = {
         id: paperRecordDocument.id,
         fileUrl: getFileUrl({
-           // @ts-ignore
+          // @ts-ignore
           baseUrl: process.env.REACT_APP_SERVER_URL,
           fileName: paperRecordDocument.fileName,
           hash: paperRecordDocument.hash,

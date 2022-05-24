@@ -18,12 +18,12 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useNotificationDispatch } from "../../../notification";
 import {
+  useNotificationDispatch,
+  IFileUploader,
   FileUploader,
-  FileUploaderComponent,
-} from "../../../components/FileUploaderComponent";
-import { MutationSignupArgs, UserInput } from "../../../models/models";
+} from "@tensoremr/components";
+import { MutationSignupArgs, UserInput } from "@tensoremr/models";
 import { gql, useMutation } from "@apollo/client";
 
 const SIGN_UP = gql`
@@ -40,8 +40,8 @@ interface Props {
 export const UserRegistrationForm: React.FC<Props> = ({ onSuccess }) => {
   const notifDispatch = useNotificationDispatch();
   const [userTypes, setUserTypes] = useState<Array<any>>([]);
-  const [signatures, setSignatures] = useState<Array<FileUploader>>();
-  const [profilePictures, setProfilePictures] = useState<Array<FileUploader>>();
+  const [signatures, setSignatures] = useState<Array<IFileUploader>>();
+  const [profilePictures, setProfilePictures] = useState<Array<IFileUploader>>();
 
   const { register, handleSubmit, watch, errors } = useForm<UserInput>();
   const password = useRef({});
@@ -62,7 +62,7 @@ export const UserRegistrationForm: React.FC<Props> = ({ onSuccess }) => {
   });
 
   useEffect(() => {
-     // @ts-ignore
+    // @ts-ignore
     fetch(`${process.env.REACT_APP_SERVER_URL}/userTypes`, {
       method: "GET",
     })
@@ -132,11 +132,11 @@ export const UserRegistrationForm: React.FC<Props> = ({ onSuccess }) => {
       });*/
   };
 
-  const handleSignatureChange = (change: Array<FileUploader>) => {
+  const handleSignatureChange = (change: Array<IFileUploader>) => {
     setSignatures(change);
   };
 
-  const handleProfilePictureChange = (change: Array<FileUploader>) => {
+  const handleProfilePictureChange = (change: Array<IFileUploader>) => {
     setProfilePictures(change);
   };
 
@@ -299,7 +299,7 @@ export const UserRegistrationForm: React.FC<Props> = ({ onSuccess }) => {
               <label className="block text-sm font-medium text-gray-700 mt-5">
                 Your signature
               </label>
-              <FileUploaderComponent
+              <FileUploader
                 multiSelect={false}
                 accept={"image"}
                 values={signatures}
@@ -312,7 +312,7 @@ export const UserRegistrationForm: React.FC<Props> = ({ onSuccess }) => {
               <label className="block text-sm font-medium text-gray-700">
                 Profile Picture
               </label>
-              <FileUploaderComponent
+              <FileUploader
                 multiSelect={false}
                 accept={"image"}
                 values={profilePictures}

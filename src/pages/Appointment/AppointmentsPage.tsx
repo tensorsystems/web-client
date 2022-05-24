@@ -32,7 +32,7 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 import { Page } from "../../models/page";
 import { parseJwt } from "../../util";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { AppointmentForm } from "../../components/AppointmentForm";
 
 const TOOLBAR_LOOKUPS = gql`
@@ -312,7 +312,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
     onChange(newValue);
   };
 
-  
   return (
     <div className="flex bg-white w-full h-16 p-4 mt-4 rounded-md shadow-md justify-between items-center">
       <div className="flex items-center text-gray-700">

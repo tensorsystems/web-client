@@ -18,10 +18,10 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { AddMedicalPrescriptionForm } from "../../components/AddMedicalPrescriptionForm";
 import { UpdateMedicalPrescriptionForm } from "../../components/UpdateMedicationForm";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { FavoriteMedicationList } from "../../components/FavoriteMedicationList";
 import { MedicationTable } from "../../components/MedicationTable";
 import {
@@ -37,9 +37,7 @@ import { EyeGlassTable } from "../../components/EyeGlassTable";
 import { UpdateEyewearPrescriptionForm } from "../../components/UpdateEyeGlassPrescriptionForm";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 import { useReactToPrint } from "react-to-print";
-import {
-  parseJwt,
-} from "../../util";
+import { parseJwt } from "../../util";
 import MedicalPrescriptionPrint from "../../components/MedicalPrescriptionPrint";
 import EyewearPrescriptionPrint from "../../components/EyewearPrescriptionPrint";
 
@@ -576,7 +574,7 @@ export const PrescriptionPage: React.FC<Props> = ({
               onPrint={() => {
                 if (appointmentId) {
                   window.open(
-                     // @ts-ignore
+                    // @ts-ignore
                     `${process.env.REACT_APP_SERVER_URL}/pdf_medical_prescription?appointmentId=${appointmentId}`
                   );
                 }
@@ -644,7 +642,7 @@ export const PrescriptionPage: React.FC<Props> = ({
               onPrint={(item: EyewearPrescription) => {
                 if (appointmentId) {
                   window.open(
-                     // @ts-ignore
+                    // @ts-ignore
                     `${process.env.REACT_APP_SERVER_URL}/pdf_eyeglass_prescription?appointmentId=${appointmentId}`
                   );
                 }

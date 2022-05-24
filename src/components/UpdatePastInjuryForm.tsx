@@ -21,8 +21,12 @@ import { format, parseISO } from "date-fns";
 import { Maybe } from "graphql/jsutils/Maybe";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { PastInjury, PastInjuryUpdateInput, MutationUpdatePastInjuryArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import {
+  PastInjury,
+  PastInjuryUpdateInput,
+  MutationUpdatePastInjuryArgs,
+} from "../models/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const UPDATE_PAST_INJURY = gql`
   mutation UpdatePastInjury($input: PastInjuryUpdateInput!) {

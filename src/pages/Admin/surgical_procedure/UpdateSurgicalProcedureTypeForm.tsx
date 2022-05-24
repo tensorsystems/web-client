@@ -27,10 +27,12 @@ import {
   MutationUpdateSurgicalProcedureTypeArgs,
   MutationDeleteSurgicalProcedureTypeArgs,
   Query,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
+} from "@tensoremr/models";
+import {
+  useNotificationDispatch,
+} from "@tensoremr/components";
 import Select from "react-select";
-import { BILLINGS, SUPPLIES } from "../../../api";
+import { BILLINGS, SUPPLIES } from "@tensoremr/api";
 
 const UPDATE_SURGICAL_PROCEDURE_TYPE = gql`
   mutation UpdateSurgicalProcedureType(
@@ -55,204 +57,205 @@ interface UpdateSurgicalProcedureTypeProps {
   onCancel: () => void;
 }
 
-export const UpdateSurgicalProcedureTypeForm: React.FC<UpdateSurgicalProcedureTypeProps> =
-  ({ values, onUpdateSuccess, onDeleteSuccess, onCancel }) => {
-    const notifDispatch = useNotificationDispatch();
-    const { register, handleSubmit, setValue } =
-      useForm<SurgicalProcedureTypeUpdateInput>();
+export const UpdateSurgicalProcedureTypeForm: React.FC<
+  UpdateSurgicalProcedureTypeProps
+> = ({ values, onUpdateSuccess, onDeleteSuccess, onCancel }) => {
+  const notifDispatch = useNotificationDispatch();
+  const { register, handleSubmit, setValue } =
+    useForm<SurgicalProcedureTypeUpdateInput>();
 
-    const billingQuery = useQuery<Query, QueryBillingsArgs>(BILLINGS, {
-      variables: { page: { page: 0, size: 1000 } },
-    });
+  const billingQuery = useQuery<Query, QueryBillingsArgs>(BILLINGS, {
+    variables: { page: { page: 0, size: 1000 } },
+  });
 
-    const [selectedBillings, setSelectedBillings] = useState<Array<any>>([]);
-    const [selectedSupplies, setSelectedSupplies] = useState<Array<any>>([]);
+  const [selectedBillings, setSelectedBillings] = useState<Array<any>>([]);
+  const [selectedSupplies, setSelectedSupplies] = useState<Array<any>>([]);
 
-    const supplyQuery = useQuery<Query, QuerySuppliesArgs>(SUPPLIES, {
-      variables: { page: { page: 0, size: 1000 } },
-    });
+  const supplyQuery = useQuery<Query, QuerySuppliesArgs>(SUPPLIES, {
+    variables: { page: { page: 0, size: 1000 } },
+  });
 
-    useEffect(() => {
-      const billings = values?.billings.map((e) => ({
-        value: e?.id,
-        label: e?.item,
-      }));
-      if (billings) {
-        setSelectedBillings(billings);
-      }
+  useEffect(() => {
+    const billings = values?.billings.map((e) => ({
+      value: e?.id,
+      label: e?.item,
+    }));
+    if (billings) {
+      setSelectedBillings(billings);
+    }
 
-      const supplies = values?.supplies.map((e) => ({
-        value: e?.id,
-        label: e?.title,
-      }));
+    const supplies = values?.supplies.map((e) => ({
+      value: e?.id,
+      label: e?.title,
+    }));
 
-      if (supplies) {
-        setSelectedSupplies(supplies);
-      }
+    if (supplies) {
+      setSelectedSupplies(supplies);
+    }
 
-      setValue("title", values?.title);
-      setValue("active", values?.active);
-    }, [values, billingQuery.data]);
+    setValue("title", values?.title);
+    setValue("active", values?.active);
+  }, [values, billingQuery.data]);
 
-    const [save, { error }] = useMutation<
-      any,
-      MutationUpdateSurgicalProcedureTypeArgs
-    >(UPDATE_SURGICAL_PROCEDURE_TYPE, {
-      onCompleted(data) {
-        onUpdateSuccess();
-      },
-      onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
-      },
-    });
-
-    const [deleteSurgicalProcedureType] = useMutation<
-      any,
-      MutationDeleteSurgicalProcedureTypeArgs
-    >(DELETE_SURGICAL_PROCEDURE_TYPE, {
-      onCompleted(data) {
-        onDeleteSuccess();
-      },
-      onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
-      },
-    });
-
-    const onUpdateSubmit = (data: any) => {
-      const id: string = values?.id.toString() ?? "";
-      save({
-        variables: {
-          input: {
-            id: id,
-            title: data.title,
-            active: data.active === "true",
-            billingIds: selectedBillings.map((e) => e.value),
-            supplyIds: selectedSupplies.map((e) => e.value),
-          },
-        },
+  const [save, { error }] = useMutation<
+    any,
+    MutationUpdateSurgicalProcedureTypeArgs
+  >(UPDATE_SURGICAL_PROCEDURE_TYPE, {
+    onCompleted(data) {
+      onUpdateSuccess();
+    },
+    onError(error) {
+      notifDispatch({
+        type: "show",
+        notifTitle: "Error",
+        notifSubTitle: error.message,
+        variant: "failure",
       });
-    };
+    },
+  });
 
-    const onDeleteSubmit = (data: SurgicalProcedureTypeUpdateInput) => {
-      const id: string = values?.id.toString() ?? "";
-      deleteSurgicalProcedureType({ variables: { id: id } });
-    };
+  const [deleteSurgicalProcedureType] = useMutation<
+    any,
+    MutationDeleteSurgicalProcedureTypeArgs
+  >(DELETE_SURGICAL_PROCEDURE_TYPE, {
+    onCompleted(data) {
+      onDeleteSuccess();
+    },
+    onError(error) {
+      notifDispatch({
+        type: "show",
+        notifTitle: "Error",
+        notifSubTitle: error.message,
+        variant: "failure",
+      });
+    },
+  });
 
-    const billings = billingQuery.data?.billings.edges.map((e) => ({
-      value: e?.node.id,
-      label: e?.node.item,
-    }));
+  const onUpdateSubmit = (data: any) => {
+    const id: string = values?.id.toString() ?? "";
+    save({
+      variables: {
+        input: {
+          id: id,
+          title: data.title,
+          active: data.active === "true",
+          billingIds: selectedBillings.map((e) => e.value),
+          supplyIds: selectedSupplies.map((e) => e.value),
+        },
+      },
+    });
+  };
 
-    const supplies = supplyQuery.data?.supplies.edges.map((e) => ({
-      value: e?.node.id,
-      label: e?.node.title,
-    }));
+  const onDeleteSubmit = (data: SurgicalProcedureTypeUpdateInput) => {
+    const id: string = values?.id.toString() ?? "";
+    deleteSurgicalProcedureType({ variables: { id: id } });
+  };
 
-    return (
-      <div className="container mx-auto flex justify-center pt-4 pb-6">
-        <div className="w-1/2">
-          <div className="float-right">
-            <button onClick={onCancel}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="h-8 w-8 text-gray-500"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+  const billings = billingQuery.data?.billings.edges.map((e) => ({
+    value: e?.node.id,
+    label: e?.node.item,
+  }));
+
+  const supplies = supplyQuery.data?.supplies.edges.map((e) => ({
+    value: e?.node.id,
+    label: e?.node.title,
+  }));
+
+  return (
+    <div className="container mx-auto flex justify-center pt-4 pb-6">
+      <div className="w-1/2">
+        <div className="float-right">
+          <button onClick={onCancel}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="h-8 w-8 text-gray-500"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <form>
+          <p className="text-2xl font-extrabold tracking-wider">
+            Update Surgical Procedure
+          </p>
+          <div className="mt-4">
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Title
+            </label>
+            <input
+              id="title"
+              type="text"
+              name="title"
+              required
+              ref={register({ required: true })}
+              className="mt-1 p-1 pl-4 block w-full sm:text-md border-gray-300 border rounded-md"
+            />
+          </div>
+          <div className="mt-4">
+            <Select
+              isMulti
+              placeholder="Billings"
+              options={billings}
+              value={selectedBillings}
+              onChange={(values) => {
+                setSelectedBillings(values.map((e) => e));
+              }}
+            />
+          </div>
+
+          <div className="mt-4">
+            <Select
+              isMulti
+              placeholder="Supplies"
+              options={supplies}
+              value={selectedSupplies}
+              onChange={(values) => {
+                setSelectedSupplies(values.map((e) => e));
+              }}
+            />
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor="active"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Status
+            </label>
+            <select
+              required
+              name="active"
+              ref={register({ required: true })}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value={"true"}>Active</option>
+              <option value={"false"}>Inactive</option>
+            </select>
+          </div>
+          <div className="mt-4">
+            {error && <p className="text-red-600">Error: {error.message}</p>}
+          </div>
+          <div className="flex space-x-5">
+            <button
+              type="button"
+              onClick={handleSubmit(onUpdateSubmit)}
+              className="inline-flex justify-center w-full py-2 px-4 mt-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-600 focus:outline-none"
+            >
+              <span className="ml-2">Update</span>
             </button>
           </div>
-          <form>
-            <p className="text-2xl font-extrabold tracking-wider">
-              Update Surgical Procedure
-            </p>
-            <div className="mt-4">
-              <label
-                htmlFor="title"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Title
-              </label>
-              <input
-                id="title"
-                type="text"
-                name="title"
-                required
-                ref={register({ required: true })}
-                className="mt-1 p-1 pl-4 block w-full sm:text-md border-gray-300 border rounded-md"
-              />
-            </div>
-            <div className="mt-4">
-              <Select
-                isMulti
-                placeholder="Billings"
-                options={billings}
-                value={selectedBillings}
-                onChange={(values) => {
-                  setSelectedBillings(values.map((e) => e));
-                }}
-              />
-            </div>
-
-            <div className="mt-4">
-              <Select
-                isMulti
-                placeholder="Supplies"
-                options={supplies}
-                value={selectedSupplies}
-                onChange={(values) => {
-                  setSelectedSupplies(values.map((e) => e));
-                }}
-              />
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="active"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Status
-              </label>
-              <select
-                required
-                name="active"
-                ref={register({ required: true })}
-                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              >
-                <option value={"true"}>Active</option>
-                <option value={"false"}>Inactive</option>
-              </select>
-            </div>
-            <div className="mt-4">
-              {error && <p className="text-red-600">Error: {error.message}</p>}
-            </div>
-            <div className="flex space-x-5">
-              <button
-                type="button"
-                onClick={handleSubmit(onUpdateSubmit)}
-                className="inline-flex justify-center w-full py-2 px-4 mt-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-600 focus:outline-none"
-              >
-                <span className="ml-2">Update</span>
-              </button>
-            </div>
-          </form>
-        </div>
+        </form>
       </div>
-    );
-  };
+    </div>
+  );
+};

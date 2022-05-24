@@ -28,7 +28,7 @@ import {
   Query,
   QueryTreatmentArgs,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import useExitPrompt from "../../useExitPrompt";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 
@@ -66,7 +66,7 @@ export const TreatmentObjectivePage: React.FC<Props> = ({ patientChartId }) => {
   const [modified, setModified] = useState<boolean>(false);
   const [showExitPrompt, setShowExitPrompt] = useExitPrompt(false);
   const { patientChartLocked } = React.useContext<any>(AppointmentContext);
-  
+
   const { register, getValues, reset } = useForm<TreatmentInput>();
 
   const { data, refetch } = useQuery<Query, QueryTreatmentArgs>(GET_TREATMENT, {

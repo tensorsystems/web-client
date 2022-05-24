@@ -24,9 +24,9 @@ import {
   MutationSaveLabTypeArgs,
   Query,
   QueryBillingsArgs,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import Select from "react-select";
-import { BILLINGS } from "../../../api";
+import { BILLINGS } from "@tensoremr/api";
 
 const SAVE_LAB_TYPE = gql`
   mutation SaveLabType($input: LabTypeInput!) {

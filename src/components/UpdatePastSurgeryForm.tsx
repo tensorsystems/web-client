@@ -20,8 +20,13 @@ import { gql, useMutation } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { PastSurgery, PastSurgeryUpdateInput, MutationUpdatePastSurgeryArgs, Maybe } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import {
+  PastSurgery,
+  PastSurgeryUpdateInput,
+  MutationUpdatePastSurgeryArgs,
+  Maybe,
+} from "../models/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { formatDate } from "../util";
 
 const UPDATE_PAST_SURGERY = gql`

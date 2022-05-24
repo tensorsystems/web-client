@@ -17,15 +17,15 @@
 */
 
 import { gql, useMutation, useQuery } from "@apollo/client";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   Mutation,
   MutationUpdatePatientEncounterLimitArgs,
   PaginationInput,
   Query,
   QueryPatientEncounterLimitsArgs,
-} from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+} from "@tensoremr/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 import cn from "classnames";
 
 export const PATIENT_ENCOUNTER_LIMITS = gql`

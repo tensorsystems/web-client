@@ -18,7 +18,7 @@
 
 import { gql, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { MutationCreatePharmacyArgs, PharmacyInput } from "../../../models/models";
+import { MutationCreatePharmacyArgs, PharmacyInput } from "@tensoremr/models";
 
 const SAVE_PHARMACY = gql`
   mutation SavePharmacy($input: PharmacyInput!) {

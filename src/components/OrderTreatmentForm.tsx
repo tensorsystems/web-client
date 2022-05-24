@@ -16,11 +16,15 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { gql, useMutation } from '@apollo/client';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { MutationOrderTreatmentArgs, OrderTreatmentInput, TreatmentType } from '../models/models';
-import { useNotificationDispatch } from '../notification';
+import { gql, useMutation } from "@apollo/client";
+import React from "react";
+import { useForm } from "react-hook-form";
+import {
+  MutationOrderTreatmentArgs,
+  OrderTreatmentInput,
+  TreatmentType,
+} from "../models/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const ORDER_TREATMENT = gql`
   mutation OrderTreatment($input: OrderTreatmentInput!) {
@@ -29,7 +33,6 @@ const ORDER_TREATMENT = gql`
     }
   }
 `;
-
 
 interface Props {
   treatmentType: TreatmentType | undefined;

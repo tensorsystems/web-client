@@ -18,7 +18,7 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { CompleteMedicalPrescriptionOrder } from "../components/CompleteMedicalPrescriptionOrder";
 import { PharmacyOrdersList } from "../components/PharmacyOrdersList";
 import { PrescriptionOrdersToolbar } from "../components/PrescriptionOrdersToolbar";
@@ -28,7 +28,7 @@ import {
   Query,
   QuerySearchMedicationPrescriptionOrdersArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const SEARCH_MEDICAL_PRESCRIPTION_ORDERS = gql`
   query SearchMedicationPrescriptionOrders(

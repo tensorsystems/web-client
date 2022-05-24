@@ -20,8 +20,14 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { Maybe } from "graphql/jsutils/Maybe";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { PastIllness, PastIllnessUpdateInput, QueryPastIllnessTypesArgs, MutationUpdatePastIllnessArgs, Query } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import {
+  PastIllness,
+  PastIllnessUpdateInput,
+  QueryPastIllnessTypesArgs,
+  MutationUpdatePastIllnessArgs,
+  Query,
+} from "../models/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const GET_PAST_ILLNESS_TYPES = gql`
   query PastIllnessTypes($page: PaginationInput!) {

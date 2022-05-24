@@ -19,14 +19,14 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import React from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { OrderReferralForm } from "../../components/OrderReferralForm";
 import {
   MutationDeleteReferralArgs,
   Query,
   QueryReferralOrderArgs,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const GET_REFERRAL_ORDER = gql`
   query ReferralOrder($patientChartId: ID!) {

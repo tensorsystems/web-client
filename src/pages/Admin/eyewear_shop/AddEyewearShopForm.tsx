@@ -19,8 +19,11 @@
 import { gql, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import React from "react";
-import { EyewearShopInput, MutationCreatePharmacyArgs } from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
+import {
+  EyewearShopInput,
+  MutationCreatePharmacyArgs,
+} from "@tensoremr/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const SAVE_EYEWEAR_SHOP = gql`
   mutation CreateEyewear($input: EyewearShopInput!) {
@@ -90,7 +93,9 @@ export const AddEyewearShopForm: React.FC<Props> = (props: Props) => {
           </button>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <p className="text-2xl font-extrabold tracking-wider">Add Eyewear Shop</p>
+          <p className="text-2xl font-extrabold tracking-wider">
+            Add Eyewear Shop
+          </p>
           <div className="mt-4">
             <label
               htmlFor="title"

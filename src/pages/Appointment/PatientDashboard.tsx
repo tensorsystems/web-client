@@ -20,7 +20,7 @@ import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import classnames from "classnames";
 import { format, isSameDay, parseISO } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import AccordionItem from "../../components/AccordionItem";
 import AllPatientDocuments from "../../components/AllPatientDocuments";
 import {
@@ -371,7 +371,7 @@ export const PatientDashboard: React.FC<{
     appointment?.patient.documents?.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
@@ -388,7 +388,7 @@ export const PatientDashboard: React.FC<{
     ? {
         id: appointment?.patient.paperRecordDocument?.id,
         fileUrl: getFileUrl({
-           // @ts-ignore
+          // @ts-ignore
           baseUrl: process.env.REACT_APP_SERVER_URL,
           fileName: appointment?.patient.paperRecordDocument?.fileName ?? "",
           hash: appointment?.patient.paperRecordDocument?.hash ?? "",

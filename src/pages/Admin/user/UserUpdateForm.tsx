@@ -18,18 +18,18 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useNotificationDispatch } from "../../../notification";
 import {
-  FileUploader,
-  FileUploaderComponent,
-} from "../../../components/FileUploaderComponent";
+  useNotificationDispatch,
+  IFileUploader,
+  FileUploader
+} from "@tensoremr/components";
 import {
   MutationResetPasswordArgs,
   MutationUpdateUserArgs,
   User,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import { gql, useMutation } from "@apollo/client";
-import { getFileUrl } from "../../../util";
+import { getFileUrl } from "@tensoremr/util";
 
 const UPDATE_USER = gql`
   mutation UpdateUser($input: UserUpdateInput!) {
@@ -60,8 +60,8 @@ export const UserUpdateForm: React.FC<Props> = ({
 }) => {
   const notifDispatch = useNotificationDispatch();
   const [userTypes, setUserTypes] = useState([]);
-  const [signatures, setSignatures] = useState<Array<FileUploader>>();
-  const [profilePictures, setProfilePictures] = useState<Array<FileUploader>>();
+  const [signatures, setSignatures] = useState<Array<IFileUploader>>();
+  const [profilePictures, setProfilePictures] = useState<Array<IFileUploader>>();
   const { register, handleSubmit, watch, reset } = useForm<any>();
   const password = useRef({});
   password.current = watch("password", "");
@@ -79,7 +79,7 @@ export const UserUpdateForm: React.FC<Props> = ({
       const sig = {
         id: values?.signature.id,
         fileUrl: getFileUrl({
-           // @ts-ignore
+          // @ts-ignore
           baseUrl: process.env.REACT_APP_SERVER_URL,
           fileName: values?.signature.fileName,
           hash: values?.signature.hash,
@@ -98,7 +98,7 @@ export const UserUpdateForm: React.FC<Props> = ({
       const profilePic = {
         id: values?.profilePic.id,
         fileUrl: getFileUrl({
-           // @ts-ignore
+          // @ts-ignore
           baseUrl: process.env.REACT_APP_SERVER_URL,
           fileName: values?.profilePic.fileName,
           hash: values?.profilePic.hash,
@@ -149,7 +149,7 @@ export const UserUpdateForm: React.FC<Props> = ({
   );
 
   useEffect(() => {
-     // @ts-ignore
+    // @ts-ignore
     fetch(`${process.env.REACT_APP_SERVER_URL}/userTypes`, {
       method: "GET",
     })
@@ -201,11 +201,11 @@ export const UserUpdateForm: React.FC<Props> = ({
     });
   };
 
-  const handleSignatureChange = (change: Array<FileUploader>) => {
+  const handleSignatureChange = (change: Array<IFileUploader>) => {
     setSignatures(change);
   };
 
-  const handleProfilePictureChange = (change: Array<FileUploader>) => {
+  const handleProfilePictureChange = (change: Array<IFileUploader>) => {
     setProfilePictures(change);
   };
 
@@ -361,7 +361,7 @@ export const UserUpdateForm: React.FC<Props> = ({
               <label className="block text-sm font-medium text-gray-700 mt-5">
                 Your signature
               </label>
-              <FileUploaderComponent
+              <FileUploader
                 multiSelect={false}
                 accept={"image"}
                 values={signatures}
@@ -374,7 +374,7 @@ export const UserUpdateForm: React.FC<Props> = ({
               <label className="block text-sm font-medium text-gray-700">
                 Profile Picture
               </label>
-              <FileUploaderComponent
+              <FileUploader
                 multiSelect={false}
                 accept={"image"}
                 values={profilePictures}

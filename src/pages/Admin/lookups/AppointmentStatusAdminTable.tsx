@@ -19,7 +19,11 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 import {
   Query,
   PaginationInput,
@@ -31,9 +35,7 @@ import {
   AppointmentStatus,
   MutationUpdateAppointmentStatusArgs,
   MutationDeleteAppointmentStatusArgs,
-} from "../../../models/models";
-import { useNotificationDispatch } from "../../../notification";
-import { TablePagination } from "../../../components/TablePagination";
+} from "@tensoremr/models";
 
 const APPOINTMENT_STATUSES = gql`
   query AppointmentStatuses($page: PaginationInput!) {

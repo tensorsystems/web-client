@@ -34,13 +34,12 @@ import { PupilsComponent } from "../../components/PupilsComponent";
 import { SlitLampExamComponent } from "../../components/SlitLampExamComponent";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import useExitPrompt from "../../useExitPrompt";
 import _ from "lodash";
 import ReactLoading from "react-loading";
 
 const AUTO_SAVE_INTERVAL = 1000;
-
 
 const GET_OPTHALMOLOGY_EXAM = gql`
   query OpthalmologyExam($filter: OphthalmologyExamFilter!) {

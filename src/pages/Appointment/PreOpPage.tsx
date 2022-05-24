@@ -28,7 +28,7 @@ import {
   QuerySurgicalProcedureArgs,
   SurgicalProcedureInput,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import useExitPrompt from "../../useExitPrompt";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 

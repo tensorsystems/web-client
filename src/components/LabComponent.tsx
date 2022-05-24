@@ -34,7 +34,7 @@ import {
   LabStatus,
   MutationDeleteLabImageArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import useExitPrompt from "../useExitPrompt";
 import classnames from "classnames";
 import { getFileUrl } from "../util";
@@ -361,7 +361,7 @@ export const LabComponent: React.FC<Props> = ({
     values?.images.map((e) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName ?? "",
         hash: e?.hash ?? "",
@@ -377,7 +377,7 @@ export const LabComponent: React.FC<Props> = ({
     values?.documents.map((e) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName ?? "",
         hash: e?.hash ?? "",
@@ -402,7 +402,7 @@ export const LabComponent: React.FC<Props> = ({
       const incomingImages = data.updateLab.images.map((e: any) => ({
         id: e?.id,
         fileUrl: getFileUrl({
-           // @ts-ignore
+          // @ts-ignore
           baseUrl: process.env.REACT_APP_SERVER_URL,
           fileName: e?.fileName,
           hash: e?.hash,
@@ -419,7 +419,7 @@ export const LabComponent: React.FC<Props> = ({
       const incomingDocuments = data.updateLab.documents.map((e: any) => ({
         id: e?.id,
         fileUrl: getFileUrl({
-           // @ts-ignore
+          // @ts-ignore
           baseUrl: process.env.REACT_APP_SERVER_URL,
           fileName: e?.fileName,
           hash: e?.hash,

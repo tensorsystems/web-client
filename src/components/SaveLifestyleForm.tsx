@@ -19,8 +19,13 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { LifestyleInput, MutationSaveLifestyleArgs, Query, QueryLifestyleTypesArgs } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import {
+  LifestyleInput,
+  MutationSaveLifestyleArgs,
+  Query,
+  QueryLifestyleTypesArgs,
+} from "../models/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const SAVE_LIFESTYLE = gql`
   mutation SaveLifestyle($input: LifestyleInput!) {

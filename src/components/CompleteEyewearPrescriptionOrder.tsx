@@ -27,7 +27,7 @@ import {
   Query,
   QueryAppointmentArgs,
 } from "../models/models";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import EyewearPrescriptionPrint from "./EyewearPrescriptionPrint";
 
 const GET_DATA = gql`

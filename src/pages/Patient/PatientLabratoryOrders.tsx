@@ -20,7 +20,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import gql from "graphql-tag";
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "../../bottomsheet";
+import { useBottomSheetDispatch } from "@tensoremr/components";
 import { TablePagination } from "../../components/TablePagination";
 import {
   LabOrder,
@@ -31,7 +31,7 @@ import {
   Query,
   QuerySearchLabOrdersArgs,
 } from "../../models/models";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import cn from "classnames";
 import { CompleteLabOrderForm } from "../../components/CompleteLabOrderForm";
 import { PlusCircleIcon } from "@heroicons/react/outline";

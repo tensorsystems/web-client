@@ -18,17 +18,19 @@
 
 import React, { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
 import classnames from "classnames";
-import { useNotificationDispatch } from "../../../notification";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 import {
   Maybe,
   PaginationInput,
   Query,
   QueryUsersArgs,
   UserEdge,
-} from "../../../models/models";
-import { TablePagination } from "../../../components/TablePagination";
+} from "@tensoremr/models";
 import { UserRegistrationForm } from "./UserRegistrationForm";
 import { UserUpdateForm } from "./UserUpdateForm";
 

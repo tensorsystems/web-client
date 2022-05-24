@@ -37,7 +37,7 @@ import {
   BookmarkIcon as BookmarkOutlineIcon,
   StarIcon as StarOutlineIcon,
 } from "@heroicons/react/outline";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { AppointmentContext } from "../_context/AppointmentContext";
 
 const GET_DATA = gql`

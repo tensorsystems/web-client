@@ -20,13 +20,13 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
-import { BILLINGS } from "../../../api";
+import { BILLINGS } from "@tensoremr/api";
 import {
   DiagnosticProcedureTypeInput,
   MutationSaveDiagnosticProcedureTypeArgs,
   Query,
   QueryBillingsArgs,
-} from "../../../models/models";
+} from "@tensoremr/models";
 
 const SAVE_DIAGNOSTIC_PROCEDURE_TYPE = gql`
   mutation SaveDiagnosticProcedureType($input: DiagnosticProcedureTypeInput!) {

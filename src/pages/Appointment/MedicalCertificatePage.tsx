@@ -31,7 +31,7 @@ import { format, parseISO } from "date-fns";
 import { useForm } from "react-hook-form";
 import useExitPrompt from "../../useExitPrompt";
 import _ from "lodash";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { Prompt } from "react-router-dom";
 import { getPatientAge } from "../../util";
 
@@ -276,7 +276,7 @@ export const MedicalCertificatePage: React.FC<{
 
         <div className="bg-white p-6 " ref={componentRef}>
           <PrintFileHeader
-           // @ts-ignore
+            // @ts-ignore
             qrUrl={`http://${process.env.REACT_APP_SERVER_URL}/#/appointments/${appointment.id}/patient-dashboard`}
           />
 

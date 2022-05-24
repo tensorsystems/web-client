@@ -20,7 +20,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MutationUpdatePatientChartArgs, PatientChart } from "../models/models";
 import { AppointmentContext } from "../_context/AppointmentContext";
-import { useNotificationDispatch } from "../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 import { gql, useMutation } from "@apollo/client";
 import useExitPrompt from "../useExitPrompt";
 import { Prompt } from "react-router-dom";
@@ -95,8 +95,8 @@ export const OtherVitalsForm: React.FC<Props> = ({
         if (patientChartId !== undefined && !isEmpty) {
           const input = {
             ...data,
-            id: patientChartId
-          }
+            id: patientChartId,
+          };
 
           updatePatientChart({
             variables: {

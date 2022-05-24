@@ -19,7 +19,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
-import { useNotificationDispatch } from "../../notification";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 import { useForm } from "react-hook-form";
 import { ChiefComplaintTypes } from "../../components/ChiefComplaintTypes";

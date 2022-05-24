@@ -18,9 +18,7 @@
 
 import React, { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch } from "../../../bottomsheet";
-import { TablePagination } from "../../../components/TablePagination";
-import { useNotificationDispatch } from "../../../notification";
+import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
 import classnames from "classnames";
 import {
   LabTypeEdge,
@@ -28,7 +26,7 @@ import {
   PaginationInput,
   Query,
   QueryLabTypesArgs,
-} from "../../../models/models";
+} from "@tensoremr/models";
 import { UpdateLabTypeForm } from "./UpdateLabTypeForm";
 import { AddLabTypeForm } from "./AddLabTypeForm";
 
