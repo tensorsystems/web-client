@@ -1,25 +1,23 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
+import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import css from "rollup-plugin-import-css";
-import svgr from '@svgr/rollup';
-import image from '@rollup/plugin-image';
 
 const packageJson = require("./package.json");
 
 export default [
     {
-        input: "src/index.tsx",
+        input: "src/index.ts",
         output: [
             {
-                dir: packageJson.main,
+                file: packageJson.main,
                 format: "cjs",
                 sourcemap: true,
             },
             {
-                dir: packageJson.module,
+                file: packageJson.module,
                 format: "esm",
                 sourcemap: true,
             },
@@ -30,10 +28,12 @@ export default [
             commonjs(),
             typescript({ tsconfig: "./tsconfig.json" }),
             terser(),
-            css(),
-            svgr(),
-            image(),
         ],
         external: ["react", "react-dom"]
+    },
+    {
+        input: "dist/esm/types/index.d.ts",
+        output: [{ file: "dist/index.d.ts", format: "esm" }],
+        plugins: [dts()],
     },
 ];

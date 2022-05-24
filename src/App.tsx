@@ -33,7 +33,6 @@ import "./App_styles.css";
 import { Transition } from "@headlessui/react";
 import classnames from "classnames";
 
-
 const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
     isLoggedIn @client
