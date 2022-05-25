@@ -29,7 +29,7 @@ export default [
             typescript({ tsconfig: "./tsconfig.json" }),
             terser(),
         ],
-        external: ["react", "react-dom"]
+        external: Object.keys(packageJson.peerDependencies)
     },
     {
         input: "dist/esm/types/index.d.ts",

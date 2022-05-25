@@ -320,7 +320,6 @@ export const HomePage: React.FC = () => {
                   </Route>
                   <Route path="/admin">
                     <AdminHome
-                      history={history}
                       matchUrl={match.url}
                       location={`${history.location.pathname}${location.search}`}
                     />

@@ -22,7 +22,6 @@ import {
   Route,
   Switch,
   useRouteMatch,
-  Router,
 } from "react-router-dom";
 import { BillingsAdmin } from "./billing";
 import { DiagnosticProcedureTypePage } from "./diagnostic_procedure";
@@ -53,84 +52,76 @@ export const GET_NOTIFS = gql`
 interface AdminHomeProps {
   matchUrl: string;
   location: string;
-  history: any;
 }
 
-export const AdminHome: React.FC<AdminHomeProps> = ({
-  matchUrl,
-  location,
-  history,
-}) => {
+export const AdminHome: React.FC<AdminHomeProps> = ({ matchUrl, location }) => {
   const match = useRouteMatch();
 
   return (
-    <Router history={history}>
-      <div className="flex space-x-3">
-        <div className="flex-initial">
-          <SideNav matchUrl={matchUrl} location={location} history={history} />
-        </div>
-
-        <div className="flex-1">
-          <Switch>
-            <Route path={`${match.path}/organization-details`}>
-              <OrganizationDetails />
-            </Route>
-            <Route path={`${match.path}/user-admin`}>
-              <UserAdminPage />
-            </Route>
-            <Route path={`${match.path}/payment-waiver`}>
-              <PaymentWaiversPage />
-            </Route>
-            <Route path={`${match.path}/patient-encounter-limit`}>
-              <PatientEncounterLimitPage />
-            </Route>
-            <Route path={`${match.path}/billings`}>
-              <BillingsAdmin />
-            </Route>
-            <Route path={`${match.path}/hpi`}>
-              <HpiPage />
-            </Route>
-            <Route path={`${match.path}/diagnostic-procedures`}>
-              <DiagnosticProcedureTypePage />
-            </Route>
-            <Route path={`${match.path}/surgical-procedures`}>
-              <SurgicalProcedureTypesPage />
-            </Route>
-            <Route path={`${match.path}/treatment-types`}>
-              <TreatmentTypePage />
-            </Route>
-            <Route path={`${match.path}/labratory-types`}>
-              <LabTypePage />
-            </Route>
-            <Route path={`${match.path}/supplies`}>
-              <SupplyPage />
-            </Route>
-            <Route path={`${match.path}/pharmacies`}>
-              <PharmacyAdminPage />
-            </Route>
-            <Route path={`${match.path}/eyewear-shops`}>
-              <EyewearShopAdminPage />
-            </Route>
-            <Route path={`${match.path}/lookups`}>
-              <LookupsAdminPage />
-            </Route>
-            <Route path={`${match.path}`}>
-              <Redirect to={`${match.path}/organization-details`} />
-            </Route>
-          </Switch>
-        </div>
+    <div className="flex space-x-3">
+      <div className="flex-initial">
+        <SideNav matchUrl={matchUrl} location={location} />
       </div>
-    </Router>
+
+      <div className="flex-1">
+        <Switch>
+          <Route path={`${match.path}/organization-details`}>
+            <OrganizationDetails />
+          </Route>
+          <Route path={`${match.path}/user-admin`}>
+            <UserAdminPage />
+          </Route>
+          <Route path={`${match.path}/payment-waiver`}>
+            <PaymentWaiversPage />
+          </Route>
+          <Route path={`${match.path}/patient-encounter-limit`}>
+            <PatientEncounterLimitPage />
+          </Route>
+          <Route path={`${match.path}/billings`}>
+            <BillingsAdmin />
+          </Route>
+          <Route path={`${match.path}/hpi`}>
+            <HpiPage />
+          </Route>
+          <Route path={`${match.path}/diagnostic-procedures`}>
+            <DiagnosticProcedureTypePage />
+          </Route>
+          <Route path={`${match.path}/surgical-procedures`}>
+            <SurgicalProcedureTypesPage />
+          </Route>
+          <Route path={`${match.path}/treatment-types`}>
+            <TreatmentTypePage />
+          </Route>
+          <Route path={`${match.path}/labratory-types`}>
+            <LabTypePage />
+          </Route>
+          <Route path={`${match.path}/supplies`}>
+            <SupplyPage />
+          </Route>
+          <Route path={`${match.path}/pharmacies`}>
+            <PharmacyAdminPage />
+          </Route>
+          <Route path={`${match.path}/eyewear-shops`}>
+            <EyewearShopAdminPage />
+          </Route>
+          <Route path={`${match.path}/lookups`}>
+            <LookupsAdminPage />
+          </Route>
+          <Route path={`${match.path}`}>
+            <Redirect to={`${match.path}/organization-details`} />
+          </Route>
+        </Switch>
+      </div>
+    </div>
   );
 };
 
 interface SideNavProps {
   matchUrl: string;
   location: string;
-  history: any;
 }
 
-const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
+const SideNav: React.FC<SideNavProps> = ({ matchUrl, location }) => {
   const { data } = useQuery<Query>(GET_NOTIFS);
 
   return (
@@ -143,7 +134,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
 
       <NavItem
@@ -154,7 +144,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
 
       <NavItem
@@ -165,7 +154,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
 
       <NavItem
@@ -177,7 +165,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         notifs={data?.notifs.paymentWaivers}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
 
       <NavItem
@@ -188,7 +175,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
 
       <NavItem
@@ -199,7 +185,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
 
       <NavItem
@@ -210,7 +195,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
       <NavItem
         route="diagnostic-procedures"
@@ -220,7 +204,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
       <NavItem
         route="surgical-procedures"
@@ -230,7 +213,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
       <NavItem
         route="treatment-types"
@@ -240,7 +222,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
       <NavItem
         route="labratory-types"
@@ -250,7 +231,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
       <NavItem
         route="supplies"
@@ -260,7 +240,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
 
       <NavItem
@@ -271,7 +250,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
       <NavItem
         route="eyewear-shops"
@@ -281,7 +259,6 @@ const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
         subItem={false}
         matchUrl={"/admin"}
         location={location}
-        history={history}
       />
     </div>
   );

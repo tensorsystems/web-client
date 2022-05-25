@@ -77,7 +77,8 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "."
+      ".",
+      "src/pages/admin"
     ]
   },
   "devDependencies": {

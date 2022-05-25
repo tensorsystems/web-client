@@ -29,7 +29,7 @@ export default [
             commonjs(),
             typescript({ tsconfig: "./tsconfig.json" }),
             postcss({
-                //minimize: true,
+                // minimize: true,
                 extract: true,
                 config: {
                     path: './postcss.config.js'
@@ -37,7 +37,7 @@ export default [
             }),
             terser(),
         ],
-        external: ["react", "react-dom"]
+        external: Object.keys(packageJson.peerDependencies)
     },
     {
         input: "dist/esm/types/index.d.ts",
