@@ -35,6 +35,7 @@ import {
   Switch,
   useHistory,
   useLocation,
+  useRouteMatch,
 } from "react-router-dom";
 
 import { HomePages } from "../pages";
@@ -61,6 +62,7 @@ import FollowUpOrdersPage from "./FollowUpOrdersPage";
 
 export const HomePage: React.FC = () => {
   const history = useHistory();
+  const match = useRouteMatch();
   const location = useLocation();
 
   const [pages, setPages] = useState<Array<Page>>([HomePages[0]]);
@@ -317,7 +319,11 @@ export const HomePage: React.FC = () => {
                     <PatientQueuePage />
                   </Route>
                   <Route path="/admin">
-                    <AdminHome />
+                    <AdminHome
+                      history={history}
+                      matchUrl={match.url}
+                      location={`${history.location.pathname}${location.search}`}
+                    />
                   </Route>
                   <Route>
                     <Component404 />

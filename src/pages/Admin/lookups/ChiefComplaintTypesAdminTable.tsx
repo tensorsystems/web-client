@@ -19,7 +19,11 @@
 import React, { useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 import {
   Query,
   PaginationInput,

@@ -16,11 +16,16 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { gql, useMutation } from '@apollo/client';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Billing, BillingInput, MutationUpdateBillingArgs, MutationDeleteBillingArgs } from '@tensoremr/models';
-import { useNotificationDispatch } from '@tensoremr/components';
+import { gql, useMutation } from "@apollo/client";
+import React from "react";
+import { useForm } from "react-hook-form";
+import {
+  Billing,
+  BillingInput,
+  MutationUpdateBillingArgs,
+  MutationDeleteBillingArgs,
+} from "@tensoremr/models";
+import { useNotificationDispatch } from "@tensoremr/components";
 
 const UPDATE_BILLING = gql`
   mutation UpdateBilling($input: BillingInput!, $id: ID!) {

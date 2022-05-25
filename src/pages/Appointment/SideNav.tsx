@@ -25,6 +25,8 @@ interface Props {
   medicalDepartment: "General Medicine" | "Ophthalmology";
   userType: string;
   locked?: boolean;
+  matchUrl: string;
+  location: string;
 }
 
 export const SideNav: React.FC<Props> = ({
@@ -32,15 +34,19 @@ export const SideNav: React.FC<Props> = ({
   medicalDepartment,
   userType,
   locked,
+  matchUrl,
+  location,
 }) => {
   const { search } = useLocation();
-
+  
   return (
     <div className="bg-white rounded-lg py-2 px-2 shadow-lg">
       <NavItem
         route={`patient-dashboard${search}`}
         label="Patient Dashboard"
         icon="dashboard"
+        matchUrl={matchUrl}
+        location={location}
         subItem={false}
       />
 
@@ -50,6 +56,8 @@ export const SideNav: React.FC<Props> = ({
         route="subjective"
         label="Subjective"
         status={locked ? "locked" : "pending_actions"}
+        matchUrl={matchUrl}
+        location={location}
         subItem={false}
         disabled={true}
       />
@@ -58,6 +66,8 @@ export const SideNav: React.FC<Props> = ({
         route={`history${search}`}
         label="History"
         icon="history"
+        matchUrl={matchUrl}
+        location={location}
         subItem={true}
         status={"locked"}
         disabled={userType === "Receptionist"}
@@ -68,6 +78,8 @@ export const SideNav: React.FC<Props> = ({
           route={`chief-complaints${search}`}
           label="Chief Complaints"
           icon="format_list_bulleted"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -78,6 +90,8 @@ export const SideNav: React.FC<Props> = ({
           route={`ros${search}`}
           label="Review of Systems"
           icon="accessibility"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -87,6 +101,8 @@ export const SideNav: React.FC<Props> = ({
         route={`past-medications-allergies${search}`}
         label="Past Med & Allergies"
         icon="local_pharmacy"
+        matchUrl={matchUrl}
+        location={location}
         subItem={true}
         disabled={userType === "Receptionist"}
       />
@@ -95,6 +111,8 @@ export const SideNav: React.FC<Props> = ({
         route="objective"
         label="Objective"
         status={locked ? "locked" : "pending_actions"}
+        matchUrl={matchUrl}
+        location={location}
         subItem={false}
         disabled={true}
       />
@@ -103,6 +121,8 @@ export const SideNav: React.FC<Props> = ({
         route={`vital-signs${search}`}
         label="Vital Signs"
         icon="show_chart"
+        matchUrl={matchUrl}
+        location={location}
         subItem={true}
         disabled={userType === "Receptionist"}
       />
@@ -112,6 +132,8 @@ export const SideNav: React.FC<Props> = ({
           route={`examination${search}`}
           label="Physical Examination"
           icon="find_in_page"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -122,6 +144,8 @@ export const SideNav: React.FC<Props> = ({
           route={`diagnostics${search}`}
           label="Diagnostic Procedure"
           icon="airline_seat_recline_normal"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -132,6 +156,8 @@ export const SideNav: React.FC<Props> = ({
           route={`labratory${search}`}
           label="Labratory"
           icon="biotech"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -142,6 +168,8 @@ export const SideNav: React.FC<Props> = ({
           route={`pre-op${search}`}
           label="Pre-Operation"
           icon="format_list_numbered"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -152,6 +180,8 @@ export const SideNav: React.FC<Props> = ({
           route={`pre-anesthetic${search}`}
           label="Preanesthetic Evaluation"
           icon="verified"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -162,6 +192,8 @@ export const SideNav: React.FC<Props> = ({
           route={`intra-op${search}`}
           label="Intra-Operation"
           icon="airline_seat_flat"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -172,6 +204,8 @@ export const SideNav: React.FC<Props> = ({
           route={`tx-objective${search}`}
           label="Treatment"
           icon="healing"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -181,6 +215,8 @@ export const SideNav: React.FC<Props> = ({
         route="assessment"
         label="Assessment"
         status={locked ? "locked" : "pending_actions"}
+        matchUrl={matchUrl}
+        location={location}
         subItem={false}
         disabled={true}
       />
@@ -189,6 +225,8 @@ export const SideNav: React.FC<Props> = ({
         route={`diagnosis${search}`}
         label="Diagnosis"
         icon="fact_check"
+        matchUrl={matchUrl}
+        location={location}
         subItem={true}
         disabled={userType === "Receptionist"}
       />
@@ -197,6 +235,8 @@ export const SideNav: React.FC<Props> = ({
         route={`differential-diagnosis${search}`}
         label="Differential Diagnosis"
         icon="live_help"
+        matchUrl={matchUrl}
+        location={location}
         subItem={true}
         disabled={userType === "Receptionist"}
       />
@@ -205,6 +245,8 @@ export const SideNav: React.FC<Props> = ({
         route="plan"
         label="Plan"
         status={locked ? "locked" : "pending_actions"}
+        matchUrl={matchUrl}
+        location={location}
         subItem={false}
         disabled={true}
       />
@@ -214,6 +256,8 @@ export const SideNav: React.FC<Props> = ({
           route={`surgery${search}`}
           label="Surgery"
           icon="airline_seat_flat"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -224,6 +268,8 @@ export const SideNav: React.FC<Props> = ({
           route={`tx-plan${search}`}
           label="Treatments"
           icon="healing"
+          matchUrl={matchUrl}
+          location={location}
           subItem={true}
           disabled={userType === "Receptionist"}
         />
@@ -233,6 +279,8 @@ export const SideNav: React.FC<Props> = ({
         route={`rx${search}`}
         label="eRx"
         icon="local_pharmacy"
+        matchUrl={matchUrl}
+        location={location}
         subItem={true}
         disabled={userType === "Receptionist"}
       />
@@ -241,6 +289,8 @@ export const SideNav: React.FC<Props> = ({
         route={`follow-up${search}`}
         label="Follow-Ups"
         icon="next_plan"
+        matchUrl={matchUrl}
+        location={location}
         subItem={true}
         disabled={userType === "Receptionist"}
       />
@@ -249,6 +299,8 @@ export const SideNav: React.FC<Props> = ({
         route={`referral${search}`}
         label="Referral"
         icon="send"
+        matchUrl={matchUrl}
+        location={location}
         subItem={true}
         disabled={userType === "Receptionist"}
       />
@@ -260,6 +312,8 @@ export const SideNav: React.FC<Props> = ({
         label="Medical Certificate"
         icon="receipt_long"
         status={"locked"}
+        matchUrl={matchUrl}
+        location={location}
         subItem={false}
         disabled={userType === "Receptionist"}
       />
@@ -269,6 +323,8 @@ export const SideNav: React.FC<Props> = ({
         label="Summary"
         icon="card_membership"
         status={"locked"}
+        matchUrl={matchUrl}
+        location={location}
         subItem={false}
         disabled={userType === "Receptionist"}
       />

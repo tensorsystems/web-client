@@ -31,7 +31,11 @@ import {
   Query,
   QueryExamCategoriesArgs,
 } from "@tensoremr/models";
-import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 
 const EXAM_CATEGORIES = gql`
   query ExamCategories($page: PaginationInput!) {

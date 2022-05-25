@@ -18,7 +18,7 @@
 
 import React from "react";
 import classNames from "classnames";
-import { NavLink } from "react-router-dom";
+import { NavLink, Router } from "react-router-dom";
 
 export const NavItem: React.FC<{
   route: string;
@@ -30,6 +30,7 @@ export const NavItem: React.FC<{
   notifs?: number;
   matchUrl: string;
   location: string;
+  history: any;
   status?: "success" | "pending_actions" | "warning" | "locked";
 }> = ({
   route,
@@ -41,6 +42,7 @@ export const NavItem: React.FC<{
   icon,
   disabled,
   notifs,
+  history,
   status,
 }) => {
   const fullRoute = `${matchUrl}/${route}`;
@@ -70,48 +72,49 @@ export const NavItem: React.FC<{
     }
   }
 
- 
   return (
-    <NavLink
-      to={disabled ? "#" : `${matchUrl}/${route}`}
-      className={classNames({
-        "pointer-events-none": disabled,
-      })}
-      activeClassName="bg-teal-100 text-teal-800"
-    >
-      <div
-        className={classNames("px-3 py-1 rounded-md", {
-          "ml-12": subItem,
-          "bg-teal-100": selected,
-          "text-green-700": completed,
+    <Router history={history}>
+      <NavLink
+        to={disabled ? "#" : `${matchUrl}/${route}`}
+        className={classNames({
+          "pointer-events-none": disabled,
         })}
+        activeClassName="bg-teal-100 text-teal-800"
       >
         <div
-          className={classNames(
-            "font-sans w-full text-left focus:outline-none flex justify-between space-x-3 items-center",
-            {
-              "text-teal-800": selected,
-              "text-gray-700": !selected,
-            }
-          )}
+          className={classNames("px-3 py-1 rounded-md", {
+            "ml-12": subItem,
+            "bg-teal-100": selected,
+            "text-green-700": completed,
+          })}
         >
-          <div className="flex space-x-2 items-center">
-            <BuildIcon />
+          <div
+            className={classNames(
+              "font-sans w-full text-left focus:outline-none flex justify-between space-x-3 items-center",
+              {
+                "text-teal-800": selected,
+                "text-gray-700": !selected,
+              }
+            )}
+          >
+            <div className="flex space-x-2 items-center">
+              <BuildIcon />
 
-            {subItem ? (
-              <p className="text-gray-600">{label}</p>
-            ) : (
-              <p className="text-lg font-semibold">{label}</p>
+              {subItem ? (
+                <p className="text-gray-600">{label}</p>
+              ) : (
+                <p className="text-lg font-semibold">{label}</p>
+              )}
+            </div>
+
+            {notifs !== undefined && notifs > 0 && (
+              <div className="bg-red-500 text-white h-6 w-6 rounded-full flex items-center justify-center shadow-inner">
+                {notifs}
+              </div>
             )}
           </div>
-
-          {notifs !== undefined && notifs > 0 && (
-            <div className="bg-red-500 text-white h-6 w-6 rounded-full flex items-center justify-center shadow-inner">
-              {notifs}
-            </div>
-          )}
         </div>
-      </div>
-    </NavLink>
+      </NavLink>
+    </Router>
   );
 };

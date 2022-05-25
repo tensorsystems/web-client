@@ -17,24 +17,30 @@
 */
 
 import React from "react";
-import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
-import { NavItem } from "../../components/NavItem";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useRouteMatch,
+  Router,
+} from "react-router-dom";
 import { BillingsAdmin } from "./billing";
 import { DiagnosticProcedureTypePage } from "./diagnostic_procedure";
 import { LookupsAdminPage } from "./lookups";
 import { HpiPage } from "./hpi";
 import { LabTypePage } from "./labratory";
-import { SupplyPage } from "./SupplyAdminPage";
+import { SupplyPage } from "./supply_admin";
 import { SurgicalProcedureTypesPage } from "./surgical_procedure";
 import { TreatmentTypePage } from "./treatment";
 import { UserAdminPage } from "./user";
-import { PaymentWaiversPage } from "./PaymentWaiversPage";
+import { PaymentWaiversPage } from "./payment_waivers_page";
 import { gql, useQuery } from "@apollo/client";
-import { Query } from "../../models/models";
-import { PatientEncounterLimitPage } from "./PatientEncounterLimitPage";
+import { Query } from "@tensoremr/models";
+import { PatientEncounterLimitPage } from "./patient_encounter_limit";
 import { PharmacyAdminPage } from "./pharmacy";
 import { EyewearShopAdminPage } from "./eyewear_shop";
-import { OrganizationDetails } from "./OrganizationDetails";
+import { OrganizationDetails } from "./organization_details";
+import { NavItem } from "@tensoremr/components";
 
 export const GET_NOTIFS = gql`
   query GetNotifs {
@@ -44,69 +50,87 @@ export const GET_NOTIFS = gql`
   }
 `;
 
-export const AdminHome: React.FC = () => {
+interface AdminHomeProps {
+  matchUrl: string;
+  location: string;
+  history: any;
+}
+
+export const AdminHome: React.FC<AdminHomeProps> = ({
+  matchUrl,
+  location,
+  history,
+}) => {
   const match = useRouteMatch();
 
   return (
-    <div className="flex space-x-3">
-      <div className="flex-initial">
-        <SideNav />
-      </div>
+    <Router history={history}>
+      <div className="flex space-x-3">
+        <div className="flex-initial">
+          <SideNav matchUrl={matchUrl} location={location} history={history} />
+        </div>
 
-      <div className="flex-1">
-        <Switch>
-          <Route path={`${match.path}/organization-details`}>
-            <OrganizationDetails />
-          </Route>
-          <Route path={`${match.path}/user-admin`}>
-            <UserAdminPage />
-          </Route>
-          <Route path={`${match.path}/payment-waiver`}>
-            <PaymentWaiversPage />
-          </Route>
-          <Route path={`${match.path}/patient-encounter-limit`}>
-            <PatientEncounterLimitPage />
-          </Route>
-          <Route path={`${match.path}/billings`}>
-            <BillingsAdmin />
-          </Route>
-          <Route path={`${match.path}/hpi`}>
-            <HpiPage />
-          </Route>
-          <Route path={`${match.path}/diagnostic-procedures`}>
-            <DiagnosticProcedureTypePage />
-          </Route>
-          <Route path={`${match.path}/surgical-procedures`}>
-            <SurgicalProcedureTypesPage />
-          </Route>
-          <Route path={`${match.path}/treatment-types`}>
-            <TreatmentTypePage />
-          </Route>
-          <Route path={`${match.path}/labratory-types`}>
-            <LabTypePage />
-          </Route>
-          <Route path={`${match.path}/supplies`}>
-            <SupplyPage />
-          </Route>
-          <Route path={`${match.path}/pharmacies`}>
-            <PharmacyAdminPage />
-          </Route>
-          <Route path={`${match.path}/eyewear-shops`}>
-            <EyewearShopAdminPage />
-          </Route>
-          <Route path={`${match.path}/lookups`}>
-            <LookupsAdminPage />
-          </Route>
-          <Route path={`${match.path}`}>
-            <Redirect to={`${match.path}/organization-details`} />
-          </Route>
-        </Switch>
+        <div className="flex-1">
+          <Switch>
+            <Route path={`${match.path}/organization-details`}>
+              <OrganizationDetails />
+            </Route>
+            <Route path={`${match.path}/user-admin`}>
+              <UserAdminPage />
+            </Route>
+            <Route path={`${match.path}/payment-waiver`}>
+              <PaymentWaiversPage />
+            </Route>
+            <Route path={`${match.path}/patient-encounter-limit`}>
+              <PatientEncounterLimitPage />
+            </Route>
+            <Route path={`${match.path}/billings`}>
+              <BillingsAdmin />
+            </Route>
+            <Route path={`${match.path}/hpi`}>
+              <HpiPage />
+            </Route>
+            <Route path={`${match.path}/diagnostic-procedures`}>
+              <DiagnosticProcedureTypePage />
+            </Route>
+            <Route path={`${match.path}/surgical-procedures`}>
+              <SurgicalProcedureTypesPage />
+            </Route>
+            <Route path={`${match.path}/treatment-types`}>
+              <TreatmentTypePage />
+            </Route>
+            <Route path={`${match.path}/labratory-types`}>
+              <LabTypePage />
+            </Route>
+            <Route path={`${match.path}/supplies`}>
+              <SupplyPage />
+            </Route>
+            <Route path={`${match.path}/pharmacies`}>
+              <PharmacyAdminPage />
+            </Route>
+            <Route path={`${match.path}/eyewear-shops`}>
+              <EyewearShopAdminPage />
+            </Route>
+            <Route path={`${match.path}/lookups`}>
+              <LookupsAdminPage />
+            </Route>
+            <Route path={`${match.path}`}>
+              <Redirect to={`${match.path}/organization-details`} />
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 
-const SideNav: React.FC = () => {
+interface SideNavProps {
+  matchUrl: string;
+  location: string;
+  history: any;
+}
+
+const SideNav: React.FC<SideNavProps> = ({ matchUrl, location, history }) => {
   const { data } = useQuery<Query>(GET_NOTIFS);
 
   return (
@@ -117,6 +141,9 @@ const SideNav: React.FC = () => {
         icon="business"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
 
       <NavItem
@@ -125,6 +152,9 @@ const SideNav: React.FC = () => {
         icon="list_alt"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
 
       <NavItem
@@ -133,6 +163,9 @@ const SideNav: React.FC = () => {
         icon="people"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
 
       <NavItem
@@ -142,6 +175,9 @@ const SideNav: React.FC = () => {
         completed={false}
         subItem={false}
         notifs={data?.notifs.paymentWaivers}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
 
       <NavItem
@@ -150,6 +186,9 @@ const SideNav: React.FC = () => {
         icon="money"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
 
       <NavItem
@@ -158,6 +197,9 @@ const SideNav: React.FC = () => {
         icon="credit_card"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
 
       <NavItem
@@ -166,6 +208,9 @@ const SideNav: React.FC = () => {
         icon="format_list_numbered"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
       <NavItem
         route="diagnostic-procedures"
@@ -173,6 +218,9 @@ const SideNav: React.FC = () => {
         icon="airline_seat_recline_normal"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
       <NavItem
         route="surgical-procedures"
@@ -180,6 +228,9 @@ const SideNav: React.FC = () => {
         icon="airline_seat_flat"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
       <NavItem
         route="treatment-types"
@@ -187,6 +238,9 @@ const SideNav: React.FC = () => {
         icon="healing"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
       <NavItem
         route="labratory-types"
@@ -194,6 +248,9 @@ const SideNav: React.FC = () => {
         icon="biotech"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
       <NavItem
         route="supplies"
@@ -201,6 +258,9 @@ const SideNav: React.FC = () => {
         icon="inventory"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
 
       <NavItem
@@ -209,6 +269,9 @@ const SideNav: React.FC = () => {
         icon="local_pharmacy"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
       <NavItem
         route="eyewear-shops"
@@ -216,6 +279,9 @@ const SideNav: React.FC = () => {
         icon="visibility"
         completed={false}
         subItem={false}
+        matchUrl={"/admin"}
+        location={location}
+        history={history}
       />
     </div>
   );

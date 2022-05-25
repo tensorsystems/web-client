@@ -500,6 +500,7 @@ export const AppointmentDetails: React.FC<{
     );
   }
 
+
   return (
     <div className="mt-2">
       <div className="flex space-x-5">
@@ -526,6 +527,8 @@ export const AppointmentDetails: React.FC<{
               <SideNav
                 soapType={soapType}
                 userType={userType}
+                matchUrl={match.url}
+                location={`${history.location.pathname}${location.search}`}
                 medicalDepartment={
                   data.appointment.medicalDepartment === "General Medicine"
                     ? "General Medicine"

@@ -32,7 +32,11 @@ import {
   SystemSymptomInput,
   SystemSymptomUpdateInput,
 } from "@tensoremr/models";
-import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 
 const SYSTEM_SYMPTOMS = gql`
   query SystemSymptoms($page: PaginationInput!) {

@@ -18,7 +18,11 @@
 
 import React, { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 import {
   EyewearShopEdge,
   Maybe,

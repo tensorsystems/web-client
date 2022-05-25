@@ -32,7 +32,11 @@ import {
   Query,
   QueryDiagnosesArgs,
 } from "@tensoremr/models";
-import { useBottomSheetDispatch, useNotificationDispatch, TablePagination } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+} from "@tensoremr/components";
 
 const DIAGNOSIS = gql`
   query Diagnoses($page: PaginationInput!) {

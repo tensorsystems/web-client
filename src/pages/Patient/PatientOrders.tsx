@@ -18,7 +18,7 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { Query, QueryGetPatientOrderCountArgs } from "../../models/models";
 import { NavItem } from "../../components/NavItem";
 import PatientDiagnosticOrders from "./PatientDiagnosticOrders";
@@ -46,7 +46,9 @@ interface Props {
 }
 
 const PatientOrders: React.FC<Props> = ({ patientId }) => {
+  const history = useHistory();
   const match = useRouteMatch();
+  const location = useLocation();
 
   const { data } = useQuery<Query, QueryGetPatientOrderCountArgs>(GET_COUNT, {
     variables: {
@@ -63,6 +65,8 @@ const PatientOrders: React.FC<Props> = ({ patientId }) => {
           icon="airline_seat_recline_normal"
           completed={false}
           subItem={false}
+          matchUrl={match.url}
+          location={`${history.location.pathname}${location.search}`}
           notifs={
             data?.getPatientOrderCount.diagnosticProcedureOrders ?? undefined
           }
@@ -74,6 +78,8 @@ const PatientOrders: React.FC<Props> = ({ patientId }) => {
           icon="biotech"
           completed={false}
           subItem={false}
+          matchUrl={match.url}
+          location={`${history.location.pathname}${location.search}`}
           notifs={data?.getPatientOrderCount.labOrders ?? undefined}
         />
 
@@ -83,6 +89,8 @@ const PatientOrders: React.FC<Props> = ({ patientId }) => {
           icon="airline_seat_flat"
           completed={false}
           subItem={false}
+          matchUrl={match.url}
+          location={`${history.location.pathname}${location.search}`}
           notifs={data?.getPatientOrderCount.surgicalOrders ?? undefined}
         />
 
@@ -92,6 +100,8 @@ const PatientOrders: React.FC<Props> = ({ patientId }) => {
           icon="healing"
           completed={false}
           subItem={false}
+          matchUrl={match.url}
+          location={`${history.location.pathname}${location.search}`}
           notifs={data?.getPatientOrderCount.treatmentOrders ?? undefined}
         />
 
@@ -101,6 +111,8 @@ const PatientOrders: React.FC<Props> = ({ patientId }) => {
           icon="next_plan"
           completed={false}
           subItem={false}
+          matchUrl={match.url}
+          location={`${history.location.pathname}${location.search}`}
           notifs={data?.getPatientOrderCount.followUpOrders ?? undefined}
         />
 
@@ -110,6 +122,8 @@ const PatientOrders: React.FC<Props> = ({ patientId }) => {
           icon="send"
           completed={false}
           subItem={false}
+          matchUrl={match.url}
+          location={`${history.location.pathname}${location.search}`}
           notifs={data?.getPatientOrderCount.referralOrders ?? undefined}
         />
       </div>

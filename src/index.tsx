@@ -38,7 +38,7 @@ import { Router } from "react-router-dom";
 import { setContext } from "@apollo/client/link/context";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { StatCard } from "./components/StatCard";
-import history from "./history";
+import { history } from "@tensoremr/components";
 
 import "material-icons-font/material-icons-font.css";
 
@@ -90,7 +90,7 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <NotificationProvider>
         <BottomSheetProvider>
-          <Router history={history}>
+          <Router history={history.default}>
             <App />
           </Router>
         </BottomSheetProvider>
