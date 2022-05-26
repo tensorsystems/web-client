@@ -10,7 +10,6 @@
     "declaration": true,
     "declarationDir": "types",
     "outDir": "dist",
-    "rootDir": ".",
     "sourceMap": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -27,6 +26,8 @@
   },
   "exclude": [
     "dist",
-    "node_modules"
+    "node_modules",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx",
   ],
 }

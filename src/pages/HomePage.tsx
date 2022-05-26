@@ -43,7 +43,7 @@ import { NewPatientPage } from "./NewPatientPage";
 import { DiagnosticOrdersPage } from "./DiagnosticOrdersPage";
 import { PatientPage } from "./Patient";
 import { parseJwt } from "../util";
-import { AppointmentPage } from "./Appointment";
+import { AppointmentPage } from "./appointments";
 import { SurgicalOrdersPage } from "./SurgicalOrdersPage";
 import { TreatmentOrdersPage } from "./TreatmentOrdersPage";
 import { LabOrdersPage } from "./LabOrdersPage";

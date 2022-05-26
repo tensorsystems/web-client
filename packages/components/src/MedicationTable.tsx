@@ -18,11 +18,10 @@
 
 import React from "react";
 import { format, parseISO } from "date-fns";
-import { MedicalPrescription } from "../models/models";
+import { MedicalPrescription } from "@tensoremr/models";
 import { Menu } from "@headlessui/react";
 import { PrinterIcon, PencilIcon } from "@heroicons/react/outline";
-import MenuComponent from "./MenuComponent";
-import { AppointmentContext } from "../_context/AppointmentContext";
+import { MenuComponent } from "./MenuComponent";
 
 interface Props {
   items: Array<any> | null | undefined;
@@ -30,6 +29,7 @@ interface Props {
   onEdit?: (item: MedicalPrescription) => void;
   onPrint: (item: MedicalPrescription) => void;
   readOnly?: boolean;
+  locked: boolean;
 }
 
 export const MedicationTable: React.FC<Props> = ({
@@ -38,9 +38,8 @@ export const MedicationTable: React.FC<Props> = ({
   onEdit,
   onPrint,
   readOnly = false,
+  locked,
 }) => {
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
-
   return (
     <table className="table-auto divide-y divide-gray-200 mt-4 w-full shadow-lg rounded-lg">
       <thead className="bg-teal-700">
@@ -118,7 +117,7 @@ export const MedicationTable: React.FC<Props> = ({
               <td className="px-2 py-4 text-sm text-gray-900">
                 <select
                   value={e?.status}
-                  disabled={patientChartLocked[0]}
+                  disabled={locked}
                   onChange={(evt) => {
                     if (e?.id !== undefined && onUpdate) {
                       onUpdate(e, evt.target.value);
@@ -147,7 +146,7 @@ export const MedicationTable: React.FC<Props> = ({
                                 : "text-gray-900"
                             } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                             onClick={() => e && onEdit && onEdit(e)}
-                            disabled={patientChartLocked[0]}
+                            disabled={locked}
                           >
                             <PencilIcon
                               className="w-5 h-5 mr-2 text-teal-700"

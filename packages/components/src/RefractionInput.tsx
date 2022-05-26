@@ -16,14 +16,32 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  presets: [],
-  theme: {
-    extend: {
-    },
-  },
-  plugins: [],
+import cn from "classnames";
+
+interface Props {
+  name: string;
+  value: string | undefined | null;
+  register: any;
+  readOnly: boolean | undefined;
+  onChange?: (value: any) => void;
+}
+
+export default function RefractionInput(props: Props) {
+  const { name, register, value, readOnly, onChange } = props;
+
+  return (
+    <input
+      type="text"
+      name={name}
+      ref={register}
+      readOnly={readOnly}
+      onChange={onChange}
+      className={cn(
+        "p-1 pl-4 sm:text-md border-gray-300 border rounded-md w-full",
+        {
+          "bg-gray-400": readOnly && value?.length === 0,
+        }
+      )}
+    />
+  );
 }
