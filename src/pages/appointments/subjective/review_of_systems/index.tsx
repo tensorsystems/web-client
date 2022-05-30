@@ -21,7 +21,7 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import SystemSymptomsList from "../../components/SystemSymptomsList";
+import { SystemSymptomsList } from "./SystemSymptomsList";
 import {
   MutationDeleteReviewOfSystemArgs,
   MutationSaveReviewOfSystemArgs,
@@ -30,10 +30,9 @@ import {
   PatientHistoryUpdateInput,
   Query,
   QueryReviewOfSystemsArgs,
-} from "../../models/models";
+} from "@tensoremr/models";
 import { useNotificationDispatch } from "@tensoremr/components";
-import useExitPrompt from "../../useExitPrompt";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+import { useExitPrompt } from "@tensoremr/hooks";
 
 const AUTO_SAVE_INTERVAL = 1000;
 
@@ -87,12 +86,11 @@ const DELETE_REVIEW_OF_SYSTEM = gql`
   }
 `;
 
-const ReviewOfSystemsPage: React.FC<{
+export const ReviewOfSystemsPage: React.FC<{
+  locked: boolean;
   patientHistory: PatientHistory | undefined;
-}> = ({ patientHistory }) => {
+}> = ({ locked, patientHistory }) => {
   const notifDispatch = useNotificationDispatch();
-
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
 
   const { register, getValues, setValue } = useForm<PatientHistoryUpdateInput>({
     defaultValues: {
@@ -235,6 +233,7 @@ const ReviewOfSystemsPage: React.FC<{
       <div className="flex space-x-6">
         <div className="w-1/3">
           <SystemSymptomsList
+            locked={locked}
             onItemClick={(systemSymptomId) =>
               handleReviewOfSystemClick(systemSymptomId)
             }
@@ -280,7 +279,7 @@ const ReviewOfSystemsPage: React.FC<{
                       <div className="flex items-center space-x-2">
                         <button
                           type="button"
-                          disabled={patientChartLocked[0]}
+                          disabled={locked}
                           className="material-icons text-gray-700"
                           onClick={() => {
                             if (e?.node.id !== undefined) {
@@ -309,7 +308,7 @@ const ReviewOfSystemsPage: React.FC<{
                 name="reviewOfSystemsNote"
                 rows={3}
                 ref={register}
-                disabled={patientChartLocked[0]}
+                disabled={locked}
                 className="p-1 pl-4 sm:text-md border-gray-300 border rounded-md h-44 w-full"
                 onChange={handleChanges}
               />
@@ -320,5 +319,3 @@ const ReviewOfSystemsPage: React.FC<{
     </div>
   );
 };
-
-export default ReviewOfSystemsPage;

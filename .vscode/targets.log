@@ -6,8 +6,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
 
-# Make data base, printed on Mon May 30 09:47:57 2022
+
+# Make data base, printed on Mon May 30 10:21:05 2022
 
 # Variables
 
@@ -42,7 +45,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-42c7a111-8635-4741-935f-24e914edf1d3.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-52691cf7-9c4e-41a7-a1d3-d0c555d1026d.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -242,8 +245,6 @@ build-image:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon May 30 09:47:57 2022
+# Finished Make data base on Mon May 30 10:21:05 2022
 
  
-make: *** No rule to make target `all'.  Stop.
-

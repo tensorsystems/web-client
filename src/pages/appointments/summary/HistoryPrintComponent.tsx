@@ -19,7 +19,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import React from "react";
-import { Query, QueryPatientHistoryArgs } from "../models/models";
+import { Query, QueryPatientHistoryArgs } from "@tensoremr/models";
 import { useNotificationDispatch } from "@tensoremr/components";
 
 const GET_HISTORY = gql`

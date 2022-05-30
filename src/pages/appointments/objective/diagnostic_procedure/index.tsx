@@ -337,7 +337,7 @@ const DiagnosticProcedurePage: React.FC<{
                   onRefersh={() => {
                     refetch();
                   }}
-                  onSuccess={(message) => {
+                  onSuccess={(message: string) => {
                     notifDispatch({
                       type: "show",
                       notifTitle: "Success",
@@ -345,7 +345,7 @@ const DiagnosticProcedurePage: React.FC<{
                       variant: "success",
                     });
                   }}
-                  onError={(message) => {
+                  onError={(message: string) => {
                     notifDispatch({
                       type: "show",
                       notifTitle: "Error",

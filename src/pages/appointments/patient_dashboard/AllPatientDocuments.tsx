@@ -22,7 +22,7 @@ interface Props {
   onCancel: () => void;
 }
 
-const AllPatientDocuments: React.FC<Props> = ({ onCancel }) => {
+export const AllPatientDocuments: React.FC<Props> = ({ onCancel }) => {
   return (
     <div className="container mx-auto text-lg">
       <ul>
@@ -73,5 +73,3 @@ const ExpandableItem: React.FC<ExpandableItemInterface> = ({ title, body }) => {
     </div>
   );
 };
-
-export default AllPatientDocuments;

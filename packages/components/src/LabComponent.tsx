@@ -31,7 +31,6 @@ import {
   LabStatus,
   MutationDeleteLabImageArgs,
 } from "@tensoremr/models";
-import { useNotificationDispatch } from "@tensoremr/components";
 import { useExitPrompt } from "@tensoremr/hooks";
 import classnames from "classnames";
 import { getFileUrl } from "@tensoremr/util";
@@ -83,6 +82,7 @@ interface Props {
   forPrint?: boolean;
   onRefresh: () => void;
   onError: (message: string) => void;
+  onSuccess: (message: string) => void;
 }
 
 export const LabComponent: React.FC<Props> = ({
@@ -91,9 +91,8 @@ export const LabComponent: React.FC<Props> = ({
   forPrint = false,
   onRefresh,
   onError,
+  onSuccess,
 }) => {
-  const notifDispatch = useNotificationDispatch();
-
   const hasImages = (values?.images.length ?? 0) > 0;
 
   const hasDocuments = (values?.documents.length ?? 0) > 0;
@@ -433,12 +432,7 @@ export const LabComponent: React.FC<Props> = ({
       setDocuments([...documents, ...incomingDocuments]);
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 
@@ -447,21 +441,10 @@ export const LabComponent: React.FC<Props> = ({
     {
       onCompleted(data) {
         onRefresh();
-
-        notifDispatch({
-          type: "show",
-          notifTitle: "Success",
-          notifSubTitle: "Lab marked as done",
-          variant: "success",
-        });
+        onSuccess("Lab marked as done");
       },
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );
@@ -470,12 +453,7 @@ export const LabComponent: React.FC<Props> = ({
     DELETE_LAB_DOCUMENT,
     {
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );
@@ -484,12 +462,7 @@ export const LabComponent: React.FC<Props> = ({
     DELETE_LAB_IMAGE,
     {
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );

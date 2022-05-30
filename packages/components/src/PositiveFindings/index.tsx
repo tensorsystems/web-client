@@ -23,20 +23,20 @@ import {
   Query,
   QueryOrdersArgs,
   QueryPatientChartArgs,
-} from "../models/models";
-import { OcularMotilityOdDiagram } from "./OcularMotilityDiagram/OcularMotilityOdDiagram";
-import { OcularMotilityOsDiagram } from "./OcularMotilityDiagram/OcularMotilityOsDiagram";
-import { SketchDiagram } from "./SketchDiagram";
-import corneaImage from "../img/cornea.png";
-import circleImage from "../img/circle.png";
-import { LabComponent } from "./LabComponent";
-import { MedicationTable } from "./MedicationTable";
-import { EyeGlassTable } from "./EyeGlassTable";
-import DiagnosticProcedureComponent from "./DiagnosticProcedureComponent";
+} from "@tensoremr/models";
+import { OcularMotilityOdDiagram } from "../OcularMotilityOdDiagram";
+import { OcularMotilityOsDiagram } from "../OcularMotilityOsDiagram";
+import { SketchDiagram } from "../SketchDiagram";
+import corneaImage from "./cornea.png";
+import circleImage from "./circle.png";
+import { LabComponent } from "../LabComponent";
+import { MedicationTable } from "../MedicationTable";
+import { EyeGlassTable } from "../EyeGlassTable";
+import { DiagnosticProcedureComponent } from "../DiagnosticProcedureComponent";
 // @ts-ignore
 import { SketchField, Tools } from "react-sketch2";
 import _ from "lodash";
-import { groupByHpiComponentType } from "../util";
+import { groupByHpiComponentType } from "@tensoremr/util";
 
 export const GET_PATIENT_CHART = gql`
   query GetPatientChart($id: ID!, $details: Boolean) {
@@ -437,11 +437,17 @@ const GET_ORDERS = gql`
 interface Props {
   patientChartId: string;
   forPrint?: boolean;
+  locked: boolean;
+  onSuccess: (message: string) => void;
+  onError: (message: string) => void;
 }
 
-const PositiveFindings: React.FC<Props> = ({
+export const PositiveFindings: React.FC<Props> = ({
   patientChartId,
   forPrint = false,
+  locked,
+  onSuccess,
+  onError,
 }) => {
   const { data, refetch } = useQuery<Query, QueryPatientChartArgs>(
     GET_PATIENT_CHART,
@@ -1575,6 +1581,8 @@ const PositiveFindings: React.FC<Props> = ({
                       values={e}
                       readOnly={true}
                       onRefersh={() => {}}
+                      onSuccess={(message) => onSuccess(message)}
+                      onError={(message) => onError(message)}
                     />
                   </div>
                 </div>
@@ -1603,7 +1611,13 @@ const PositiveFindings: React.FC<Props> = ({
               {i !== 0 && <div className="page-break" />}
               <p className="text-base font-semibold">{`${e.labType.title}`}</p>
               <div className="mt-2 ml-2">
-                <LabComponent values={e} readOnly={true} onRefresh={() => {}} />
+                <LabComponent
+                  values={e}
+                  readOnly={true}
+                  onRefresh={() => {}}
+                  onSuccess={(message) => onSuccess(message)}
+                  onError={(message) => onError(message)}
+                />
               </div>
             </div>
           ))}
@@ -1745,6 +1759,7 @@ const PositiveFindings: React.FC<Props> = ({
                 patientChart.medicalPrescriptionOrder?.medicalPrescriptions
               }
               onPrint={() => {}}
+              locked={locked}
             />
           </div>
         </div>
@@ -1893,5 +1908,3 @@ const PositiveFindings: React.FC<Props> = ({
     </div>
   );
 };
-
-export default PositiveFindings;

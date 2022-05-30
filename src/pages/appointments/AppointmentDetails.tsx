@@ -20,7 +20,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { ChiefComplaints } from "./subjective/chief_complaints";
 import { HistoryPage } from "./subjective/history";
-import { PatientDashboard } from "./PatientDashboard";
+import { PatientDashboard } from "./patient_dashboard";
 import OphthalmologyVitalSigns from "./objective/vital_signs/OphthalmologyVitalSigns";
 import { SideNav } from "./SideNav";
 import OphthalmologyExamination from "./objective/physical_examination/OphthalmologyExamination";
@@ -40,7 +40,7 @@ import { PreOpPage } from "./objective/pre_op";
 import { IntraOpPage } from "./objective/intra_operation";
 import { TreatmentPlanPage } from "./plan/treatment";
 import { TreatmentObjectivePage } from "./objective/treatment";
-import { SummaryPage } from "./SummaryPage";
+import { SummaryPage } from "./summary";
 import { PastMedicationsAllergies } from "./subjective/past_medication_allergies";
 import { Stickie } from "../../components/StickieComponent";
 import { VisionSideInfo } from "../../components/VisionSideInfo";
@@ -64,8 +64,8 @@ import Modal from "../../components/Modal";
 import { useNotificationDispatch } from "@tensoremr/components";
 import { AppointmentContext } from "../../_context/AppointmentContext";
 import { Page } from "../../models/page";
-import { MedicalCertificatePage } from "./MedicalCertificatePage";
-import ReviewOfSystemsPage from "./ReviewOfSystemsPage";
+import { MedicalCertificatePage } from "./medical_certificate";
+import { ReviewOfSystemsPage } from "./subjective/review_of_systems";
 import GeneralVitalSigns from "./objective/vital_signs/GeneralVitalSigns";
 import GeneralExamination from "./objective/physical_examination/GeneralExamination";
 import { useForm } from "react-hook-form";
@@ -651,6 +651,7 @@ export const AppointmentDetails: React.FC<{
               {data?.appointment.patient.patientHistory.id && (
                 <ReviewOfSystemsPage
                   patientHistory={data?.appointment.patient.patientHistory}
+                  locked={patientChartLocked[0] ?? false}
                 />
               )}
             </Route>
@@ -823,7 +824,10 @@ export const AppointmentDetails: React.FC<{
 
             <Route path={`${match.path}/summary`}>
               {data?.appointment && (
-                <SummaryPage appointment={data?.appointment} />
+                <SummaryPage
+                  appointment={data?.appointment}
+                  locked={patientChartLocked[0] ?? false}
+                />
               )}
             </Route>
 

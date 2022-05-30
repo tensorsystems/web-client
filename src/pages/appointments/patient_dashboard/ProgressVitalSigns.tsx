@@ -17,7 +17,7 @@
 */
 
 import React from "react";
-import { VitalSigns } from "../models/models";
+import { VitalSigns } from "@tensoremr/models";
 
 interface Props {
   showEmpty: boolean;

@@ -18,7 +18,7 @@
 
 import React, { useState, useRef } from "react";
 import { Prompt } from "react-router-dom";
-import circleImage from "../../img/circle.png";
+import circleImage from "./circle.png";
 // @ts-ignore
 import { SketchField, Tools } from "react-sketch2";
 import { useForm } from "react-hook-form";
@@ -29,20 +29,19 @@ import {
   PatientChartUpdateInput,
   MutationUpdatePatientChartArgs,
   Query,
-} from "../../models/models";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+} from "@tensoremr/models";
 import { format, parseISO } from "date-fns";
 import { useBottomSheetDispatch } from "@tensoremr/components";
-import { AddAmendmentForm } from "../../components/AddAmendmentForm";
-import useExitPrompt from "../../useExitPrompt";
+import { AddAmendmentForm } from "./AddAmendmentForm";
+import { useExitPrompt } from "@tensoremr/hooks";
 import _ from "lodash";
 import { useReactToPrint } from "react-to-print";
 
-import PrintFileHeader from "../../components/PrintFileHeader";
-import HistoryPrintComponent from "../../components/HistoryPrintComponent";
-import PositiveFindingsPrint from "../../components/PositiveFindingsPrint";
-import { ReviewOfSystemsPrintComponent } from "../../components/ReviewOfSystemsPrintComponent";
-import { getPatientAge } from "../../util";
+import PrintFileHeader from "../../../components/PrintFileHeader";
+import HistoryPrintComponent from "./HistoryPrintComponent";
+import { PositiveFindingsPrint } from "./PositiveFindingsPrint";
+import { ReviewOfSystemsPrintComponent } from "./ReviewOfSystemsPrintComponent";
+import { getPatientAge } from "@tensoremr/util";
 
 const AUTO_SAVE_INTERVAL = 1000;
 
@@ -78,8 +77,9 @@ export const GET_DATA = gql`
 `;
 
 export const SummaryPage: React.FC<{
+  locked: boolean;
   appointment: Appointment;
-}> = ({ appointment }) => {
+}> = ({ locked, appointment }) => {
   const bottomSheetDispatch = useBottomSheetDispatch();
 
   const printSectionsForm = useForm({
@@ -125,8 +125,6 @@ export const SummaryPage: React.FC<{
 
   const rightSummarySketch = useRef<any>(null);
   const leftSummarySketch = useRef<any>(null);
-
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
 
   const { register, getValues, setValue } = useForm<PatientChartUpdateInput>({
     defaultValues: {
@@ -182,7 +180,7 @@ export const SummaryPage: React.FC<{
   };
 
   const handleSketchChange = () => {
-    if (patientChartLocked[0]) {
+    if (locked) {
       return;
     }
 
@@ -239,7 +237,7 @@ export const SummaryPage: React.FC<{
           message="This page has unsaved data. Please click cancel and try again"
         />
 
-        {patientChartLocked[0] && (
+        {locked && (
           <div className="bg-yellow-50 border-4 border-yellow-400">
             <div className="bg-yellow-400 p-1">
               <div className="flex text-sm items-center space-x-2">
@@ -451,6 +449,7 @@ export const SummaryPage: React.FC<{
 
               <div className="mt-5">
                 <PositiveFindingsPrint
+                  locked={locked}
                   patientChartId={appointment?.patientChart.id}
                   showHistory={showHistory}
                   showChiefComplaints={showChiefComplaints}
@@ -536,7 +535,7 @@ export const SummaryPage: React.FC<{
                               setValue("rightSummarySketch", "");
                               rightSummarySketch.current.clear();
                             }}
-                            disabled={patientChartLocked[0]}
+                            disabled={locked}
                           >
                             Clear
                           </button>
@@ -544,7 +543,7 @@ export const SummaryPage: React.FC<{
                         <div className="col-span-1">
                           <button
                             className="text-gray-500 text-sm"
-                            disabled={patientChartLocked[0]}
+                            disabled={locked}
                             onClick={() => {
                               setValue("leftSummarySketch", "");
                               leftSummarySketch.current.clear();
@@ -563,14 +562,14 @@ export const SummaryPage: React.FC<{
                       ref={register}
                       name="summaryNote"
                       className="mt-3 p-4 block w-full sm:text-md bg-gray-100 border border-gray-200 rounded-md"
-                      disabled={patientChartLocked[0]}
+                      disabled={locked}
                       onChange={handleChanges}
                     />
                   </div>
                 </div>
               </div>
 
-              {patientChartLocked[0] && (
+              {locked && (
                 <div className="px-5 py-5 rounded-sm mt-5">
                   <div className="flex justify-between items-center">
                     <p className="text-2xl tracking-wider text-gray-800 font-light">

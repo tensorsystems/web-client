@@ -18,7 +18,7 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
-import { Query } from "../models/models";
+import { Query } from "@tensoremr/models";
 
 const GET_REVIEW_OF_SYSTEMS = gql`
   query GetReviewOfSystems($page: PaginationInput!, $patientHistoryId: ID!) {

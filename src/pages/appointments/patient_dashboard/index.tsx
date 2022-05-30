@@ -20,28 +20,29 @@ import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import classnames from "classnames";
 import { format, isSameDay, parseISO } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import AccordionItem from "../../components/AccordionItem";
-import AllPatientDocuments from "../../components/AllPatientDocuments";
 import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  AccordionItem,
+  IFileUploader,
   FileUploader,
-  FileUploaderComponent,
-} from "../../components/FileUploaderComponent";
-import { HistoryTypeComponent } from "../../components/HistoryTypeComponent";
-import PositiveFindings from "../../components/PositiveFindings";
+  HistoryTypeComponent,
+  PositiveFindings,
+  DiagnosticProcedureComponent,
+} from "@tensoremr/components";
+import { AllPatientDocuments } from "./AllPatientDocuments";
 import {
   Appointment,
   Query,
   QueryGetPatientDiagnosticProgressArgs,
   QueryGetVitalSignsProgressArgs,
-} from "../../models/models";
-import { getFileUrl, getPatientAge } from "../../util";
+} from "@tensoremr/models";
+import { getFileUrl, getPatientAge } from "@tensoremr/util";
 import cn from "classnames";
-import ProgressComponent from "../../components/ProgressComponent";
-import ProgressVitalSigns from "../../components/ProgressVitalSigns";
-import { vitalSignsFragment } from "../../api";
+import { ProgressComponent } from "./ProgressComponent";
+import ProgressVitalSigns from "./ProgressVitalSigns";
+import { vitalSignsFragment } from "@tensoremr/api";
 import ReactLoading from "react-loading";
-import DiagnosticProcedureComponent from "../../components/DiagnosticProcedureComponent";
 import { useLocation } from "react-router-dom";
 
 const GET_DATA = gql`
@@ -356,6 +357,8 @@ export const PatientDashboard: React.FC<{
   const [documentsOpen, setDocumentsOpen] = useState<boolean>(false);
   const [currentFindingsOpen, setCurrentFindingsOpen] = useState<boolean>(true);
 
+  const notifDispatch = useNotificationDispatch();
+
   const query = useRouterQuery();
   const readOnly = query.get("readOnly");
 
@@ -368,7 +371,7 @@ export const PatientDashboard: React.FC<{
     []
   );
 
-  const otherDocuments: Array<FileUploader> =
+  const otherDocuments: Array<IFileUploader> =
     appointment?.patient.documents?.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
@@ -384,7 +387,7 @@ export const PatientDashboard: React.FC<{
       contentType: e?.contentType ?? "",
     })) ?? [];
 
-  const paperRecordDocument: FileUploader | null = appointment?.patient
+  const paperRecordDocument: IFileUploader | null = appointment?.patient
     .paperRecordDocument
     ? {
         id: appointment?.patient.paperRecordDocument?.id,
@@ -475,13 +478,13 @@ export const PatientDashboard: React.FC<{
   }, [hasPastIllnesses]);
 
   const hasDocuments =
-    appointment?.patient.paperRecordDocument ||
-    otherDocuments.length > 0 ||
-    (data?.getPatientFiles.length ?? 0) > 0;
+    paperRecordDocument !== null || otherDocuments.length > 0;
 
   useEffect(() => {
     if (hasDocuments) {
       setDocumentsOpen(true);
+    } else {
+      setDocumentsOpen(false);
     }
   }, [hasDocuments]);
 
@@ -748,10 +751,18 @@ export const PatientDashboard: React.FC<{
                 <div className="my-1">
                   <p className="text-lg text-gray-700">Paper Record</p>
                   <div className="mt-2">
-                    <FileUploaderComponent
+                    <FileUploader
                       multiSelect={false}
                       values={[paperRecordDocument]}
                       accept={"document"}
+                      onError={(message) => {
+                        notifDispatch({
+                          type: "show",
+                          notifTitle: "Error",
+                          notifSubTitle: message,
+                          variant: "failure",
+                        });
+                      }}
                     />
                   </div>
                 </div>
@@ -765,31 +776,20 @@ export const PatientDashboard: React.FC<{
                 <div>
                   <p className="mt-10 text-lg text-gray-700">Other documents</p>
                   <div className="mt-2">
-                    <FileUploaderComponent
+                    <FileUploader
                       multiSelect={false}
                       values={otherDocuments}
                       accept={"document"}
+                      onError={(message) => {
+                        notifDispatch({
+                          type: "show",
+                          notifTitle: "Error",
+                          notifSubTitle: message,
+                          variant: "failure",
+                        });
+                      }}
                     />
                   </div>
-                </div>
-              )}
-
-              {paperRecordDocument === null && otherDocuments.length === 0 ? (
-                <p>Nothing here yet</p>
-              ) : (
-                <div>
-                  {false && (
-                    <div
-                      className="mt-4 text-blue-600 flex items-center space-x-1"
-                      onClick={() => handleViewAllDocumentClick()}
-                    >
-                      <p className="underline  cursor-pointer">
-                        View all documents
-                      </p>
-
-                      <span className="material-icons">arrow_right_alt</span>
-                    </div>
-                  )}
                 </div>
               )}
             </div>
@@ -808,7 +808,26 @@ export const PatientDashboard: React.FC<{
           onHeadingClick={(isOpen) => setCurrentFindingsOpen(isOpen)}
         >
           {appointment?.patientChart.id && (
-            <PositiveFindings patientChartId={appointment?.patientChart.id} />
+            <PositiveFindings
+              locked={locked}
+              patientChartId={appointment?.patientChart.id}
+              onSuccess={(message) => {
+                notifDispatch({
+                  type: "show",
+                  notifTitle: "Success",
+                  notifSubTitle: message,
+                  variant: "success",
+                });
+              }}
+              onError={(message) => {
+                notifDispatch({
+                  type: "show",
+                  notifTitle: "Error",
+                  notifSubTitle: message,
+                  variant: "failure",
+                });
+              }}
+            />
           )}
         </AccordionItem>
       </div>
@@ -890,6 +909,23 @@ export const PatientDashboard: React.FC<{
                               e.id.toString()
                             )}
                             isToday={e?.id === appointment.id}
+                            locked={locked}
+                            onSuccess={(message) => {
+                              notifDispatch({
+                                type: "show",
+                                notifTitle: "Success",
+                                notifSubTitle: message,
+                                variant: "success",
+                              });
+                            }}
+                            onError={(message) => {
+                              notifDispatch({
+                                type: "show",
+                                notifTitle: "Error",
+                                notifSubTitle: message,
+                                variant: "failure",
+                              });
+                            }}
                           >
                             {progressNotesQuery.loading ||
                             vitalSignsProgressQuery[1].loading ? (
@@ -908,6 +944,22 @@ export const PatientDashboard: React.FC<{
                                   <Progress
                                     appointment={e}
                                     progressType={progressType}
+                                    onSuccess={(message) => {
+                                      notifDispatch({
+                                        type: "show",
+                                        notifTitle: "Success",
+                                        notifSubTitle: message,
+                                        variant: "success",
+                                      });
+                                    }}
+                                    onError={(message) => {
+                                      notifDispatch({
+                                        type: "show",
+                                        notifTitle: "Error",
+                                        notifSubTitle: message,
+                                        variant: "failure",
+                                      });
+                                    }}
                                   />
                                 )}
 
@@ -918,6 +970,22 @@ export const PatientDashboard: React.FC<{
                                         v?.id?.toString() === e.id?.toString()
                                     )}
                                     progressType={progressType}
+                                    onSuccess={(message) => {
+                                      notifDispatch({
+                                        type: "show",
+                                        notifTitle: "Success",
+                                        notifSubTitle: message,
+                                        variant: "success",
+                                      });
+                                    }}
+                                    onError={(message) => {
+                                      notifDispatch({
+                                        type: "show",
+                                        notifTitle: "Error",
+                                        notifSubTitle: message,
+                                        variant: "failure",
+                                      });
+                                    }}
                                   />
                                 )}
 
@@ -929,6 +997,22 @@ export const PatientDashboard: React.FC<{
                                         d?.id.toString() === e.id.toString()
                                     )}
                                     progressType={progressType}
+                                    onSuccess={(message) => {
+                                      notifDispatch({
+                                        type: "show",
+                                        notifTitle: "Success",
+                                        notifSubTitle: message,
+                                        variant: "success",
+                                      });
+                                    }}
+                                    onError={(message) => {
+                                      notifDispatch({
+                                        type: "show",
+                                        notifTitle: "Error",
+                                        notifSubTitle: message,
+                                        variant: "failure",
+                                      });
+                                    }}
                                   />
                                 )}
                               </div>
@@ -957,6 +1041,9 @@ interface ProgressContainerProps {
   onAppointmentClose: (appointmentId: string) => void;
   onOpenFullChart: (appointment: Appointment) => void;
   children: any;
+  locked: boolean;
+  onSuccess: (message: string) => void;
+  onError: (message: string) => void;
 }
 
 const ProgressContainer: React.FC<ProgressContainerProps> = ({
@@ -967,6 +1054,9 @@ const ProgressContainer: React.FC<ProgressContainerProps> = ({
   onAppointmentClose,
   onOpenFullChart,
   children,
+  locked,
+  onSuccess,
+  onError,
 }) => {
   const getVisitTypeTitle = (appointment: Appointment) => {
     if (appointment.visitType.title === "Surgery") {
@@ -1021,7 +1111,12 @@ const ProgressContainer: React.FC<ProgressContainerProps> = ({
 
       {openPositiveFindings ? (
         <div className="shadow-lg p-4 bg-teal-50">
-          <PositiveFindings patientChartId={appointment?.patientChart.id} />
+          <PositiveFindings
+            locked={locked}
+            patientChartId={appointment?.patientChart.id}
+            onSuccess={onSuccess}
+            onError={onError}
+          />
           <div className="flex mt-4">
             <button
               type="button"
@@ -1043,9 +1138,16 @@ const ProgressContainer: React.FC<ProgressContainerProps> = ({
 interface ProgressProps {
   appointment: Appointment | undefined | null;
   progressType: ProgressTypeInterface;
+  onSuccess: (message: string) => void;
+  onError: (message: string) => void;
 }
 
-const Progress: React.FC<ProgressProps> = ({ appointment, progressType }) => {
+const Progress: React.FC<ProgressProps> = ({
+  appointment,
+  progressType,
+  onSuccess,
+  onError,
+}) => {
   if (appointment) {
     if (progressType.type === "ALL") {
       return <ProgressComponent patientChart={appointment.patientChart} />;
@@ -1076,6 +1178,8 @@ const Progress: React.FC<ProgressProps> = ({ appointment, progressType }) => {
                   readOnly
                   values={e}
                   onRefersh={() => {}}
+                  onSuccess={onSuccess}
+                  onError={onError}
                 />
               </div>
             )

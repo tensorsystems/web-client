@@ -26,22 +26,26 @@ import {
   QueryTreatmentArgs,
   SurgicalProcedureInput,
   TreatmentInput,
-} from "../models/models";
-import { SketchDiagram } from "./SketchDiagram";
-import corneaImage from "../img/cornea.png";
-import irisImage from "../img/iris.png";
-import circleImage from "../img/circle.png";
-import { LabComponent } from "./LabComponent";
-import { MedicationTable } from "./MedicationTable";
-import { EyeGlassTable } from "./EyeGlassTable";
-import { FileUploader } from "./FileUploaderComponent";
+} from "@tensoremr/models";
+import {
+  SketchDiagram,
+  LabComponent,
+  MedicationTable,
+  EyeGlassTable,
+  FileUploader,
+  OcularMotilityOdDiagram,
+  OcularMotilityOsDiagram,
+  PreOpForm,
+  IntraOpForm,
+  TreatmentForm,
+  IFileUploader,
+} from "@tensoremr/components";
+import corneaImage from "./cornea.png";
+import irisImage from "./iris.png";
+import circleImage from "./circle.png";
+import { useNotificationDispatch } from "@tensoremr/components";
 
-import { getFileUrl, groupByHpiComponentType } from "../util";
-import { OcularMotilityOdDiagram } from "./OcularMotilityDiagram/OcularMotilityOdDiagram";
-import { OcularMotilityOsDiagram } from "./OcularMotilityDiagram/OcularMotilityOsDiagram";
-import PreOpForm from "./PreOpForm";
-import IntraOpForm from "./IntraOpForm";
-import TreatmentForm from "./TreatmentForm";
+import { getFileUrl, groupByHpiComponentType } from "@tensoremr/util";
 
 export const GET_PATIENT_CHART = gql`
   query GetPatientChart($id: ID!, $details: Boolean) {
@@ -546,6 +550,7 @@ const GET_TREATMENT = gql`
 `;
 
 interface Props {
+  locked: boolean;
   patientChartId: string;
   showHistory?: boolean;
   showChiefComplaints?: boolean;
@@ -560,7 +565,8 @@ interface Props {
   showPrescriptions?: boolean;
 }
 
-const PositiveFindingsPrint: React.FC<Props> = ({
+export const PositiveFindingsPrint: React.FC<Props> = ({
+  locked,
   patientChartId,
   showHistory,
   showChiefComplaints,
@@ -574,6 +580,8 @@ const PositiveFindingsPrint: React.FC<Props> = ({
   showTreatment,
   showPrescriptions,
 }) => {
+  const notifDispatch = useNotificationDispatch();
+
   const { data, refetch } = useQuery<Query, QueryPatientChartArgs>(
     GET_PATIENT_CHART,
     {
@@ -1811,7 +1819,7 @@ const PositiveFindingsPrint: React.FC<Props> = ({
 
             {patientChart.diagnosticProcedureOrder?.diagnosticProcedures.map(
               (e, i) => {
-                const images: Array<FileUploader> =
+                const images: Array<IFileUploader> =
                   e?.images.map((e: any) => ({
                     id: e?.id,
                     fileUrl: getFileUrl({
@@ -1827,7 +1835,7 @@ const PositiveFindingsPrint: React.FC<Props> = ({
                     contentType: e?.contentType ?? "",
                   })) ?? [];
 
-                const documents: Array<FileUploader> =
+                const documents: Array<IFileUploader> =
                   e?.documents.map((e: any) => ({
                     id: e?.id,
                     fileUrl: getFileUrl({
@@ -1892,6 +1900,22 @@ const PositiveFindingsPrint: React.FC<Props> = ({
                   readOnly={true}
                   forPrint={true}
                   onRefresh={() => {}}
+                  onSuccess={(message) => {
+                    notifDispatch({
+                      type: "show",
+                      notifTitle: "Success",
+                      notifSubTitle: message,
+                      variant: "success",
+                    });
+                  }}
+                  onError={(message) => {
+                    notifDispatch({
+                      type: "show",
+                      notifTitle: "Error",
+                      notifSubTitle: message,
+                      variant: "error",
+                    });
+                  }}
                 />
               </div>
             </div>
@@ -1989,6 +2013,7 @@ const PositiveFindingsPrint: React.FC<Props> = ({
 
             <MedicationTable
               readOnly
+              locked={locked}
               items={
                 patientChart.medicalPrescriptionOrder?.medicalPrescriptions
               }
@@ -2066,5 +2091,3 @@ const PositiveFindingsPrint: React.FC<Props> = ({
     </div>
   );
 };
-
-export default PositiveFindingsPrint;

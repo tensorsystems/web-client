@@ -18,22 +18,22 @@
 
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import { Transition } from "@headlessui/react";
-import PrintFileHeader from "../../components/PrintFileHeader";
+import PrintFileHeader from "../../../components/PrintFileHeader";
 import {
   Appointment,
   MutationUpdatePatientChartArgs,
   PatientChartUpdateInput,
   Query,
-} from "../../models/models";
+} from "@tensoremr/models";
 import { useReactToPrint } from "react-to-print";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import { useForm } from "react-hook-form";
-import useExitPrompt from "../../useExitPrompt";
+import { useExitPrompt } from "@tensoremr/hooks";
 import _ from "lodash";
 import { useNotificationDispatch } from "@tensoremr/components";
 import { Prompt } from "react-router-dom";
-import { getPatientAge } from "../../util";
+import { getPatientAge } from "@tensoremr/util";
 
 const AUTO_SAVE_INTERVAL = 1000;
 

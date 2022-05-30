@@ -21,7 +21,7 @@ import { parseISO } from "date-fns/esm";
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { saveAs } from "file-saver";
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 
 export interface FileViewerProps {
   isOpen: boolean;
@@ -170,6 +170,14 @@ const RenderDocument: React.FC<RenderProps> = ({ src, meta, onClose }) => {
     saveAs(src, meta?.name);
   };
 
+  const getValidDate = (date: any) => {
+    if (date instanceof Date) {
+      return format(date, "MMM d, y");
+    } else {
+      return format(parseISO(date), "MMM d, y");
+    }
+  };
+
   return (
     <div className="flex ">
       <div className="flex-initial text-left bg-gray-800 pr-4 pl-4 pt-4">
@@ -179,9 +187,11 @@ const RenderDocument: React.FC<RenderProps> = ({ src, meta, onClose }) => {
         <span className="text-white">Kind: </span>
         <span className="text-gray-300">{meta?.type}</span> <br />
         <span className="text-white">Size: </span>
-        <span className="text-gray-300">10MB</span> <br />
+        <span className="text-gray-300">{formatBytes(meta.size)}</span> <br />
         <span className="text-white">Created: </span>
-        <span className="text-gray-300">5 October 2020</span>
+        <span className="text-gray-300">
+          {meta.createdAt && getValidDate(meta.createdAt)}
+        </span>
         <hr className="mt-4" />
         <div className="mt-4">
           <label

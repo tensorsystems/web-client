@@ -17,7 +17,6 @@
 */
 
 import React, { useContext, useState } from "react";
-import { AppointmentContext } from "../_context/AppointmentContext";
 import {
   BookmarkIcon as BookmarkSolidIcon,
   ChevronRightIcon,
@@ -33,7 +32,7 @@ import {
   Query,
   QuerySystemSymptomsArgs,
   SystemSymptom,
-} from "../models/models";
+} from "@tensoremr/models";
 import _ from "lodash";
 import { useEffect } from "react";
 import classnames from "classnames";
@@ -60,14 +59,14 @@ const SYSTEM_SYMPTOMS = gql`
   }
 `;
 
-const SystemSymptomsList: React.FC<{
+export const SystemSymptomsList: React.FC<{
+  locked: boolean;
   onItemClick: (systemSymptomId: string) => void;
-}> = ({ onItemClick }) => {
+}> = ({ locked, onItemClick }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [showFavorites, setShowFavorites] = useState<boolean>(true);
   const [systemSymptoms, setSystemSymptoms] = useState<Array<any>>([]);
   const [systemsListExpand, setSystemsListExpand] = useState<Array<any>>([]);
-  const { patientChartLocked } = useContext<any>(AppointmentContext);
 
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
     page: 1,
@@ -197,7 +196,7 @@ const SystemSymptomsList: React.FC<{
                   key={symptom.id}
                   className="hover:bg-gray-100 border-t cursor-pointer"
                   onClick={() =>
-                    !patientChartLocked[0] && handleItemClick(symptom.id)
+                    !locked && handleItemClick(symptom.id)
                   }
                 >
                   <td className="px-6 py-3 text-sm text-gray-900">
@@ -248,5 +247,3 @@ const SystemSymptomsList: React.FC<{
     </div>
   );
 };
-
-export default SystemSymptomsList;

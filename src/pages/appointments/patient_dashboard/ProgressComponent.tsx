@@ -17,10 +17,10 @@
 */
 
 import React from "react";
-import { PatientChart } from "../models/models";
+import { PatientChart } from "@tensoremr/models";
 import ProgressVitalSigns from "./ProgressVitalSigns";
 
-const ProgressComponent: React.FC<{
+export const ProgressComponent: React.FC<{
   patientChart: PatientChart;
 }> = ({ patientChart }) => {
   const hasVisionDistance =
@@ -220,4 +220,3 @@ const ProgressComponent: React.FC<{
   );
 };
 
-export default ProgressComponent;

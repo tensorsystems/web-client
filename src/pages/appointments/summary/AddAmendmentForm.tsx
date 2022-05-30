@@ -19,7 +19,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { AmendmentInput, MutationCreateAmendmentArgs } from "../models/models";
+import { AmendmentInput, MutationCreateAmendmentArgs } from "@tensoremr/models";
 
 const CREATE_AMENDMENT = gql`
   mutation CreateAmendment($input: AmendmentInput!) {
