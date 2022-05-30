@@ -23,8 +23,7 @@ import {
   SurgicalProcedureType,
   MutationOrderSurgicalProcedureArgs,
   OrderSurgicalInput,
-} from "../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+} from "@tensoremr/models";
 
 const ORDER_SURGICAL_PROCEDURE = gql`
   mutation OrderSurgicalProcedure($input: OrderSurgicalInput!) {
@@ -40,6 +39,7 @@ interface Props {
   patientChartId: string | undefined;
   appointmentId: string | undefined;
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
@@ -49,9 +49,9 @@ export const OrderSurgicalProcedureForm: React.FC<Props> = ({
   appointmentId,
   patientId,
   onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit, watch } = useForm<OrderSurgicalInput>({
     defaultValues: {
       billingId: surgicalProcedureType?.billings[0]?.id,
@@ -66,12 +66,7 @@ export const OrderSurgicalProcedureForm: React.FC<Props> = ({
       onSuccess();
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

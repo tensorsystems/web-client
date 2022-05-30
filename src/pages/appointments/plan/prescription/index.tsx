@@ -18,12 +18,15 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { AddMedicalPrescriptionForm } from "../../components/AddMedicalPrescriptionForm";
-import { UpdateMedicalPrescriptionForm } from "../../components/UpdateMedicationForm";
-import { useNotificationDispatch } from "@tensoremr/components";
-import { FavoriteMedicationList } from "../../components/FavoriteMedicationList";
-import { MedicationTable } from "../../components/MedicationTable";
+import { AddMedicalPrescriptionForm } from "./AddMedicalPrescriptionForm";
+import { UpdateMedicalPrescriptionForm } from "./UpdateMedicationForm";
+import {
+  useNotificationDispatch,
+  useBottomSheetDispatch,
+  MedicationTable,
+  EyeGlassTable,
+} from "@tensoremr/components";
+import { FavoriteMedicationList } from "./FavoriteMedicationList";
 import {
   EyewearPrescription,
   MedicalPrescription,
@@ -31,15 +34,13 @@ import {
   PaginationInput,
   Query,
   QueryUserFavoriteMedicationsArgs,
-} from "../../models/models";
-import { AddEyeGlassPrescriptionForm } from "../../components/AddEyeGlassPrescriptionForm";
-import { EyeGlassTable } from "../../components/EyeGlassTable";
-import { UpdateEyewearPrescriptionForm } from "../../components/UpdateEyeGlassPrescriptionForm";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+} from "@tensoremr/models";
+import { AddEyeGlassPrescriptionForm } from "./AddEyeGlassPrescriptionForm";
+import { UpdateEyewearPrescriptionForm } from "./UpdateEyeGlassPrescriptionForm";
 import { useReactToPrint } from "react-to-print";
-import { parseJwt } from "../../util";
-import MedicalPrescriptionPrint from "../../components/MedicalPrescriptionPrint";
-import EyewearPrescriptionPrint from "../../components/EyewearPrescriptionPrint";
+import { parseJwt } from "@tensoremr/util";
+import MedicalPrescriptionPrint from "../../../../components/MedicalPrescriptionPrint";
+import EyewearPrescriptionPrint from "../../../../components/EyewearPrescriptionPrint";
 
 const GET_DATA = gql`
   query GetData($patientChartId: ID!, $appointmentId: ID!, $userId: ID!) {
@@ -213,6 +214,7 @@ interface Props {
   patientId: string | undefined;
   patientChartId: string;
   isEdit?: boolean;
+  locked: boolean;
 }
 
 export const PrescriptionPage: React.FC<Props> = ({
@@ -220,10 +222,10 @@ export const PrescriptionPage: React.FC<Props> = ({
   appointmentId,
   patientId,
   isEdit = true,
+  locked,
 }) => {
   const bottomSheetDispatch = useBottomSheetDispatch();
   const notifDispatch = useNotificationDispatch();
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
   const [showPrintButton, setShowPrintButton] = useState<boolean>(false);
   const componentRef = useRef<any>();
   const handlePrint = useReactToPrint({
@@ -362,6 +364,7 @@ export const PrescriptionPage: React.FC<Props> = ({
     <div className="flex space-x-6">
       <div className="w-1/3" hidden={prescriptionType === "Eyewear"}>
         <FavoriteMedicationList
+          locked={locked}
           userFavoriteMedications={
             favoriteMedicationsQuery.data?.userFavoriteMedications
           }
@@ -434,7 +437,7 @@ export const PrescriptionPage: React.FC<Props> = ({
 
           <div className="flex justify-end">
             <button
-              disabled={patientChartLocked[0]}
+              disabled={locked}
               onClick={() => {
                 if (prescriptionType === "Medication") {
                   bottomSheetDispatch({
@@ -515,6 +518,7 @@ export const PrescriptionPage: React.FC<Props> = ({
 
           {prescriptionType === "Medication" && (
             <MedicationTable
+              locked={locked}
               items={
                 data?.medicationPrescriptionOrder?.medicalPrescriptions ?? []
               }
@@ -630,6 +634,14 @@ export const PrescriptionPage: React.FC<Props> = ({
                         refetch();
                       }}
                       onCancel={() => bottomSheetDispatch({ type: "hide" })}
+                      onError={(message) => {
+                        notifDispatch({
+                          type: "show",
+                          notifTitle: "Error",
+                          notifSubTitle: message,
+                          variant: "failure",
+                        });
+                      }}
                       values={item}
                       refraction={data?.refraction}
                       eyewearShopIdValue={

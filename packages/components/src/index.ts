@@ -23,3 +23,7 @@ export * from './RefractionDistanceForm';
 export * from './RefractionNearForm';
 export * from './DiagnosticProcedureComponent';
 export * from './LabComponent';
+export * from './EyeGlassTable';
+export * from './TreatmentForm';
+export * from './IntraOpForm';
+export * from './PreOpForm';

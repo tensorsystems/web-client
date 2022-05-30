@@ -27,7 +27,6 @@ import {
   Query,
   QueryPharmaciesArgs,
 } from "@tensoremr/models";
-import { useNotificationDispatch } from "@tensoremr/components";
 import Select from "react-select";
 
 const UPDATE_MEDICATION_PRESCRIPTION = gql`
@@ -75,6 +74,7 @@ interface UpdateMedicalPrescriptionProps {
   onUpdateSuccess: () => void;
   onDeleteSuccess: () => void;
   onCancel: () => void;
+  onError: (message: string) => void;
 }
 
 export const UpdateMedicalPrescriptionForm: React.FC<
@@ -85,8 +85,8 @@ export const UpdateMedicalPrescriptionForm: React.FC<
   onUpdateSuccess,
   onDeleteSuccess,
   onCancel,
+  onError,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<MedicalPrescriptionUpdateInput>({
     defaultValues: values,
   });
@@ -124,12 +124,7 @@ export const UpdateMedicalPrescriptionForm: React.FC<
       onUpdateSuccess();
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 
@@ -141,12 +136,7 @@ export const UpdateMedicalPrescriptionForm: React.FC<
       onDeleteSuccess();
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

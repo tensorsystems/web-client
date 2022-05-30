@@ -19,14 +19,16 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import React from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { OrderReferralForm } from "../../components/OrderReferralForm";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+} from "@tensoremr/components";
+import { OrderReferralForm } from "./OrderReferralForm";
 import {
   MutationDeleteReferralArgs,
   Query,
   QueryReferralOrderArgs,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+} from "@tensoremr/models";
 
 const GET_REFERRAL_ORDER = gql`
   query ReferralOrder($patientChartId: ID!) {
@@ -129,6 +131,14 @@ export const ReferralPage: React.FC<Props> = ({
                       variant: "success",
                     });
                     bottomSheetDispatch({ type: "hide" });
+                  }}
+                  onError={(message) => {
+                    notifDispatch({
+                      type: "show",
+                      notifTitle: "Error",
+                      notifSubTitle: message,
+                      variant: "failure",
+                    });
                   }}
                   onCancel={() => bottomSheetDispatch({ type: "hide" })}
                 />

@@ -23,8 +23,7 @@ import {
   OrderFollowupInput,
   OrderFollowUpInput,
   MutationOrderFollowUpArgs,
-} from "../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+} from "@tensoremr/models";
 
 const ORDER_FOLLOWUP = gql`
   mutation OrderFollowup($input: OrderFollowUpInput!) {
@@ -38,6 +37,7 @@ interface Props {
   patientChartId: string;
   patientId: string;
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
@@ -45,9 +45,9 @@ export const OrderFollowUpForm: React.FC<Props> = ({
   patientChartId,
   patientId,
   onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit } = useForm<OrderFollowupInput>();
 
   const [orderFollowup, { error }] = useMutation<
@@ -58,12 +58,7 @@ export const OrderFollowUpForm: React.FC<Props> = ({
       onSuccess();
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

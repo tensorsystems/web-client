@@ -21,16 +21,14 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import IntraOpForm from "../../components/IntraOpForm";
 import {
   MutationSaveSurgicalProcedureArgs,
   Query,
   QuerySurgicalProcedureArgs,
   SurgicalProcedureInput,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
-import useExitPrompt from "../../useExitPrompt";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+} from "@tensoremr/models";
+import { useNotificationDispatch, IntraOpForm } from "@tensoremr/components";
+import { useExitPrompt } from "@tensoremr/hooks";
 
 const AUTO_SAVE_INTERVAL = 1000;
 
@@ -129,15 +127,15 @@ const GET_INTRA_OP = gql`
 `;
 
 interface Props {
+  locked: boolean;
   patientChartId: string;
 }
 
-export const IntraOpPage: React.FC<Props> = ({ patientChartId }) => {
+export const IntraOpPage: React.FC<Props> = ({ locked, patientChartId }) => {
   const notifDispatch = useNotificationDispatch();
   const { register, getValues, reset, watch } = useForm<SurgicalProcedureInput>(
     {}
   );
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
   const [timer, setTimer] = useState<any>(null);
   const [modified, setModified] = useState<boolean>(false);
   const [showExitPrompt, setShowExitPrompt] = useExitPrompt(false);
@@ -308,7 +306,7 @@ export const IntraOpPage: React.FC<Props> = ({ patientChartId }) => {
 
       <IntraOpForm
         register={register}
-        locked={patientChartLocked[0]}
+        locked={locked}
         aclolUnplanned={values.aclolUnplanned ?? false}
         handleChanges={handleChanges}
       />

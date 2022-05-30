@@ -24,7 +24,7 @@ import {
   IFileUploader,
   FileUploader,
   Spinner,
-  useNotificationDispatch
+  useNotificationDispatch,
 } from "@tensoremr/components";
 import {
   MutationSaveOrganizationDetailsArgs,
@@ -308,6 +308,14 @@ export const OrganizationDetails: React.FC = () => {
               values={logos}
               onAdd={handleLogoChange}
               onDelete={() => setLogos([])}
+              onError={(message) => {
+                notifDispatch({
+                  type: "show",
+                  notifTitle: "Error",
+                  notifSubTitle: message,
+                  variant: "failure",
+                });
+              }}
             />
           </div>
 

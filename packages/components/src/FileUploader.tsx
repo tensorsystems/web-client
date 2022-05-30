@@ -22,7 +22,6 @@ import { FileViewer } from "./FileViewer";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 import { gql, useMutation } from "@apollo/client";
 import { FileUpdateInput, MutationUpdateFileArgs } from "@tensoremr/models";
-import { useNotificationDispatch } from "./Notification";
 
 const UPDATE_FILE = gql`
   mutation UpdateFile($input: FileUpdateInput!) {
@@ -57,6 +56,7 @@ interface Props {
   onDelete?: (index: number) => void;
   onAdd?: (files: Array<IFileUploader>) => void;
   onClear?: () => void;
+  onError: (message: string) => void;
   onFileNameChange?: (fileId: string, name: string) => void;
 }
 
@@ -68,18 +68,13 @@ export const FileUploader: React.FC<Props> = ({
   onAdd,
   onDelete,
   onClear,
+  onError,
   onFileNameChange,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const [updateFile] = useMutation<any, MutationUpdateFileArgs>(UPDATE_FILE, {
     update: (cache, mutationResult) => {},
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

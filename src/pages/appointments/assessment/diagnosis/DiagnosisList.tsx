@@ -18,7 +18,7 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { TablePagination } from "./TablePagination";
+import { useNotificationDispatch, TablePagination } from "@tensoremr/components";
 import {
   Diagnosis,
   MutationDeleteFavoriteDiagnosisArgs,
@@ -27,7 +27,7 @@ import {
   PaginationInput,
   Query,
   QueryDiagnosesArgs,
-} from "../models/models";
+} from "@tensoremr/models";
 import {
   BookmarkIcon as BookmarkSolidIcon,
   StarIcon as StarSolidIcon,
@@ -36,8 +36,6 @@ import {
   BookmarkIcon as BookmarkOutlineIcon,
   StarIcon as StarOutlineIcon,
 } from "@heroicons/react/outline";
-import { useNotificationDispatch } from "@tensoremr/components";
-import { AppointmentContext } from "../_context/AppointmentContext";
 
 const GET_DATA = gql`
   query GetData(
@@ -92,9 +90,10 @@ const SAVE_DIAGNOSIS = gql`
 `;
 
 export const DiagnosisList: React.FC<{
+  locked: boolean;
   onItemClick: (diagnosisId: string, location: string) => void;
   medicalDepartment: string | undefined | null;
-}> = ({ onItemClick, medicalDepartment }) => {
+}> = ({ locked, onItemClick, medicalDepartment }) => {
   const notifDispatch = useNotificationDispatch();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
@@ -103,8 +102,6 @@ export const DiagnosisList: React.FC<{
   });
 
   const [showAdd, setShowAdd] = useState<boolean>(false);
-
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
 
   const [diagnosisLocation, setDiagnosisLocation] = useState<Array<any>>([]);
 
@@ -361,7 +358,7 @@ export const DiagnosisList: React.FC<{
                 <button
                   type="button"
                   onClick={() =>
-                    !patientChartLocked[0] && handleFavoriteClick(e?.node)
+                    !locked && handleFavoriteClick(e?.node)
                   }
                 >
                   {favoriteIds.includes(e?.node.id) ? (
@@ -374,7 +371,7 @@ export const DiagnosisList: React.FC<{
               <td
                 className="pl-4 px-4 py-5 text-sm font-light text-gray-900"
                 onClick={() =>
-                  !patientChartLocked[0] && handleItemClick(e?.node)
+                  !locked && handleItemClick(e?.node)
                 }
               >
                 {e?.node.fullDescription}
@@ -383,7 +380,7 @@ export const DiagnosisList: React.FC<{
                 <td className="px-4 py-5 text-sm text-gray-900">
                   <select
                     name="location"
-                    disabled={patientChartLocked[0]}
+                    disabled={locked}
                     className="border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     onChange={(evt) => {
                       const locationIndex = diagnosisLocation.findIndex(
@@ -417,7 +414,7 @@ export const DiagnosisList: React.FC<{
               <td className="px-3">
                 <span
                   onClick={() =>
-                    !patientChartLocked[0] && handleItemClick(e?.node)
+                    !locked && handleItemClick(e?.node)
                   }
                   className="material-icons text-teal-700 transform hover:scale-110"
                 >

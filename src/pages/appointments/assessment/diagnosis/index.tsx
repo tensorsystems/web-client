@@ -20,16 +20,15 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNotificationDispatch } from "@tensoremr/components";
-import { DiagnosisList } from "../../components/DiagnosisList";
+import { DiagnosisList } from "./DiagnosisList";
 import {
   PatientChartUpdateInput,
   MutationSavePatientDiagnosisArgs,
   MutationUpdatePatientChartArgs,
   MutationDeletePatientDiagnosisArgs,
   Query,
-} from "../../models/models";
-import { AppointmentContext } from "../../_context/AppointmentContext";
-import useExitPrompt from "../../useExitPrompt";
+} from "@tensoremr/models";
+import { useExitPrompt } from "@tensoremr/hooks";
 import { Prompt } from "react-router-dom";
 import _ from "lodash";
 
@@ -84,18 +83,17 @@ const DELETE_PATIENT_DIAGNOSIS = gql`
 `;
 
 export const DiagnosisPage: React.FC<{
+  locked: boolean;
   patientChartId: string;
   medicalDepartment: string | undefined | null;
   onSaveChange: (saving: boolean) => void;
-}> = ({ patientChartId, medicalDepartment, onSaveChange }) => {
+}> = ({ locked, patientChartId, medicalDepartment, onSaveChange }) => {
   const notifDispatch = useNotificationDispatch();
   const { register, getValues, setValue } = useForm<PatientChartUpdateInput>({
     defaultValues: {
       id: patientChartId,
     },
   });
-
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
 
   const [timer, setTimer] = useState<any>(null);
   const [modified, setModified] = useState<boolean>(false);
@@ -244,6 +242,7 @@ export const DiagnosisPage: React.FC<{
       <div className="flex space-x-6">
         <div className="w-1/3">
           <DiagnosisList
+            locked={locked}
             medicalDepartment={medicalDepartment}
             onItemClick={handleDiagnosisClick}
           />
@@ -290,7 +289,7 @@ export const DiagnosisPage: React.FC<{
                       <div className="flex items-center space-x-2">
                         <button
                           type="button"
-                          disabled={patientChartLocked[0]}
+                          disabled={locked}
                           className="material-icons text-gray-700"
                           onClick={() => {
                             if (e?.node.id !== undefined) {
@@ -317,7 +316,7 @@ export const DiagnosisPage: React.FC<{
                 name="diagnosisNote"
                 rows={3}
                 ref={register}
-                disabled={patientChartLocked[0]}
+                disabled={locked}
                 className="p-1 pl-4 sm:text-md border-gray-300 border rounded-md h-44 w-full"
                 onChange={handleChanges}
               />

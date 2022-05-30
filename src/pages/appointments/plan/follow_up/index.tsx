@@ -19,14 +19,16 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import React from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { OrderFollowUpForm } from "../../components/OrderFollowUpForm";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+} from "@tensoremr/components";
+import { OrderFollowUpForm } from "./OrderFollowUpForm";
 import {
   MutationDeleteFollowUpArgs,
   Query,
   QueryFollowUpOrderArgs,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+} from "@tensoremr/models";
 
 const GET_FOLLOW_UP_ORDER = gql`
   query FollowUpOrder($patientChartId: ID!) {
@@ -118,6 +120,14 @@ export const FollowUpPage: React.FC<Props> = ({
                       variant: "success",
                     });
                     bottomSheetDispatch({ type: "hide" });
+                  }}
+                  onError={(message) => {
+                    notifDispatch({
+                      type: "show",
+                      notifTitle: "Error",
+                      notifSubTitle: message,
+                      variant: "failure",
+                    });
                   }}
                   onCancel={() => bottomSheetDispatch({ type: "hide" })}
                 />

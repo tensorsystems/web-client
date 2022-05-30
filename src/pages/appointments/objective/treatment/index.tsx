@@ -21,16 +21,14 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import TreatmentForm from "../../components/TreatmentForm";
+import { TreatmentForm, useNotificationDispatch } from "@tensoremr/components";
 import {
   TreatmentInput,
   MutationSaveTreatmentArgs,
   Query,
   QueryTreatmentArgs,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
-import useExitPrompt from "../../useExitPrompt";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+} from "@tensoremr/models";
+import { useExitPrompt } from "@tensoremr/hooks";
 
 const AUTO_SAVE_INTERVAL = 1000;
 
@@ -57,15 +55,18 @@ const GET_TREATMENT = gql`
 `;
 
 interface Props {
+  locked: boolean;
   patientChartId: string;
 }
 
-export const TreatmentObjectivePage: React.FC<Props> = ({ patientChartId }) => {
+export const TreatmentObjectivePage: React.FC<Props> = ({
+  locked,
+  patientChartId,
+}) => {
   const notifDispatch = useNotificationDispatch();
   const [timer, setTimer] = useState<any>(null);
   const [modified, setModified] = useState<boolean>(false);
   const [showExitPrompt, setShowExitPrompt] = useExitPrompt(false);
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
 
   const { register, getValues, reset } = useForm<TreatmentInput>();
 
@@ -147,7 +148,7 @@ export const TreatmentObjectivePage: React.FC<Props> = ({ patientChartId }) => {
 
       <TreatmentForm
         register={register}
-        locked={patientChartLocked[0]}
+        locked={locked}
         handleChange={handleChange}
       />
     </div>

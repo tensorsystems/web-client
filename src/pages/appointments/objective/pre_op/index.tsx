@@ -21,16 +21,14 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import PreOpForm from "../../components/PreOpForm";
 import {
   MutationSaveSurgicalProcedureArgs,
   Query,
   QuerySurgicalProcedureArgs,
   SurgicalProcedureInput,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
-import useExitPrompt from "../../useExitPrompt";
-import { AppointmentContext } from "../../_context/AppointmentContext";
+} from "@tensoremr/models";
+import { useNotificationDispatch, PreOpForm } from "@tensoremr/components";
+import { useExitPrompt } from "@tensoremr/hooks";
 
 const AUTO_SAVE_INTERVAL = 1000;
 
@@ -73,10 +71,11 @@ const GET_PRE_OP = gql`
 `;
 
 interface Props {
+  locked: boolean;
   patientChartId: string;
 }
 
-export const PreOpPage: React.FC<Props> = ({ patientChartId }) => {
+export const PreOpPage: React.FC<Props> = ({ locked, patientChartId }) => {
   const notifDispatch = useNotificationDispatch();
   const [timer, setTimer] = useState<any>(null);
   const [modified, setModified] = useState<boolean>(false);
@@ -100,8 +99,6 @@ export const PreOpPage: React.FC<Props> = ({ patientChartId }) => {
       patientChartId: patientChartId,
     },
   });
-
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
 
   useEffect(() => {
     const surgicalProcedure = data?.surgicalProcedure;
@@ -186,7 +183,7 @@ export const PreOpPage: React.FC<Props> = ({ patientChartId }) => {
 
       <PreOpForm
         register={register}
-        locked={patientChartLocked[0]}
+        locked={locked}
         handleChanges={handleChanges}
       />
     </div>

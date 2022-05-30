@@ -432,6 +432,14 @@ export const HistoryPage: React.FC<{
               accept={"image"}
               values={paperRecordDocuments}
               disabled={true}
+              onError={(message) => {
+                notifDispatch({
+                  type: "show",
+                  notifTitle: "Error",
+                  notifSubTitle: message,
+                  variant: "failure",
+                });
+              }}
             />
           </div>
         </div>

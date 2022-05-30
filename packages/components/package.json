@@ -48,6 +48,7 @@
     "@tensoremr/models": "^0.1.0",
     "react-select": "^4.3.1",
     "@headlessui/react": "^1.2.0",
-    "react-color": "^2.19.3"
+    "react-color": "^2.19.3",
+    "lodash-es": "^4.17.21"
   }
 }

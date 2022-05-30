@@ -518,6 +518,14 @@ export const LabPage: React.FC<{
                   onRefresh={() => {
                     refetch();
                   }}
+                  onError={(message) => {
+                    notifDispatch({
+                      type: "show",
+                      notifTitle: "Error",
+                      notifSubTitle: message,
+                      variant: "failure",
+                    });
+                  }}
                 />
               </div>
             </div>

@@ -18,12 +18,14 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+} from "@tensoremr/components";
 import classnames from "classnames";
-import { useNotificationDispatch } from "@tensoremr/components";
-import { SurgicalProcedureTypes } from "../../components/SurgicalProcedureTypes";
+import { SurgicalProcedureTypes } from "./SurgicalProcedureTypes";
 import { format, parseISO } from "date-fns";
-import { OrderSurgicalProcedureForm } from "../../components/OrderSurgicalProcedureForm";
+import { OrderSurgicalProcedureForm } from "./OrderSurgicalProcedureForm";
 import {
   MutationDeleteOrderArgs,
   PatientChart,
@@ -31,7 +33,7 @@ import {
   QuerySurgicalOrderArgs,
   SurgeryStatus,
   SurgicalProcedureType,
-} from "../../models/models";
+} from "@tensoremr/models";
 
 const GET_PATIENT_SURGICAL_PROCEDURES = gql`
   query SurgicalProcedureOrder($patientChartId: ID!) {
@@ -67,10 +69,11 @@ const CANCEL_ORDER = gql`
 `;
 
 export const SurgeryPage: React.FC<{
+  locked: boolean;
   patientId: string;
   patientChart: PatientChart;
   appointmentId: string | undefined;
-}> = ({ patientId, appointmentId, patientChart }) => {
+}> = ({ locked, patientId, appointmentId, patientChart }) => {
   const notifDispatch = useNotificationDispatch();
   const bottomSheetDispatch = useBottomSheetDispatch();
 
@@ -128,6 +131,14 @@ export const SurgeryPage: React.FC<{
               });
               bottomSheetDispatch({ type: "hide" });
             }}
+            onError={(message) => {
+              notifDispatch({
+                type: "show",
+                notifTitle: "Error",
+                notifSubTitle: message,
+                variant: "failure",
+              });
+            }}
             onCancel={() => bottomSheetDispatch({ type: "hide" })}
           />
         ),
@@ -138,7 +149,10 @@ export const SurgeryPage: React.FC<{
   return (
     <div className="flex space-x-6">
       <div className="w-1/3">
-        <SurgicalProcedureTypes onItemClick={handleProcedureClick} />
+        <SurgicalProcedureTypes
+          locked={locked}
+          onItemClick={handleProcedureClick}
+        />
       </div>
 
       <div className="flex-1 bg-gray-50 rounded shadow-lg p-5">

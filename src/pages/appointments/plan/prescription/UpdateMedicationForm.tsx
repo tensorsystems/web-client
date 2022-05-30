@@ -26,7 +26,7 @@ import {
   MutationDeleteMedicalPrescriptionArgs,
   Query,
   QueryPharmaciesArgs,
-} from "../models/models";
+} from "@tensoremr/models";
 import { useNotificationDispatch } from "@tensoremr/components";
 import Select from "react-select";
 

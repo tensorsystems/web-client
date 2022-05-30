@@ -18,11 +18,13 @@
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+} from "@tensoremr/components";
 import classnames from "classnames";
-import { useNotificationDispatch } from "@tensoremr/components";
 import { format, parseISO } from "date-fns";
-import { TreatmentTypesComponent } from "../../components/TreatmentTypes";
+import { TreatmentTypesComponent } from "./TreatmentTypes";
 import {
   MutationDeleteOrderArgs,
   PatientChart,
@@ -30,8 +32,8 @@ import {
   QueryTreatmentOrderArgs,
   TreatmentStatus,
   TreatmentType,
-} from "../../models/models";
-import OrderTreatmentForm from "../../components/OrderTreatmentForm";
+} from "@tensoremr/models";
+import { OrderTreatmentForm } from "./OrderTreatmentForm";
 
 const GET_PATIENT_TREATMENTS = gql`
   query TreatmentOrder($patientChartId: ID!) {
@@ -67,10 +69,11 @@ const CANCEL_ORDER = gql`
 `;
 
 export const TreatmentPlanPage: React.FC<{
+  locked: boolean;
   patientId: string;
   appointmentId: string | undefined;
   patientChart: PatientChart;
-}> = ({ patientId, appointmentId, patientChart }) => {
+}> = ({ locked, patientId, appointmentId, patientChart }) => {
   const notifDispatch = useNotificationDispatch();
   const bottomSheetDispatch = useBottomSheetDispatch();
 
@@ -128,6 +131,14 @@ export const TreatmentPlanPage: React.FC<{
               });
               bottomSheetDispatch({ type: "hide" });
             }}
+            onError={(message) => {
+              notifDispatch({
+                type: "show",
+                notifTitle: "Error",
+                notifSubTitle: message,
+                variant: "failure",
+              });
+            }}
             onCancel={() => bottomSheetDispatch({ type: "hide" })}
           />
         ),
@@ -138,7 +149,7 @@ export const TreatmentPlanPage: React.FC<{
   return (
     <div className="flex space-x-6">
       <div className="w-1/3">
-        <TreatmentTypesComponent onItemClick={handleTreatmentClick} />
+        <TreatmentTypesComponent locked={locked} onItemClick={handleTreatmentClick} />
       </div>
 
       <div className="flex-1 bg-gray-50 rounded shadow-lg p-5">

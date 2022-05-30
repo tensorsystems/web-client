@@ -283,6 +283,14 @@ const PastMedications: React.FC<Props> = ({
                 onCancel={() => bottomSheetDispatch({ type: "hide" })}
                 values={item}
                 pharmacyIdValue={null}
+                onError={(message) => {
+                  notifDispatch({
+                    type: "show",
+                    notifTitle: "Error",
+                    notifSubTitle: message,
+                    variant: "failure",
+                  });
+                }}
               />
             ),
           });

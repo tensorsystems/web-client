@@ -28,7 +28,7 @@ import {
   QueryPharmaciesArgs,
   QuerySearchMedicalPrescriptionsArgs,
   MutationSavePastMedicationArgs,
-} from "../models/models";
+} from "@tensoremr/models";
 import Select from "react-select";
 import ReactLoading from "react-loading";
 

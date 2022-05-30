@@ -25,9 +25,8 @@ import {
   MutationOrderReferralArgs,
   Query,
   ReferralType,
-} from "../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
-import { parseJwt } from "../util";
+} from "@tensoremr/models";
+import { parseJwt } from "@tensoremr/util";
 
 const ORDER_REFERRAL = gql`
   mutation OrderReferral($input: OrderReferralInput!) {
@@ -51,6 +50,7 @@ interface OrderFormProps {
   patientId: string | undefined;
   patientChartId: string | undefined;
   onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
@@ -58,9 +58,9 @@ export const OrderReferralForm: React.FC<OrderFormProps> = ({
   patientChartId,
   patientId,
   onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
   const { register, handleSubmit, watch } = useForm<OrderReferralInput>({
     defaultValues: {
       type: ReferralType.PatientInHouseReferral,
@@ -84,12 +84,7 @@ export const OrderReferralForm: React.FC<OrderFormProps> = ({
       onSuccess();
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

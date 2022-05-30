@@ -26,18 +26,17 @@ import {
   QuerySurgicalProcedureArgs,
   SurgicalProcedureInput,
   Query,
-} from "../../models/models";
+} from "@tensoremr/models";
 import classnames from "classnames";
-import { formatDate, getFileUrl } from "../../util";
+import { formatDate, getFileUrl } from "@tensoremr/util";
 import { format, parseISO } from "date-fns";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useNotificationDispatch } from "@tensoremr/components";
 import {
+  useNotificationDispatch,
+  IFileUploader,
   FileUploader,
-  FileUploaderComponent,
-} from "../../components/FileUploaderComponent";
-import { AppointmentContext } from "../../_context/AppointmentContext";
-import useExitPrompt from "../../useExitPrompt";
+} from "@tensoremr/components";
+import { useExitPrompt } from "@tensoremr/hooks";
 import { Prompt } from "react-router-dom";
 import _ from "lodash";
 
@@ -145,10 +144,14 @@ const GET_PREANESTHETIC = gql`
 `;
 
 interface Props {
+  locked: boolean;
   patientChartId: string;
 }
 
-export const PreanestheticPage: React.FC<Props> = ({ patientChartId }) => {
+export const PreanestheticPage: React.FC<Props> = ({
+  locked,
+  patientChartId,
+}) => {
   const notifDispatch = useNotificationDispatch();
   const [timer, setTimer] = useState<any>(null);
   const [modified, setModified] = useState<boolean>(false);
@@ -170,9 +173,7 @@ export const PreanestheticPage: React.FC<Props> = ({ patientChartId }) => {
   const { register, getValues, reset, watch } =
     useForm<SurgicalProcedureInput>();
 
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
-
-  const defaultPreanestheticDocuments: Array<FileUploader> =
+  const defaultPreanestheticDocuments: Array<IFileUploader> =
     data?.surgicalProcedure.preanestheticDocuments.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
@@ -189,7 +190,7 @@ export const PreanestheticPage: React.FC<Props> = ({ patientChartId }) => {
     })) ?? [];
 
   const [preanestheticDocuments, setPreanestheticDocuments] = useState<
-    Array<FileUploader>
+    Array<IFileUploader>
   >(defaultPreanestheticDocuments);
 
   const [saveSurgicalProcedure] = useMutation<
@@ -551,7 +552,7 @@ export const PreanestheticPage: React.FC<Props> = ({ patientChartId }) => {
     );
   };
 
-  const handlePreanestheticDocumentsChange = (change: Array<FileUploader>) => {
+  const handlePreanestheticDocumentsChange = (change: Array<IFileUploader>) => {
     setPreanestheticDocuments(change);
 
     const files: Array<FileUpload> = change
@@ -605,12 +606,20 @@ export const PreanestheticPage: React.FC<Props> = ({ patientChartId }) => {
         <label className="block text-sm font-medium text-gray-700">
           Documents
         </label>
-        <FileUploaderComponent
+        <FileUploader
           multiSelect={true}
           values={preanestheticDocuments}
           onAdd={handlePreanestheticDocumentsChange}
           onDelete={handlePreanestheticDocumentDelete}
-          disabled={patientChartLocked[0]}
+          disabled={locked}
+          onError={(message) => {
+            notifDispatch({
+              type: "show",
+              notifTitle: "Error",
+              notifSubTitle: message,
+              variant: "failure",
+            });
+          }}
         />
       </div>
 

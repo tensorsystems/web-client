@@ -21,29 +21,23 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   DiagnosticProcedure,
-  EyewearPrescription,
-  EyewearPrescriptionUpdateInput,
-  MutationDeleteEyewearPrescriptionArgs,
-  MutationUpdateEyewearPrescriptionArgs,
+  EyewearPrescriptionInput,
+  MutationSaveEyewearPrescriptionArgs,
   Query,
   QueryEyewearShopsArgs,
-} from "../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
-import RefractionDistanceComponent from "./RefractionDistanceForm";
-import RefractionNearComponent from "./RefractionNearForm";
+} from "@tensoremr/models";
+import {
+  RefractionDistanceComponent,
+  RefractionNearComponent,
+} from "@tensoremr/components";
 import Select from "react-select";
+import cn from "classnames";
 
-const UPDATE_EYEGLASS_PRESCRIPTION = gql`
-  mutation UpdateEyewearPrescription($input: EyewearPrescriptionUpdateInput!) {
-    updateEyewearPrescription(input: $input) {
+const SAVE_EYE_GLASS_PRESCRIPTION = gql`
+  mutation SaveEyewearPrescription($input: EyewearPrescriptionInput!) {
+    saveEyewearPrescription(input: $input) {
       id
     }
-  }
-`;
-
-const DELETE_EYEGLASS_PRESCRIPTION = gql`
-  mutation DeleteEyewearPrescription($id: ID!) {
-    deleteEyewearPrescription(id: $id)
   }
 `;
 
@@ -70,36 +64,30 @@ const EYE_WEAR_SHOPS = gql`
   }
 `;
 
-interface UpdateEyewearPrescriptionProps {
-  values: EyewearPrescription | undefined;
+interface AddEyeGlassPrescriptionFormProps {
+  history?: boolean;
+  patientId: string | undefined;
+  patientChartId: string | undefined;
   refraction: DiagnosticProcedure | undefined | null;
-  eyewearShopIdValue: string | undefined;
-  onUpdateSuccess: () => void;
-  onDeleteSuccess: () => void;
+  onSuccess: () => void;
+  onError: (message: string) => void;
   onCancel: () => void;
 }
 
-export const UpdateEyewearPrescriptionForm: React.FC<
-  UpdateEyewearPrescriptionProps
+export const AddEyeGlassPrescriptionForm: React.FC<
+  AddEyeGlassPrescriptionFormProps
 > = ({
-  values,
+  history,
+  patientId,
+  patientChartId,
   refraction,
-  onUpdateSuccess,
-  eyewearShopIdValue,
-  onDeleteSuccess,
+  onSuccess,
+  onError,
   onCancel,
 }) => {
-  const notifDispatch = useNotificationDispatch();
-  const { register, reset, handleSubmit } =
-    useForm<EyewearPrescriptionUpdateInput>();
-
-  useEffect(() => {
-    if (values) {
-      reset(values);
-    }
-  }, [values]);
-
+  const { register, handleSubmit } = useForm<any>();
   const refractionForm = useForm<DiagnosticProcedure>();
+
   useEffect(() => {
     if (refraction) {
       refractionForm.reset(refraction);
@@ -113,68 +101,50 @@ export const UpdateEyewearPrescriptionForm: React.FC<
   });
 
   const [selectedEyewearShop, setSelectedEyewearShop] = useState<any>();
+
   useEffect(() => {
-    if (eyewearShopIdValue) {
-      const eyewearShop = data?.eyewearShops.edges.find(
-        (e) => e?.node.id === eyewearShopIdValue
-      )?.node;
+    if (data?.eyewearShops && data?.eyewearShops.edges?.length > 0) {
+      if (data?.eyewearShops.edges[0]) {
+        const eyewearShop = data?.eyewearShops.edges[0].node;
 
-      const value = {
-        value: eyewearShop?.id,
-        label: `${eyewearShop?.title} - ${eyewearShop?.address}, ${
-          eyewearShop?.region
-        }, ${eyewearShop?.country} ${eyewearShop?.inHouse ? "(In-House)" : ""}`,
-      };
+        const value = {
+          value: eyewearShop.id,
+          label: `${eyewearShop.title} - ${eyewearShop.address}, ${
+            eyewearShop.region
+          }, ${eyewearShop.country} ${eyewearShop.inHouse ? "(In-House)" : ""}`,
+        };
 
-      setSelectedEyewearShop(value);
+        setSelectedEyewearShop(value);
+      }
     }
-  }, [values, data]);
+  }, [data]);
 
-  const [update, { error }] = useMutation<
+  const [save, { error }] = useMutation<
     any,
-    MutationUpdateEyewearPrescriptionArgs
-  >(UPDATE_EYEGLASS_PRESCRIPTION, {
+    MutationSaveEyewearPrescriptionArgs
+  >(SAVE_EYE_GLASS_PRESCRIPTION, {
     onCompleted(data) {
-      onUpdateSuccess();
+      onSuccess();
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 
-  const [deleteEyeGlassPrescription] = useMutation<
-    any,
-    MutationDeleteEyewearPrescriptionArgs
-  >(DELETE_EYEGLASS_PRESCRIPTION, {
-    onCompleted(data) {
-      onDeleteSuccess();
-    },
-    onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
-    },
-  });
+  const onSubmit = (data: EyewearPrescriptionInput) => {
+    if (patientChartId !== undefined && patientId !== undefined) {
+      data.patientId = patientId;
+      data.patientChartId = patientChartId;
+      data.eyewearShopId = selectedEyewearShop.value;
+      data.status = "Ordered";
 
-  const onUpdateSubmit = (data: any) => {
-    if (values?.id !== undefined) {
-      data.id = values.id;
+      if (history) {
+        data.history = true;
+      } else {
+        data.history = false;
+      }
 
-      update({ variables: { input: data } });
-    }
-  };
-
-  const onDeleteSubmit = (data: any) => {
-    if (values?.id !== undefined) {
-      deleteEyeGlassPrescription({ variables: { id: values?.id } });
+      save({ variables: { input: data } });
     }
   };
 
@@ -207,14 +177,13 @@ export const UpdateEyewearPrescriptionForm: React.FC<
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(onUpdateSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <p className="text-2xl font-extrabold tracking-wider text-teal-700">
-            Update Eye Glass Prescription
+            Prescribe Eye Glass
           </p>
-
           <div className="mt-4">
             <Select
-              placeholder="Eyewear Shops"
+              placeholder="Eyewear Shop"
               options={eyeWearShops}
               value={selectedEyewearShop}
               onChange={(value) => {
@@ -290,7 +259,9 @@ export const UpdateEyewearPrescriptionForm: React.FC<
                 name="rightVisualAcuity"
                 readOnly
                 ref={refractionForm.register}
-                className="p-1 pl-4 sm:text-md border-gray-300 border rounded-md w-full"
+                className={cn(
+                  "p-1 pl-4 sm:text-md border-gray-300 border rounded-md w-full"
+                )}
                 onChange={() => {}}
               />
             </div>
@@ -455,23 +426,12 @@ export const UpdateEyewearPrescriptionForm: React.FC<
           <div className="mt-4">
             {error && <p className="text-red-600">Error: {error.message}</p>}
           </div>
-          <div className="flex space-x-5">
-            <button
-              type="button"
-              onClick={handleSubmit(onUpdateSubmit)}
-              className="inline-flex justify-center w-full py-2 px-4 mt-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-600 focus:outline-none"
-            >
-              <span className="ml-2">Update</span>
-            </button>
-
-            <button
-              type="submit"
-              onClick={handleSubmit(onDeleteSubmit)}
-              className="inline-flex justify-center w-full py-2 px-4 mt-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 focus:outline-none"
-            >
-              <span className="ml-2">Delete</span>
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="inline-flex justify-center w-full py-2 px-4 mt-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 focus:outline-none"
+          >
+            <span className="ml-2">Order</span>
+          </button>
         </form>
       </div>
     </div>

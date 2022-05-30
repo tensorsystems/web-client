@@ -21,7 +21,7 @@ import { useForm } from "react-hook-form";
 import {
   useNotificationDispatch,
   IFileUploader,
-  FileUploader
+  FileUploader,
 } from "@tensoremr/components";
 import {
   MutationResetPasswordArgs,
@@ -61,7 +61,8 @@ export const UserUpdateForm: React.FC<Props> = ({
   const notifDispatch = useNotificationDispatch();
   const [userTypes, setUserTypes] = useState([]);
   const [signatures, setSignatures] = useState<Array<IFileUploader>>();
-  const [profilePictures, setProfilePictures] = useState<Array<IFileUploader>>();
+  const [profilePictures, setProfilePictures] =
+    useState<Array<IFileUploader>>();
   const { register, handleSubmit, watch, reset } = useForm<any>();
   const password = useRef({});
   password.current = watch("password", "");
@@ -367,6 +368,14 @@ export const UserUpdateForm: React.FC<Props> = ({
                 values={signatures}
                 onAdd={handleSignatureChange}
                 onDelete={() => setSignatures([])}
+                onError={(message) => {
+                  notifDispatch({
+                    type: "show",
+                    notifTitle: "Error",
+                    notifSubTitle: message,
+                    variant: "failure",
+                  });
+                }}
               />
             </div>
 
@@ -380,6 +389,14 @@ export const UserUpdateForm: React.FC<Props> = ({
                 values={profilePictures}
                 onAdd={handleProfilePictureChange}
                 onDelete={() => setProfilePictures([])}
+                onError={(message) => {
+                  notifDispatch({
+                    type: "show",
+                    notifTitle: "Error",
+                    notifSubTitle: message,
+                    variant: "failure",
+                  });
+                }}
               />
             </div>
           </div>

@@ -31,7 +31,6 @@ import {
   MutationDeleteDiagnosticImageArgs,
   DiagnosticProcedureStatus,
 } from "@tensoremr/models";
-import { useNotificationDispatch } from "./Notification";
 import { useExitPrompt } from "@tensoremr/hooks";
 import cn from "classnames";
 import { RefractionDistanceComponent } from "./RefractionDistanceForm";
@@ -85,15 +84,17 @@ interface Props {
   readOnly: boolean;
   values: DiagnosticProcedure | undefined;
   onRefersh: () => void;
+  onSuccess: (message: string) => void;
+  onError: (message: string) => void;
 }
 
 export const DiagnosticProcedureComponent: React.FC<Props> = ({
   values,
   readOnly,
   onRefersh,
+  onSuccess,
+  onError
 }) => {
-  const notifDispatch = useNotificationDispatch();
-
   const [timer, setTimer] = useState<any>(null);
   const [modified, setModified] = useState<boolean>(false);
   const [showExitPrompt, setShowExitPrompt] = useExitPrompt(false);
@@ -244,12 +245,7 @@ export const DiagnosticProcedureComponent: React.FC<Props> = ({
       setDocuments([...documents, ...incomingDocuments]);
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 
@@ -259,21 +255,10 @@ export const DiagnosticProcedureComponent: React.FC<Props> = ({
   >(UPDATE_DIAGNOSTIC_PROCEDURE, {
     onCompleted(data) {
       onRefersh();
-
-      notifDispatch({
-        type: "show",
-        notifTitle: "Success",
-        notifSubTitle: "Procedure marked as done",
-        variant: "success",
-      });
+      onSuccess("Procedure marked as done");
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 
@@ -281,12 +266,7 @@ export const DiagnosticProcedureComponent: React.FC<Props> = ({
     DELETE_IMAGE,
     {
       onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
+        onError(error.message);
       },
     }
   );
@@ -296,12 +276,7 @@ export const DiagnosticProcedureComponent: React.FC<Props> = ({
     MutationDeleteDiagnosticDocumentArgs
   >(DELETE_DIAGNOSTIC_DOCUMENT, {
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 
@@ -683,6 +658,7 @@ export const DiagnosticProcedureComponent: React.FC<Props> = ({
                     setImages(files);
                   }
                 }}
+                onError={(message) => onError(message)}
               />
             </div>
           </div>
@@ -727,6 +703,7 @@ export const DiagnosticProcedureComponent: React.FC<Props> = ({
                   setDocuments(files);
                 }
               }}
+              onError={(message) => onError(message)}
             />
           </div>
 

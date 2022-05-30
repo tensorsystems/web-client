@@ -24,10 +24,10 @@ import { PatientDashboard } from "./PatientDashboard";
 import OphthalmologyVitalSigns from "./objective/vital_signs/OphthalmologyVitalSigns";
 import { SideNav } from "./SideNav";
 import OphthalmologyExamination from "./objective/physical_examination/OphthalmologyExamination";
-import { DiagnosisPage } from "./DiagnosisPage";
-import { DifferentialDiagnosisPage } from "./DifferentialDiagnosisPage";
+import { DiagnosisPage } from "./assessment/diagnosis";
+import { DifferentialDiagnosisPage } from "./assessment/differential_diagnosis";
 import { LabPage } from "./objective/labratory";
-import { PrescriptionPage } from "./PrescriptionPage";
+import { PrescriptionPage } from "./plan/prescription";
 import {
   Route,
   Switch,
@@ -35,18 +35,18 @@ import {
   useLocation,
   useRouteMatch,
 } from "react-router-dom";
-import { SurgeryPage } from "./SurgeryPage";
-import { PreOpPage } from "./PreOpPage";
-import { IntraOpPage } from "./IntraOpPage";
-import { TreatmentPlanPage } from "./TreatmentPlanPage";
-import { TreatmentObjectivePage } from "./TreatmentObjectivePage";
+import { SurgeryPage } from "./plan/surgery";
+import { PreOpPage } from "./objective/pre_op";
+import { IntraOpPage } from "./objective/intra_operation";
+import { TreatmentPlanPage } from "./plan/treatment";
+import { TreatmentObjectivePage } from "./objective/treatment";
 import { SummaryPage } from "./SummaryPage";
 import { PastMedicationsAllergies } from "./subjective/past_medication_allergies";
 import { Stickie } from "../../components/StickieComponent";
 import { VisionSideInfo } from "../../components/VisionSideInfo";
 import { IopSideInfo } from "../../components/IopSideInfo";
 import { MedicationSideInfo } from "../../components/MedicationSideInfo";
-import { ReferralPage } from "./ReferralPage";
+import { ReferralPage } from "./plan/referral";
 import ReactLoading from "react-loading";
 import {
   Appointment,
@@ -58,8 +58,8 @@ import {
   Query,
 } from "../../models/models";
 import { parseJwt } from "../../util";
-import { FollowUpPage } from "./FollowUpPage";
-import { PreanestheticPage } from "./PreanestheticPage";
+import { FollowUpPage } from "./plan/follow_up";
+import { PreanestheticPage } from "./objective/pre_anesthetic";
 import Modal from "../../components/Modal";
 import { useNotificationDispatch } from "@tensoremr/components";
 import { AppointmentContext } from "../../_context/AppointmentContext";
@@ -717,13 +717,17 @@ export const AppointmentDetails: React.FC<{
             </Route>
 
             <Route path={`${match.path}/pre-op`}>
-              <PreOpPage patientChartId={data?.appointment.patientChart.id} />
+              <PreOpPage
+                locked={patientChartLocked[0] ?? false}
+                patientChartId={data?.appointment.patientChart.id}
+              />
             </Route>
 
             <Route path={`${match.path}/pre-anesthetic`}>
               {data?.appointment.patientChart && (
                 <PreanestheticPage
                   patientChartId={data.appointment.patientChart.id}
+                  locked={patientChartLocked[0] ?? false}
                 />
               )}
             </Route>
@@ -732,6 +736,7 @@ export const AppointmentDetails: React.FC<{
               {data?.appointment.patientChart && (
                 <IntraOpPage
                   patientChartId={data?.appointment.patientChart.id}
+                  locked={patientChartLocked[0] ?? false}
                 />
               )}
             </Route>
@@ -740,6 +745,7 @@ export const AppointmentDetails: React.FC<{
               {data?.appointment.patientChart && (
                 <TreatmentObjectivePage
                   patientChartId={data?.appointment.patientChart.id}
+                  locked={patientChartLocked[0] ?? false}
                 />
               )}
             </Route>
@@ -749,6 +755,7 @@ export const AppointmentDetails: React.FC<{
                 patientChartId={data?.appointment.patientChart.id}
                 medicalDepartment={data?.appointment.medicalDepartment}
                 onSaveChange={handleSaveChange}
+                locked={patientChartLocked[0] ?? false}
               />
             </Route>
 
@@ -757,6 +764,7 @@ export const AppointmentDetails: React.FC<{
                 patientChartId={data?.appointment.patientChart.id}
                 medicalDepartment={data?.appointment.medicalDepartment}
                 onSaveChange={handleSaveChange}
+                locked={patientChartLocked[0] ?? false}
               />
             </Route>
 
@@ -766,6 +774,7 @@ export const AppointmentDetails: React.FC<{
                   patientId={data?.appointment.patient.id}
                   patientChart={data?.appointment.patientChart}
                   appointmentId={data?.appointment.id}
+                  locked={patientChartLocked[0] ?? false}
                 />
               )}
             </Route>
@@ -776,6 +785,7 @@ export const AppointmentDetails: React.FC<{
                   patientId={data?.appointment.patient.id}
                   patientChart={data?.appointment.patientChart}
                   appointmentId={data?.appointment.id}
+                  locked={patientChartLocked[0] ?? false}
                 />
               )}
             </Route>
@@ -786,6 +796,7 @@ export const AppointmentDetails: React.FC<{
                   appointmentId={data?.appointment.id}
                   patientChartId={data?.appointment.patientChart.id}
                   patientId={data?.appointment.patient.id}
+                  locked={patientChartLocked[0] ?? false}
                 />
               )}
             </Route>

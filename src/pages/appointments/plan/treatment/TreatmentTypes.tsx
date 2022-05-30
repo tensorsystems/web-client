@@ -18,14 +18,13 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
 import {
   TreatmentType,
   PaginationInput,
   QueryTreatmentTypesArgs,
   Query,
-} from "../models/models";
-import { AppointmentContext } from "../_context/AppointmentContext";
+} from "@tensoremr/models";
 
 const TREATMENT_TYPES = gql`
   query TreatmentTypes($page: PaginationInput!, $searchTerm: String) {
@@ -62,8 +61,9 @@ const TREATMENT_TYPES = gql`
 `;
 
 export const TreatmentTypesComponent: React.FC<{
+  locked: boolean;
   onItemClick: (item: TreatmentType) => void;
-}> = ({ onItemClick }) => {
+}> = ({ locked, onItemClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
     page: 1,
@@ -76,8 +76,6 @@ export const TreatmentTypesComponent: React.FC<{
       variables: { page: paginationInput, searchTerm },
     }
   );
-
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
 
   useEffect(() => {
     refetch();
@@ -137,7 +135,7 @@ export const TreatmentTypesComponent: React.FC<{
             <tr
               key={e?.node.id}
               onClick={() =>
-                !patientChartLocked[0] && e?.node && handleItemClick(e?.node)
+                !locked && e?.node && handleItemClick(e?.node)
               }
               className="hover:bg-gray-100 border-t cursor-pointer"
             >

@@ -18,15 +18,12 @@
 
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
-import { TablePagination } from "./TablePagination";
+import { TablePagination, useNotificationDispatch } from "@tensoremr/components";
 import {
   FavoriteMedication,
   MutationDeleteFavoriteMedicationArgs,
-  Query,
   FavoriteMedicationConnection,
-} from "../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
-import { AppointmentContext } from "../_context/AppointmentContext";
+} from "@tensoremr/models";
 
 const DELETE_FAVORITE_MEDICATION = gql`
   mutation DeleteFavoriteMedication($id: ID!) {
@@ -35,6 +32,7 @@ const DELETE_FAVORITE_MEDICATION = gql`
 `;
 
 export const FavoriteMedicationList: React.FC<{
+  locked: boolean;
   userFavoriteMedications: FavoriteMedicationConnection | undefined;
   onItemClick: (item: FavoriteMedication) => void;
   refetch: () => void;
@@ -42,6 +40,7 @@ export const FavoriteMedicationList: React.FC<{
   handlePreviousClick: () => void;
   setSearchTerm: (searchTerm: string) => void;
 }> = ({
+  locked,
   userFavoriteMedications,
   onItemClick,
   refetch,
@@ -50,8 +49,6 @@ export const FavoriteMedicationList: React.FC<{
   setSearchTerm,
 }) => {
   const notifDispatch = useNotificationDispatch();
-
-  const { patientChartLocked } = React.useContext<any>(AppointmentContext);
 
   const [deleteFavoriteMedication] = useMutation<
     any,
@@ -130,7 +127,7 @@ export const FavoriteMedicationList: React.FC<{
               <td
                 className="px-6 py-5 text-sm text-gray-700"
                 onClick={() =>
-                  !patientChartLocked[0] && handleItemClick(e?.node)
+                  !locked && handleItemClick(e?.node)
                 }
               >
                 {e?.node.medication}
@@ -138,7 +135,7 @@ export const FavoriteMedicationList: React.FC<{
               <td
                 className="p-2"
                 onClick={() =>
-                  !patientChartLocked[0] && handleItemClick(e?.node)
+                  !locked && handleItemClick(e?.node)
                 }
               >
                 <span className="material-icons">keyboard_arrow_right</span>

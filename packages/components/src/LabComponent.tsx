@@ -21,10 +21,7 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Prompt } from "react-router-dom";
-import {
-  IFileUploader,
-  FileUploader,
-} from "./FileUploader";
+import { IFileUploader, FileUploader } from "./FileUploader";
 import {
   Lab,
   LabUpdateInput,
@@ -35,7 +32,7 @@ import {
   MutationDeleteLabImageArgs,
 } from "@tensoremr/models";
 import { useNotificationDispatch } from "@tensoremr/components";
-import {useExitPrompt} from "@tensoremr/hooks";
+import { useExitPrompt } from "@tensoremr/hooks";
 import classnames from "classnames";
 import { getFileUrl } from "@tensoremr/util";
 
@@ -85,6 +82,7 @@ interface Props {
   readOnly: boolean;
   forPrint?: boolean;
   onRefresh: () => void;
+  onError: (message: string) => void;
 }
 
 export const LabComponent: React.FC<Props> = ({
@@ -92,6 +90,7 @@ export const LabComponent: React.FC<Props> = ({
   readOnly,
   forPrint = false,
   onRefresh,
+  onError,
 }) => {
   const notifDispatch = useNotificationDispatch();
 
@@ -2545,6 +2544,7 @@ export const LabComponent: React.FC<Props> = ({
                         setImages(files);
                       }
                     }}
+                    onError={(message) => onError(message)}
                   />
                 </div>
               </div>
@@ -2576,6 +2576,7 @@ export const LabComponent: React.FC<Props> = ({
                         setDocuments(files);
                       }
                     }}
+                    onError={(message) => onError(message)}
                   />
                 </div>
               </div>

@@ -41,7 +41,8 @@ export const UserRegistrationForm: React.FC<Props> = ({ onSuccess }) => {
   const notifDispatch = useNotificationDispatch();
   const [userTypes, setUserTypes] = useState<Array<any>>([]);
   const [signatures, setSignatures] = useState<Array<IFileUploader>>();
-  const [profilePictures, setProfilePictures] = useState<Array<IFileUploader>>();
+  const [profilePictures, setProfilePictures] =
+    useState<Array<IFileUploader>>();
 
   const { register, handleSubmit, watch, errors } = useForm<UserInput>();
   const password = useRef({});
@@ -305,6 +306,14 @@ export const UserRegistrationForm: React.FC<Props> = ({ onSuccess }) => {
                 values={signatures}
                 onAdd={handleSignatureChange}
                 onDelete={() => setSignatures([])}
+                onError={(message) => {
+                  notifDispatch({
+                    type: "show",
+                    notifTitle: "Error",
+                    notifSubTitle: message,
+                    variant: "failure",
+                  });
+                }}
               />
             </div>
 
@@ -318,6 +327,14 @@ export const UserRegistrationForm: React.FC<Props> = ({ onSuccess }) => {
                 values={profilePictures}
                 onAdd={handleProfilePictureChange}
                 onDelete={() => setProfilePictures([])}
+                onError={(message) => {
+                  notifDispatch({
+                    type: "show",
+                    notifTitle: "Error",
+                    notifSubTitle: message,
+                    variant: "failure",
+                  });
+                }}
               />
             </div>
           </div>
