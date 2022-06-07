@@ -19,24 +19,31 @@
 import { gql, useQuery } from "@apollo/client";
 
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  TablePagination,
+  AppointmentForm,
+  CheckInForm,
+  Tabs,
+} from "@tensoremr/components";
 import { format, parseISO } from "date-fns";
 import classNames from "classnames";
-import { PatientTabs } from "./PatientTabs";
-import { AppointmentForm } from "../../components/AppointmentForm";
-import { Appointment, PaginationInput, Query } from "../../models/models";
-import { PatientBasicInfo } from "../../components/PatientBasicInfo";
-import { PatientContactInfo } from "../../components/PatientContactInfo";
-import { PatientEmergencyContactInfo } from "../../components/PatientEmergencyContactInfo";
-import { parseJwt } from "../../util";
-import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
-import { Page } from "../../models/page";
-import { PatientDocuments } from "../../components/PatientDocuments";
+import { PatientTabs } from "../PatientTabs";
+import { Appointment, PaginationInput, Query, Page } from "@tensoremr/models";
+import { parseJwt } from "@tensoremr/util";
+import { PatientBasicInfo } from "./PatientBasicInfo";
+import { PatientContactInfo } from "./PatientContactInfo";
+import { PatientEmergencyContactInfo } from "./PatientEmergencyContactInfo";
+import {
+  Route,
+  Switch,
+  useHistory,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
+import { PatientDocuments } from "./PatientDocuments";
 import { CalendarIcon, LoginIcon } from "@heroicons/react/outline";
-import CheckInForm from "../../components/CheckInForm";
-import PatientOrders from "./PatientOrders";
-import { Tabs } from "../../components/Tabs";
-import { TablePagination } from "../../components/TablePagination";
+import PatientOrders from "../PatientOrders";
 
 export const GET_DATA = gql`
   query Data(
@@ -139,15 +146,15 @@ export const GET_DATA = gql`
   }
 `;
 
-export const PatientDetailsPage: React.FC<{
-  patientId: string;
+export const PatientDetails: React.FC<{
   onAddPage?: (page: any) => void;
   onUpdateTab?: (page: any) => void;
-}> = ({ patientId, onUpdateTab, onAddPage }) => {
+}> = ({ onUpdateTab, onAddPage }) => {
   const match = useRouteMatch();
   const [tabValue, setTabValue] = useState("Appointments");
   const bottomSheetDispatch = useBottomSheetDispatch();
   const history = useHistory();
+  const { patientId } = useParams<{ patientId: string }>();
 
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
     page: 1,

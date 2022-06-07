@@ -18,18 +18,24 @@
 
 import React from "react";
 import ContentLoader from "react-content-loader";
-import { Patient } from "../models/models";
-import { getFileUrl } from "../util";
-import { FileUploader, FileUploaderComponent } from "./FileUploaderComponent";
+import { Patient } from "@tensoremr/models";
+import { getFileUrl } from "@tensoremr/util";
+import {
+  useNotificationDispatch,
+  FileUploader,
+  IFileUploader,
+} from "@tensoremr/components";
 
 export const PatientDocuments: React.FC<{
   data: Patient | undefined;
   loading: boolean;
 }> = ({ data, loading }) => {
-  const paperRecordDocument: FileUploader = {
+  const notifDispatch = useNotificationDispatch();
+
+  const paperRecordDocument: IFileUploader = {
     id: data?.paperRecordDocument?.id,
     fileUrl: getFileUrl({
-       // @ts-ignore
+      // @ts-ignore
       baseUrl: process.env.REACT_APP_SERVER_URL,
       fileName: data?.paperRecordDocument?.fileName ?? "",
       hash: data?.paperRecordDocument?.hash ?? "",
@@ -41,11 +47,11 @@ export const PatientDocuments: React.FC<{
     contentType: data?.paperRecordDocument?.contentType ?? "",
   };
 
-  const otherDocuments: Array<FileUploader> =
+  const otherDocuments: Array<IFileUploader> =
     data?.documents?.map((e: any) => ({
       id: e?.id,
       fileUrl: getFileUrl({
-         // @ts-ignore
+        // @ts-ignore
         baseUrl: process.env.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
@@ -99,10 +105,18 @@ export const PatientDocuments: React.FC<{
         <div>
           <p className="font-semibold text-xl text-gray-700">Paper Record</p>
           <div className="mt-2">
-            <FileUploaderComponent
+            <FileUploader
               multiSelect={false}
               values={[paperRecordDocument]}
               accept={"document"}
+              onError={(message) => {
+                notifDispatch({
+                  type: "show",
+                  notifTitle: "Error",
+                  notifSubTitle: message,
+                  variant: "failure",
+                });
+              }}
             />
           </div>
         </div>
@@ -114,10 +128,18 @@ export const PatientDocuments: React.FC<{
             Other documents
           </p>
           <div className="mt-2">
-            <FileUploaderComponent
+            <FileUploader
               multiSelect={false}
               values={otherDocuments}
               accept={"document"}
+              onError={(message) => {
+                notifDispatch({
+                  type: "show",
+                  notifTitle: "Error",
+                  notifSubTitle: message,
+                  variant: "failure",
+                });
+              }}
             />
           </div>
         </div>

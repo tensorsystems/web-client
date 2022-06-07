@@ -16,31 +16,27 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
-import gql from "graphql-tag";
 import React, { useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { TablePagination } from "../../components/TablePagination";
+import { useBottomSheetDispatch, useNotificationDispatch, TablePagination, CompleteSurgicalOrderForm } from "@tensoremr/components";
 import {
   PaginationInput,
   Query,
-  QuerySearchTreatmentOrdersArgs,
-  TreatmentOrder,
-  TreatmentOrderStatus,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+  QuerySearchSurgicalOrdersArgs,
+  SurgicalOrder,
+  SurgicalOrderStatus,
+} from "@tensoremr/models";
 import cn from "classnames";
-import CompleteTreatmentOrderForm from "../../components/CompleteTreatmentOrderForm";
 
-const SEARCH_TREATMENT_ORDERS = gql`
-  query SearchTreatmentOrders(
+const SEARCH_SURGICAL_ORDERS = gql`
+  query SearchSurgicalOrders(
     $page: PaginationInput!
-    $filter: TreatmentOrderFilter
+    $filter: SurgicalOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchTreatmentOrders(
+    searchSurgicalOrders(
       page: $page
       filter: $filter
       date: $date
@@ -66,9 +62,10 @@ const SEARCH_TREATMENT_ORDERS = gql`
               title
             }
           }
-          treatments {
+          surgicalProcedures {
             id
-            treatmentType {
+            receptionNote
+            surgicalProcedureType {
               title
             }
             payments {
@@ -83,7 +80,6 @@ const SEARCH_TREATMENT_ORDERS = gql`
                 credit
               }
             }
-            receptionNote
           }
           status
           createdAt
@@ -93,7 +89,7 @@ const SEARCH_TREATMENT_ORDERS = gql`
   }
 `;
 
-const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
+export const PatientSurgicalOrders: React.FC<{ patientId: string }> = ({
   patientId,
 }) => {
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
@@ -104,8 +100,8 @@ const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
   const bottomSheetDispatch = useBottomSheetDispatch();
   const notifDispatch = useNotificationDispatch();
 
-  const { data, refetch } = useQuery<Query, QuerySearchTreatmentOrdersArgs>(
-    SEARCH_TREATMENT_ORDERS,
+  const { data, refetch } = useQuery<Query, QuerySearchSurgicalOrdersArgs>(
+    SEARCH_SURGICAL_ORDERS,
     {
       variables: {
         page: paginationInput,
@@ -117,7 +113,7 @@ const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
   );
 
   const handleNextClick = () => {
-    const totalPages = data?.searchTreatmentOrders.pageInfo.totalPages ?? 0;
+    const totalPages = data?.searchSurgicalOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -136,12 +132,12 @@ const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
     }
   };
 
-  const handleOrderClick = (order: TreatmentOrder) => {
+  const handleOrderClick = (order: SurgicalOrder) => {
     bottomSheetDispatch({
       type: "show",
       snapPoint: 0,
       children: (
-        <CompleteTreatmentOrderForm
+        <CompleteSurgicalOrderForm
           selectedOrder={order}
           onSuccess={() => {
             refetch();
@@ -195,8 +191,10 @@ const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data?.searchTreatmentOrders.edges.map((e) => {
-            const payments = e.node.treatments.map((p) => p.payments).flat();
+          {data?.searchSurgicalOrders.edges.map((e) => {
+            const payments = e.node.surgicalProcedures
+              .map((p) => p.payments)
+              .flat();
 
             return (
               <tr
@@ -239,7 +237,7 @@ const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
                       "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
                       {
                         "bg-yellow-100 text-yellow-800":
-                          e?.node.status === TreatmentOrderStatus.Ordered ||
+                          e?.node.status === SurgicalOrderStatus.Ordered ||
                           payments.some(
                             (e) =>
                               e.status === "NOTPAID" ||
@@ -264,7 +262,7 @@ const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
       <div className="">
         <TablePagination
           color="bg-gray-50 shadow-md"
-          totalCount={data?.searchTreatmentOrders.totalCount ?? 0}
+          totalCount={data?.searchSurgicalOrders.totalCount ?? 0}
           onNext={handleNextClick}
           onPrevious={handlePrevClick}
         />
@@ -272,5 +270,3 @@ const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
     </div>
   );
 };
-
-export default PatientTreatmentOrders;

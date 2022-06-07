@@ -16,36 +16,37 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
-import gql from "graphql-tag";
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { TablePagination } from "../../components/TablePagination";
 import {
-  LabOrder,
-  LabOrderStatus,
-  MutationOrderAndConfirmLabArgs,
-  OrderAndConfirmLabInput,
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  CompleteDiagnosticOrderForm,
+  TablePagination,
+} from "@tensoremr/components";
+import {
+  DiagnosticProcedureOrder,
+  DiagnosticProcedureOrderStatus,
+  MutationOrderAndConfirmDiagnosticProcedureArgs,
+  OrderAndConfirmDiagnosticProcedureInput,
   PaginationInput,
   Query,
-  QuerySearchLabOrdersArgs,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+  QuerySearchDiagnosticProcedureOrdersArgs,
+} from "@tensoremr/models";
 import cn from "classnames";
-import { CompleteLabOrderForm } from "../../components/CompleteLabOrderForm";
 import { PlusCircleIcon } from "@heroicons/react/outline";
-import { useForm } from "react-hook-form";
 import Select from "react-select";
+import { useForm } from "react-hook-form";
 
-const SEARCH_LAB_ORDERS = gql`
-  query SearchLabOrders(
+const SEARCH_DIAGNOSTIC_ORDERS = gql`
+  query SearchDiagnosticOrders(
     $page: PaginationInput!
-    $filter: LabOrderFilter
+    $filter: DiagnosticProcedureOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchLabOrders(
+    searchDiagnosticProcedureOrders(
       page: $page
       filter: $filter
       date: $date
@@ -71,10 +72,9 @@ const SEARCH_LAB_ORDERS = gql`
               title
             }
           }
-          labs {
+          diagnosticProcedures {
             id
-            labType {
-              id
+            diagnosticProcedureType {
               title
             }
             payments {
@@ -99,7 +99,7 @@ const SEARCH_LAB_ORDERS = gql`
   }
 `;
 
-const PatientLabratoryOrders: React.FC<{ patientId: string }> = ({
+export const PatientDiagnosticOrders: React.FC<{ patientId: string }> = ({
   patientId,
 }) => {
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
@@ -110,20 +110,21 @@ const PatientLabratoryOrders: React.FC<{ patientId: string }> = ({
   const bottomSheetDispatch = useBottomSheetDispatch();
   const notifDispatch = useNotificationDispatch();
 
-  const { data, refetch } = useQuery<Query, QuerySearchLabOrdersArgs>(
-    SEARCH_LAB_ORDERS,
-    {
-      variables: {
-        page: paginationInput,
-        filter: {
-          patientId,
-        },
+  const { data, refetch } = useQuery<
+    Query,
+    QuerySearchDiagnosticProcedureOrdersArgs
+  >(SEARCH_DIAGNOSTIC_ORDERS, {
+    variables: {
+      page: paginationInput,
+      filter: {
+        patientId,
       },
-    }
-  );
+    },
+  });
 
   const handleNextClick = () => {
-    const totalPages = data?.searchLabOrders.pageInfo.totalPages ?? 0;
+    const totalPages =
+      data?.searchDiagnosticProcedureOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -142,12 +143,12 @@ const PatientLabratoryOrders: React.FC<{ patientId: string }> = ({
     }
   };
 
-  const handleOrderClick = (order: LabOrder) => {
+  const handleOrderClick = (order: DiagnosticProcedureOrder) => {
     bottomSheetDispatch({
       type: "show",
       snapPoint: 0,
       children: (
-        <CompleteLabOrderForm
+        <CompleteDiagnosticOrderForm
           selectedOrder={order}
           onSuccess={() => {
             refetch();
@@ -183,12 +184,14 @@ const PatientLabratoryOrders: React.FC<{ patientId: string }> = ({
                   patientId={patientId}
                   onSuccess={() => {
                     bottomSheetDispatch({ type: "hide" });
+
                     notifDispatch({
                       type: "show",
                       notifTitle: "Success",
-                      notifSubTitle: "New lab order added",
+                      notifSubTitle: "New diagnostic procedure added",
                       variant: "success",
                     });
+
                     refetch();
                   }}
                   onCancel={() => bottomSheetDispatch({ type: "hide" })}
@@ -236,8 +239,10 @@ const PatientLabratoryOrders: React.FC<{ patientId: string }> = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data?.searchLabOrders.edges.map((e) => {
-            const payments = e.node.labs.map((p) => p.payments).flat();
+          {data?.searchDiagnosticProcedureOrders.edges.map((e) => {
+            const payments = e.node.diagnosticProcedures
+              .map((p) => p.payments)
+              .flat();
 
             return (
               <tr
@@ -280,7 +285,8 @@ const PatientLabratoryOrders: React.FC<{ patientId: string }> = ({
                       "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
                       {
                         "bg-yellow-100 text-yellow-800":
-                          e?.node.status === LabOrderStatus.Ordered ||
+                          e?.node.status ===
+                            DiagnosticProcedureOrderStatus.Ordered ||
                           payments.some(
                             (e) =>
                               e.status === "NOTPAID" ||
@@ -305,7 +311,7 @@ const PatientLabratoryOrders: React.FC<{ patientId: string }> = ({
       <div className="">
         <TablePagination
           color="bg-gray-50 shadow-md"
-          totalCount={data?.searchLabOrders.totalCount ?? 0}
+          totalCount={data?.searchDiagnosticProcedureOrders.totalCount ?? 0}
           onNext={handleNextClick}
           onPrevious={handlePrevClick}
         />
@@ -316,11 +322,11 @@ const PatientLabratoryOrders: React.FC<{ patientId: string }> = ({
 
 const ORDER_DATA = gql`
   query OrderData(
-    $labPage: PaginationInput!
+    $diagnosticPage: PaginationInput!
     $searchAppointmentsInput: AppointmentSearchInput!
     $appointmentsPage: PaginationInput!
   ) {
-    labTypes(page: $labPage) {
+    diagnosticProcedureTypes(page: $diagnosticPage) {
       totalCount
       edges {
         node {
@@ -372,9 +378,11 @@ const ORDER_DATA = gql`
   }
 `;
 
-const ORDER_AND_CONFIRM_LAB = gql`
-  mutation OrderAndConfirmLab($input: OrderAndConfirmLabInput!) {
-    orderAndConfirmLab(input: $input) {
+const ORDER_AND_CONFIRM_DIAGNOSTIC_PROCEDURE = gql`
+  mutation OrderAndConfirmDiagnosticProcedure(
+    $input: OrderAndConfirmDiagnosticProcedureInput!
+  ) {
+    orderAndConfirmDiagnosticProcedure(input: $input) {
       id
     }
   }
@@ -397,21 +405,16 @@ const OrderForm: React.FC<OrderProps> = ({
     new Date().toISOString().split("T")[0]
   );
 
-  const [selectedLabTypeId, setSelectedLabTypeId] = useState<string | null>(
-    null
-  );
-
-  const [selectedBillings, setSelectedBillings] = useState<Array<any>>([]);
-
-  const { register, handleSubmit } = useForm<OrderAndConfirmLabInput>({
-    defaultValues: {
-      patientId: patientId,
-    },
-  });
+  const { register, handleSubmit } =
+    useForm<OrderAndConfirmDiagnosticProcedureInput>({
+      defaultValues: {
+        patientId: patientId,
+      },
+    });
 
   const { data, refetch } = useQuery<Query, any>(ORDER_DATA, {
     variables: {
-      labPage: {
+      diagnosticPage: {
         page: 1,
         size: 10000,
       },
@@ -426,46 +429,44 @@ const OrderForm: React.FC<OrderProps> = ({
     },
   });
 
-  const [orderAndConfirm] = useMutation<any, MutationOrderAndConfirmLabArgs>(
-    ORDER_AND_CONFIRM_LAB,
-    {
-      onCompleted(data) {
-        onSuccess();
-      },
-      onError(error) {
-        notifDispatch({
-          type: "show",
-          notifTitle: "Error",
-          notifSubTitle: error.message,
-          variant: "failure",
-        });
-      },
-    }
-  );
+  const [orderAndConfirm] = useMutation<
+    any,
+    MutationOrderAndConfirmDiagnosticProcedureArgs
+  >(ORDER_AND_CONFIRM_DIAGNOSTIC_PROCEDURE, {
+    onCompleted(data) {
+      onSuccess();
+    },
+    onError(error) {
+      notifDispatch({
+        type: "show",
+        notifTitle: "Error",
+        notifSubTitle: error.message,
+        variant: "failure",
+      });
+    },
+  });
 
   useEffect(() => {
     refetch();
   }, [checkInTime]);
 
-  const onSubmit = (input: OrderAndConfirmLabInput) => {
+  const [selectedDiagnosticTypeId, setSelectedDiagnosticTypeId] = useState<
+    string | null
+  >(null);
+
+  const onSubmit = (input: OrderAndConfirmDiagnosticProcedureInput) => {
     if (data?.searchAppointments.totalCount === 0) {
       alert("Please select appointment");
       return;
     }
 
-    if (selectedLabTypeId === null) {
-      alert("Please select lab");
+    if (selectedDiagnosticTypeId === null) {
+      alert("Please select diagnostic procedure");
       return;
     }
 
-    if (selectedBillings.length === 0) {
-      alert("Select atleast one billing item");
-      return;
-    }
-
-    input.billingIds = selectedBillings.map((e) => e.value);
     input.patientId = patientId;
-    input.labTypeId = selectedLabTypeId;
+    input.diagnosticProcedureTypeId = selectedDiagnosticTypeId;
 
     orderAndConfirm({
       variables: {
@@ -474,19 +475,12 @@ const OrderForm: React.FC<OrderProps> = ({
     });
   };
 
-  const labTypes = data?.labTypes.edges.map((e) => ({
-    value: e?.node.id,
-    label: e?.node.title,
-  }));
-
-  const billings = data?.labTypes.edges
-    .find((e) => e?.node.id.toString() === selectedLabTypeId?.toString())
-    ?.node?.billings.map((e) => ({
-      value: e?.id,
-      label: e?.item,
-      code: e?.code,
-      price: e?.price,
-    }));
+  const diagnosticProcedureTypes = data?.diagnosticProcedureTypes.edges.map(
+    (e) => ({
+      value: e?.node.id,
+      label: e?.node.title,
+    })
+  );
 
   const patientAppointments = data?.searchAppointments;
 
@@ -514,30 +508,47 @@ const OrderForm: React.FC<OrderProps> = ({
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <p className="text-2xl font-extrabold tracking-wider text-teal-800">
-            Order Lab
+            Order Diagnostic Procedure
           </p>
           <div className="mt-4">
             <Select
-              placeholder="Lab"
-              options={labTypes}
+              placeholder="Diagnostic Procedure"
+              options={diagnosticProcedureTypes}
               onChange={(v) => {
                 if (v?.value) {
-                  setSelectedLabTypeId(v.value);
+                  setSelectedDiagnosticTypeId(v.value);
                 }
               }}
             />
           </div>
-          {selectedLabTypeId && (
+          {selectedDiagnosticTypeId && (
             <div>
               <div className="mt-4">
-                <Select
-                  isMulti
-                  placeholder="Billings"
-                  options={billings}
-                  onChange={(values) => {
-                    setSelectedBillings(values.map((e) => e));
-                  }}
-                />
+                <label
+                  htmlFor="billingId"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Billing
+                </label>
+                <select
+                  id="billingId"
+                  name="billingId"
+                  required
+                  ref={register({ required: true })}
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  {data?.diagnosticProcedureTypes?.edges
+                    .find(
+                      (e) =>
+                        e?.node.id.toString() ===
+                        selectedDiagnosticTypeId.toString()
+                    )
+                    ?.node.billings.map((e) => (
+                      <option key={e?.id} value={e?.id}>
+                        {`${e?.item} (${e?.code}) - ETB ${e?.price}`}
+                      </option>
+                    ))}
+                </select>
               </div>
 
               <div className="mt-4">
@@ -635,5 +646,3 @@ const OrderForm: React.FC<OrderProps> = ({
     </div>
   );
 };
-
-export default PatientLabratoryOrders;

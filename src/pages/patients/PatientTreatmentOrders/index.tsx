@@ -16,31 +16,32 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
-import gql from "graphql-tag";
 import React, { useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { TablePagination } from "../../components/TablePagination";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+  CompleteTreatmentOrderForm,
+} from "@tensoremr/components";
 import {
   PaginationInput,
   Query,
-  QuerySearchReferralOrdersArgs,
-  ReferralOrder,
-  ReferralOrderStatus,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+  QuerySearchTreatmentOrdersArgs,
+  TreatmentOrder,
+  TreatmentOrderStatus,
+} from "@tensoremr/models";
 import cn from "classnames";
-import CompleteReferralOrderForm from "../../components/CompleteReferralOrderForm";
 
-const SEARCH_REFERRAL_ORDERS = gql`
-  query SearchReferralOrders(
+const SEARCH_TREATMENT_ORDERS = gql`
+  query SearchTreatmentOrders(
     $page: PaginationInput!
-    $filter: ReferralOrderFilter
+    $filter: TreatmentOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchReferralOrders(
+    searchTreatmentOrders(
       page: $page
       filter: $filter
       date: $date
@@ -66,15 +67,23 @@ const SEARCH_REFERRAL_ORDERS = gql`
               title
             }
           }
-          referrals {
+          treatments {
             id
-            referralOrderId
-            patientChartId
-            reason
-            referredToId
-            referredToName
-            status
-            type
+            treatmentType {
+              title
+            }
+            payments {
+              id
+              status
+              invoiceNo
+              billing {
+                id
+                item
+                code
+                price
+                credit
+              }
+            }
             receptionNote
           }
           status
@@ -85,7 +94,7 @@ const SEARCH_REFERRAL_ORDERS = gql`
   }
 `;
 
-const PatientReferralOrders: React.FC<{ patientId: string }> = ({
+export const PatientTreatmentOrders: React.FC<{ patientId: string }> = ({
   patientId,
 }) => {
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
@@ -96,8 +105,8 @@ const PatientReferralOrders: React.FC<{ patientId: string }> = ({
   const bottomSheetDispatch = useBottomSheetDispatch();
   const notifDispatch = useNotificationDispatch();
 
-  const { data, refetch } = useQuery<Query, QuerySearchReferralOrdersArgs>(
-    SEARCH_REFERRAL_ORDERS,
+  const { data, refetch } = useQuery<Query, QuerySearchTreatmentOrdersArgs>(
+    SEARCH_TREATMENT_ORDERS,
     {
       variables: {
         page: paginationInput,
@@ -109,7 +118,7 @@ const PatientReferralOrders: React.FC<{ patientId: string }> = ({
   );
 
   const handleNextClick = () => {
-    const totalPages = data?.searchReferralOrders.pageInfo.totalPages ?? 0;
+    const totalPages = data?.searchTreatmentOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -128,12 +137,12 @@ const PatientReferralOrders: React.FC<{ patientId: string }> = ({
     }
   };
 
-  const handleOrderClick = (order: ReferralOrder) => {
+  const handleOrderClick = (order: TreatmentOrder) => {
     bottomSheetDispatch({
       type: "show",
       snapPoint: 0,
       children: (
-        <CompleteReferralOrderForm
+        <CompleteTreatmentOrderForm
           selectedOrder={order}
           onSuccess={() => {
             refetch();
@@ -171,6 +180,12 @@ const PatientReferralOrders: React.FC<{ patientId: string }> = ({
             >
               Ordered By
             </th>
+            <th
+              scope="col"
+              className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Payments
+            </th>
 
             <th
               scope="col"
@@ -181,7 +196,9 @@ const PatientReferralOrders: React.FC<{ patientId: string }> = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data?.searchReferralOrders.edges.map((e) => {
+          {data?.searchTreatmentOrders.edges.map((e) => {
+            const payments = e.node.treatments.map((p) => p.payments).flat();
+
             return (
               <tr
                 key={e?.node.id}
@@ -204,17 +221,36 @@ const PatientReferralOrders: React.FC<{ patientId: string }> = ({
                   }`}
                 </td>
 
+                <td className="px-6 py-4">
+                  <div className="text-sm text-gray-900">
+                    {payments
+                      .map((p) => `${p?.billing.item} (${p?.billing.code})`)
+                      .join(", ")}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {`ETB ${payments.reduce(
+                      (a, c) => a + (c?.billing ? c?.billing.price : 0),
+                      0
+                    )}`}
+                  </div>
+                </td>
                 <td className="px-6 py-4 text-sm text-teal-700 tracking-wide font-semibold">
                   <span
                     className={cn(
                       "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
                       {
                         "bg-yellow-100 text-yellow-800":
-                          ReferralOrderStatus.Ordered,
+                          e?.node.status === TreatmentOrderStatus.Ordered ||
+                          payments.some(
+                            (e) =>
+                              e.status === "NOTPAID" ||
+                              e.status === "PAYMENT_WAIVER_REQUESTED"
+                          ),
                       },
                       {
-                        "bg-green-100 text-green-800":
-                          ReferralOrderStatus.Completed,
+                        "bg-green-100 text-green-800": payments.every(
+                          (e) => e.status === "PAID"
+                        ),
                       }
                     )}
                   >
@@ -229,7 +265,7 @@ const PatientReferralOrders: React.FC<{ patientId: string }> = ({
       <div className="">
         <TablePagination
           color="bg-gray-50 shadow-md"
-          totalCount={data?.searchReferralOrders.totalCount ?? 0}
+          totalCount={data?.searchTreatmentOrders.totalCount ?? 0}
           onNext={handleNextClick}
           onPrevious={handlePrevClick}
         />
@@ -237,5 +273,3 @@ const PatientReferralOrders: React.FC<{ patientId: string }> = ({
     </div>
   );
 };
-
-export default PatientReferralOrders;

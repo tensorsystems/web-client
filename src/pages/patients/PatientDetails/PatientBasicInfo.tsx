@@ -18,9 +18,9 @@
 
 import React from "react";
 import ContentLoader from "react-content-loader";
-import { Patient } from "../models/models";
+import { Patient } from "@tensoremr/models";
 import { format, parseISO } from "date-fns";
-import { getPatientAge } from "../util";
+import { getPatientAge } from "@tensoremr/util";
 
 export const PatientBasicInfo: React.FC<{
   data: Patient | undefined;

@@ -18,11 +18,11 @@
 
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useParams, useRouteMatch } from "react-router-dom";
-import { parseJwt } from "../../util";
-import { PatientDetailsPage } from "./PatientDetailsPage";
+import { parseJwt } from "@tensoremr/util";
+import { PatientDetails } from "./PatientDetails";
 import { PatientsPage } from "./PatientsPage";
 
-export const PatientPage: React.FC<{
+export const Patients: React.FC<{
   onUpdateTab: (page: any) => void;
   onAddPage: (page: any) => void;
 }> = ({ onUpdateTab, onAddPage }) => {
@@ -42,7 +42,6 @@ export const PatientPage: React.FC<{
     <Switch>
       <Route path={`${match.path}/:patientId`}>
         <PatientDetails
-          userType={userType}
           onUpdateTab={onUpdateTab}
           onAddPage={onAddPage}
         />
@@ -54,17 +53,4 @@ export const PatientPage: React.FC<{
   );
 };
 
-const PatientDetails: React.FC<{
-  userType: string;
-  onUpdateTab: (page: any) => void;
-  onAddPage: (page: any) => void;
-}> = ({ onUpdateTab, onAddPage }) => {
-  const { patientId } = useParams<{ patientId: string }>();
-  return (
-    <PatientDetailsPage
-      patientId={patientId}
-      onUpdateTab={onUpdateTab}
-      onAddPage={onAddPage}
-    />
-  );
-};
+

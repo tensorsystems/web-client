@@ -18,15 +18,21 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
-import { Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Query, QueryGetPatientOrderCountArgs } from "../../models/models";
-import { NavItem } from "../../components/NavItem";
-import PatientDiagnosticOrders from "./PatientDiagnosticOrders";
-import PatientFollowUpOrders from "./PatientFollowUpOrders";
-import PatientLabratoryOrders from "./PatientLabratoryOrders";
-import PatientReferralOrders from "./PatientReferralOrders";
-import PatientSurgicalOrders from "./PatientSurgicalOrders";
-import PatientTreatmentOrders from "./PatientTreatmentOrders";
+import {
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+  useRouteMatch,
+} from "react-router-dom";
+import { Query, QueryGetPatientOrderCountArgs } from "@tensoremr/models";
+import { NavItem } from "@tensoremr/components";
+import { PatientDiagnosticOrders } from "../PatientDiagnosticOrders";
+import { PatientFollowUpOrders } from "../PatientFollowUpOrders";
+import { PatientLabratoryOrders } from "../PatientLabratoryOrders";
+import { PatientReferralOrders } from "../PatientReferralOrders";
+import { PatientSurgicalOrders } from "../PatientSurgicalOrders";
+import { PatientTreatmentOrders } from "../PatientTreatmentOrders";
 
 const GET_COUNT = gql`
   query GetCount($patientId: ID!) {

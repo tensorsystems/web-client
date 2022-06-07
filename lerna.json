@@ -3,7 +3,8 @@
     "packages/*",
     ".",
     "src/pages/admin",
-    "src/pages/appointments"
+    "src/pages/appointments",
+    "src/pages/patients"
   ],
   "version": "0.0.0",
   "npmClient": "yarn",

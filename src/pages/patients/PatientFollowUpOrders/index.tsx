@@ -16,22 +16,23 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
-import gql from "graphql-tag";
 import React, { useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { TablePagination } from "../../components/TablePagination";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  TablePagination,
+  CompleteFollowUpOrderForm,
+} from "@tensoremr/components";
 import {
   FollowUpOrder,
   FollowUpOrderStatus,
   PaginationInput,
   Query,
   QuerySearchFollowUpOrdersArgs,
-} from "../../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+} from "@tensoremr/models";
 import cn from "classnames";
-import CompleteFollowUpOrderForm from "../../components/CompleteFollowUpOrderForm";
 
 const SEARCH_FOLLOW_UP_ORDERS = gql`
   query SearchFollowUpOrders(
@@ -79,7 +80,7 @@ const SEARCH_FOLLOW_UP_ORDERS = gql`
   }
 `;
 
-const PatientFollowUpOrders: React.FC<{ patientId: string }> = ({
+export const PatientFollowUpOrders: React.FC<{ patientId: string }> = ({
   patientId,
 }) => {
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
@@ -231,5 +232,3 @@ const PatientFollowUpOrders: React.FC<{ patientId: string }> = ({
     </div>
   );
 };
-
-export default PatientFollowUpOrders;

@@ -79,7 +79,8 @@
       "packages/*",
       ".",
       "src/pages/admin",
-      "src/pages/appointments"
+      "src/pages/appointments",
+      "src/pages/patients"
     ]
   },
   "devDependencies": {

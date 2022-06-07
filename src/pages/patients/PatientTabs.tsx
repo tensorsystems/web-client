@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { Tab } from "../../models/tab";
+import { Tab } from "@tensoremr/models";
 import {
   ClockIcon,
   BeakerIcon,

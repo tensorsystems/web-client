@@ -41,7 +41,7 @@ import {
 import { HomePages } from "../pages";
 import { NewPatientPage } from "./NewPatientPage";
 import { DiagnosticOrdersPage } from "./DiagnosticOrdersPage";
-import { PatientPage } from "./Patient";
+import { Patients } from "./patients";
 import { parseJwt } from "../util";
 import { Appointments } from "./appointments";
 import { SurgicalOrdersPage } from "./SurgicalOrdersPage";
@@ -282,7 +282,7 @@ export const HomePage: React.FC = () => {
                     />
                   </Route>
                   <Route path="/patients">
-                    <PatientPage
+                    <Patients
                       onAddPage={handlePageAdd}
                       onUpdateTab={handleTabUpdate}
                     />

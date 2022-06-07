@@ -18,7 +18,7 @@
 
 import React from 'react';
 import ContentLoader from 'react-content-loader';
-import { Patient } from '../models/models';
+import { Patient } from '@tensoremr/models';
 import { InfoBlock } from './PatientInfoBlock';
 
 export const PatientEmergencyContactInfo: React.FC<{
