@@ -23,9 +23,9 @@ import { useForm } from "react-hook-form";
 import {
   PatientChartUpdateInput,
   MutationUpdatePatientChartArgs,
-} from "../models/models";
+} from "@tensoremr/models";
 import { useNotificationDispatch } from "@tensoremr/components";
-import useExitPrompt from "../useExitPrompt";
+import { useExitPrompt } from "@tensoremr/hooks";
 
 const AUTO_SAVE_INTERVAL = 1000;
 

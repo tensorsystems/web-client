@@ -54,6 +54,7 @@
     "react-loading": "^2.0.3",
     "react-tooltip": "^4.2.21",
     "@heroicons/react": "^1.0.1",
-    "react-sketch2": "^0.5.7"
+    "react-sketch2": "^0.5.7",
+    "lodash-es": "^4.17.21"
   }
 }

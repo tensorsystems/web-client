@@ -18,8 +18,8 @@
 
 import { useQuery } from "@apollo/client";
 import React from "react";
-import { MEDICATION_PRESCRIPTIONS } from "../api";
-import { Query, QuerySearchMedicalPrescriptionsArgs } from "../models/models";
+import { MEDICATION_PRESCRIPTIONS } from "@tensoremr/api";
+import { Query, QuerySearchMedicalPrescriptionsArgs } from "@tensoremr/models";
 
 export const MedicationSideInfo: React.FC<{
   patientId: string | undefined;

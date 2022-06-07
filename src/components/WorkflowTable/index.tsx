@@ -224,7 +224,7 @@ export const WorkflowTable: React.FC<WorkflowProps> = ({
   };
 
   return (
-    <div className="shadow  border-b border-gray-200 sm:rounded-lg">
+    <div className="shadow border-b border-gray-200 sm:rounded-lg">
       <div className="flex items-center justify-between px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
         <p>Workflow</p>
         <div className="flex justify-end space-x-4 items-center">

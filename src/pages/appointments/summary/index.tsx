@@ -23,7 +23,11 @@ import circleImage from "./circle.png";
 import { SketchField, Tools } from "react-sketch2";
 import { useForm } from "react-hook-form";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useNotificationDispatch } from "@tensoremr/components";
+import {
+  useNotificationDispatch,
+  useBottomSheetDispatch,
+  PrintFileHeader,
+} from "@tensoremr/components";
 import {
   Appointment,
   PatientChartUpdateInput,
@@ -31,17 +35,14 @@ import {
   Query,
 } from "@tensoremr/models";
 import { format, parseISO } from "date-fns";
-import { useBottomSheetDispatch } from "@tensoremr/components";
 import { AddAmendmentForm } from "./AddAmendmentForm";
 import { useExitPrompt } from "@tensoremr/hooks";
 import _ from "lodash";
 import { useReactToPrint } from "react-to-print";
-
-import PrintFileHeader from "../../../components/PrintFileHeader";
-import HistoryPrintComponent from "./HistoryPrintComponent";
+import { getPatientAge } from "@tensoremr/util";
 import { PositiveFindingsPrint } from "./PositiveFindingsPrint";
 import { ReviewOfSystemsPrintComponent } from "./ReviewOfSystemsPrintComponent";
-import { getPatientAge } from "@tensoremr/util";
+import HistoryPrintComponent from "./HistoryPrintComponent";
 
 const AUTO_SAVE_INTERVAL = 1000;
 
@@ -434,6 +435,14 @@ export const SummaryPage: React.FC<{
                   {appointment.patient.patientHistory.id && (
                     <HistoryPrintComponent
                       patientHistoryId={appointment.patient.patientHistory.id}
+                      onError={(message) => {
+                        notifDispatch({
+                          type: "show",
+                          notifTitle: "Error",
+                          notifSubTitle: message,
+                          variant: "failure",
+                        });
+                      }}
                     />
                   )}
                 </div>

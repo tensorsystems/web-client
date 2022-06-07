@@ -43,7 +43,7 @@ import { NewPatientPage } from "./NewPatientPage";
 import { DiagnosticOrdersPage } from "./DiagnosticOrdersPage";
 import { PatientPage } from "./Patient";
 import { parseJwt } from "../util";
-import { AppointmentPage } from "./appointments";
+import { Appointments } from "./appointments";
 import { SurgicalOrdersPage } from "./SurgicalOrdersPage";
 import { TreatmentOrdersPage } from "./TreatmentOrdersPage";
 import { LabOrdersPage } from "./LabOrdersPage";
@@ -288,7 +288,7 @@ export const HomePage: React.FC = () => {
                     />
                   </Route>
                   <Route path="/appointments">
-                    <AppointmentPage
+                    <Appointments
                       onUpdateTab={handleTabUpdate}
                       onAddPage={(page: Page) => handlePageAdd(page)}
                       onTabClose={(route: string) => handleTabClose(route)}

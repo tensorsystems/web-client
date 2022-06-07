@@ -20,7 +20,6 @@ import { gql, useQuery } from "@apollo/client";
 import { format, parseISO } from "date-fns";
 import React from "react";
 import { Query, QueryPatientHistoryArgs } from "@tensoremr/models";
-import { useNotificationDispatch } from "@tensoremr/components";
 
 const GET_HISTORY = gql`
   query GetHistory($id: ID!) {
@@ -62,22 +61,19 @@ const GET_HISTORY = gql`
 
 interface Props {
   patientHistoryId: string;
+  onError: (message: string) => void;
 }
 
-const HistoryPrintComponent: React.FC<Props> = ({ patientHistoryId }) => {
-  const notifDispatch = useNotificationDispatch();
-
+const HistoryPrintComponent: React.FC<Props> = ({
+  onError,
+  patientHistoryId,
+}) => {
   const { data } = useQuery<Query, QueryPatientHistoryArgs>(GET_HISTORY, {
     variables: {
       id: patientHistoryId,
     },
     onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
+      onError(error.message);
     },
   });
 

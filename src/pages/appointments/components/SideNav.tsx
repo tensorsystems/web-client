@@ -18,7 +18,7 @@
 
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { NavItem } from "../../components/NavItem";
+import { NavItem } from "@tensoremr/components";
 
 interface Props {
   soapType: "regular" | "surgical" | "treatment";

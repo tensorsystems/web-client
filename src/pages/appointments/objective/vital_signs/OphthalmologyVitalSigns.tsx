@@ -83,7 +83,7 @@ const CREATE_VITAL_SIGNS = gql`
   }
 `;
 
-const OphthalmologyVitalSigns: React.FC<{
+export const OphthalmologyVitalSigns: React.FC<{
   locked: boolean;
   patientChartId: string | undefined;
   onSaveChange: (saving: boolean) => void;
@@ -314,5 +314,3 @@ const OphthalmologyVitalSigns: React.FC<{
     </div>
   );
 };
-
-export default OphthalmologyVitalSigns;

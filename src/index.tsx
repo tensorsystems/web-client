@@ -41,6 +41,7 @@ import { StatCard } from "./components/StatCard";
 import { history } from "@tensoremr/components";
 
 import "material-icons-font/material-icons-font.css";
+import "@tensoremr/components/dist/esm/index.css";
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists

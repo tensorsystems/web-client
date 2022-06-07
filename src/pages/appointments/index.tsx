@@ -17,14 +17,13 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Route, useParams, useRouteMatch, Switch } from "react-router-dom";
-import { AppointmentsPage } from "./AppointmentsPage";
-import { parseJwt } from "../../util";
-import { AppointmentDetails } from "./AppointmentDetails";
-import { Page } from "../../models/page";
-import AppointmentStore from "../../_context/AppointmentContext";
+import { Route, useRouteMatch, Switch } from "react-router-dom";
+import { AppointmentsListPage } from "./AppointmentsListPage";
+import { parseJwt } from "@tensoremr/util";
+import { AppointmentPage } from "./AppointmentPage";
+import { Page } from "@tensoremr/models";
 
-export const AppointmentPage: React.FC<{
+export const Appointments: React.FC<{
   onUpdateTab: (page: any) => void;
   onAddPage: (page: Page) => void;
   onTabClose: (route: string) => void;
@@ -32,7 +31,7 @@ export const AppointmentPage: React.FC<{
   const match = useRouteMatch();
   const [userType, setUserType] = useState<string>("");
 
-  useEffect(() => {
+  useEffect(() => { 
     const token = sessionStorage.getItem("accessToken");
 
     if (token !== null) {
@@ -45,37 +44,16 @@ export const AppointmentPage: React.FC<{
     <div>
       <Switch>
         <Route path={`${match.path}/:appointmentId`}>
-          <Details
-            userType={userType}
-            onAddPage={onAddPage}
+          <AppointmentPage
             onUpdateTab={onUpdateTab}
+            onAddPage={onAddPage}
             onTabClose={onTabClose}
           />
         </Route>
         <Route path={match.path}>
-          <AppointmentsPage onAddPage={onAddPage} />
+          <AppointmentsListPage onAddPage={onAddPage} />
         </Route>
       </Switch>
     </div>
-  );
-};
-
-const Details: React.FC<{
-  userType: string;
-  onUpdateTab: (page: any) => void;
-  onAddPage: (page: Page) => void;
-  onTabClose: (route: string) => void;
-}> = ({ userType, onUpdateTab, onAddPage, onTabClose }) => {
-  const { appointmentId } = useParams<{ appointmentId: string }>();
-
-  return (
-    <AppointmentStore>
-      <AppointmentDetails
-        appointmentId={appointmentId}
-        onUpdateTab={onUpdateTab}
-        onAddPage={onAddPage}
-        onTabClose={onTabClose}
-      />
-    </AppointmentStore>
   );
 };

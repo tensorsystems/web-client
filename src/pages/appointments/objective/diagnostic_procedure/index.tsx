@@ -125,7 +125,7 @@ const CANCEL_ORDER = gql`
   }
 `;
 
-const DiagnosticProcedurePage: React.FC<{
+export const DiagnosticProcedurePage: React.FC<{
   locked: boolean;
   patientId: string | undefined;
   appointmentId: string | undefined;
@@ -361,5 +361,3 @@ const DiagnosticProcedurePage: React.FC<{
     </div>
   );
 };
-
-export default DiagnosticProcedurePage;

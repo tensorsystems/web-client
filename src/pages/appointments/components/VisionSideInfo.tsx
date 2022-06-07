@@ -18,7 +18,7 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
-import { Query, QueryVitalSignsArgs } from "../models/models";
+import { Query, QueryVitalSignsArgs } from "@tensoremr/models";
 
 const GET_VISUAL_ACUITY = gql`
   query GetVisualAcuity($filter: VitalSignsFilter!) {

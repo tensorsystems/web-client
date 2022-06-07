@@ -32,7 +32,6 @@ import {
   LabComponent,
   MedicationTable,
   EyeGlassTable,
-  FileUploader,
   OcularMotilityOdDiagram,
   OcularMotilityOsDiagram,
   PreOpForm,

@@ -84,7 +84,7 @@ const PHYSICAL_EXAM_FINDINGS = gql`
   }
 `;
 
-const GeneralExamination: React.FC<{
+export const GeneralExamination: React.FC<{
   locked: boolean;
   patientChartId: string;
 }> = ({ locked, patientChartId }) => {
@@ -328,5 +328,3 @@ const GeneralExamination: React.FC<{
     </div>
   );
 };
-
-export default GeneralExamination;

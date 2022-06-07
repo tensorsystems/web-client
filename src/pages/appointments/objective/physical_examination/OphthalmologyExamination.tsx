@@ -129,7 +129,7 @@ const CREATE_OPTHALMOLOGY_EXAM = gql`
   }
 `;
 
-const OphthalmologyExamination: React.FC<{
+export const OphthalmologyExamination: React.FC<{
   locked: boolean;
   patientChartId: string | undefined;
   onSaveChange: (saving: boolean) => void;
@@ -561,5 +561,3 @@ const OphthalmologyExamination: React.FC<{
     </div>
   );
 };
-
-export default OphthalmologyExamination;

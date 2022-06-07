@@ -29,3 +29,6 @@ export * from './IntraOpForm';
 export * from './PreOpForm';
 export * from './AccordionItem';
 export * from './PositiveFindings';
+export * from './AppointmentForm';
+export * from './PrintFileHeader';
+export * from './Modal';

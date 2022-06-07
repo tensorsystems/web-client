@@ -67,7 +67,7 @@ interface Props {
   locked: boolean;
 }
 
-const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, patient }) => {
+export const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, patient }) => {
   const notifDispatch = useNotificationDispatch();
 
   const [timer, setTimer] = useState<any>(null);
@@ -465,5 +465,3 @@ const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, patient })
     </div>
   );
 };
-
-export default GeneralVitalSigns;

@@ -20,7 +20,6 @@ import { gql, QueryResult, useQuery } from "@apollo/client";
 import classNames from "classnames";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { TablePagination } from "../../components/TablePagination";
 import {
   Appointment,
   AppointmentConnection,
@@ -28,12 +27,11 @@ import {
   PaginationInput,
   Query,
   QuerySearchAppointmentsArgs,
-} from "../../models/models";
+  Page
+} from "@tensoremr/models";
 import { useHistory, useLocation } from "react-router-dom";
-import { Page } from "../../models/page";
-import { parseJwt } from "../../util";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { AppointmentForm } from "../../components/AppointmentForm";
+import { parseJwt } from "@tensoremr/util";
+import { useBottomSheetDispatch, TablePagination, AppointmentForm } from "@tensoremr/components";
 
 const TOOLBAR_LOOKUPS = gql`
   query ToolbarLookups($userTypeTitle: String!) {
@@ -117,7 +115,7 @@ function useRouterQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export const AppointmentsPage: React.FC<{
+export const AppointmentsListPage: React.FC<{
   onAddPage: (page: Page) => void;
 }> = ({ onAddPage }) => {
   const query = useRouterQuery();
