@@ -18,7 +18,7 @@
 
 import React from "react";
 import classnames from "classnames";
-import { User } from "../models/models";
+import { User } from "@tensoremr/models";
 
 interface Props {
   user: User | undefined;

@@ -17,7 +17,7 @@
 */
 
 import React from "react";
-import { Chat, Maybe } from "../models/models";
+import { Chat, Maybe } from "@tensoremr/models";
 import { ChatListItem } from "./ChatListItem";
 
 interface ChatListProps {

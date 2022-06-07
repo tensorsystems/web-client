@@ -47,7 +47,7 @@ import { Appointments } from "./appointments";
 import { SurgicalOrdersPage } from "./SurgicalOrdersPage";
 import { TreatmentOrdersPage } from "./TreatmentOrdersPage";
 import { LabOrdersPage } from "./LabOrdersPage";
-import { ChatsPage } from "./ChatsPage";
+import { ChatsPage } from "./chats";
 import { AdminHome } from "./admin";
 import { UpdatePatientPage } from "./UpdatePatientPage";
 import { Component404 } from "../components/404/404";

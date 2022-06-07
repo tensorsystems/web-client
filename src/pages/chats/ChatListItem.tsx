@@ -18,8 +18,8 @@
 
 import React from "react";
 import classnames from "classnames";
-import { parseJwt } from "../util";
-import { Chat, MutationDeleteUnreadMessagesArgs } from "../models/models";
+import { parseJwt } from "@tensoremr/util";
+import { Chat, MutationDeleteUnreadMessagesArgs } from "@tensoremr/models";
 import { useHistory } from "react-router-dom";
 import { formatDistance, parseISO } from "date-fns";
 import { gql, useMutation } from "@apollo/client";

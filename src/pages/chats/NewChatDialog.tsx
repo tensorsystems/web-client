@@ -22,7 +22,7 @@ import {
   Query,
   QueryGetCommonChatArgs,
   QueryUsersArgs,
-} from "../models/models";
+} from "@tensoremr/models";
 import { ChatUserListItem } from "./ChatUserListItem";
 
 const GET_COMMON_CHAT = gql`

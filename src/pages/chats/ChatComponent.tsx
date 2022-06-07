@@ -28,9 +28,9 @@ import {
   Query,
   QueryGetChatMessagesArgs,
   QueryUserArgs,
-} from "../models/models";
+} from "@tensoremr/models";
 import { useNotificationDispatch } from "@tensoremr/components";
-import { parseJwt } from "../util";
+import { parseJwt } from "@tensoremr/util";
 import { ChatAvatar } from "./ChatAvatar";
 import { ChatBubble } from "./ChatBubble";
 

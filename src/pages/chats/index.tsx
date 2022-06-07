@@ -19,10 +19,10 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useBottomSheetDispatch } from "@tensoremr/components";
-import { Query } from "../models/models";
-import { ChatComponent } from "../components/ChatComponent";
-import { ChatList } from "../components/ChatList";
-import { NewChatDialog } from "../components/NewChatDialog";
+import { Query } from "@tensoremr/models";
+import { ChatComponent } from "./ChatComponent";
+import { ChatList } from "./ChatList";
+import { NewChatDialog } from "./NewChatDialog";
 import {
   Route,
   useRouteMatch,

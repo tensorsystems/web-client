@@ -80,7 +80,8 @@
       ".",
       "src/pages/admin",
       "src/pages/appointments",
-      "src/pages/patients"
+      "src/pages/patients",
+      "src/pages/chats"
     ]
   },
   "devDependencies": {
