@@ -5,7 +5,13 @@
     "src/pages/admin",
     "src/pages/appointments",
     "src/pages/patients",
-    "src/pages/chats"
+    "src/pages/chats",
+    "src/pages/diagnostic_orders",
+    "src/pages/follow_up_orders",
+    "src/pages/lab_orders",
+    "src/pages/referral_orders",
+    "src/pages/surgical_orders",
+    "src/pages/treatment_orders"
   ],
   "version": "0.0.0",
   "npmClient": "yarn",

@@ -19,8 +19,8 @@
 import { format, parseISO } from "date-fns";
 import React from "react";
 import classnames from "classnames";
-import { TablePagination } from "./TablePagination";
-import { SurgicalOrder, SurgicalOrderStatus } from "../models/models";
+import { TablePagination } from "@tensoremr/components";
+import { SurgicalOrder, SurgicalOrderStatus } from "@tensoremr/models";
 
 interface Props {
   orders: Array<SurgicalOrder>;

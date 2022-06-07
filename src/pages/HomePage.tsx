@@ -40,25 +40,25 @@ import {
 
 import { HomePages } from "../pages";
 import { NewPatientPage } from "./NewPatientPage";
-import { DiagnosticOrdersPage } from "./DiagnosticOrdersPage";
+import { DiagnosticOrdersPage } from "./diagnostic_orders";
 import { Patients } from "./patients";
 import { parseJwt } from "../util";
 import { Appointments } from "./appointments";
-import { SurgicalOrdersPage } from "./SurgicalOrdersPage";
-import { TreatmentOrdersPage } from "./TreatmentOrdersPage";
-import { LabOrdersPage } from "./LabOrdersPage";
+import { SurgicalOrdersPage } from "./surgical_orders";
+import { TreatmentOrdersPage } from "./treatment_orders";
+import { LabOrdersPage } from "./lab_orders";
 import { ChatsPage } from "./chats";
 import { AdminHome } from "./admin";
 import { UpdatePatientPage } from "./UpdatePatientPage";
 import { Component404 } from "../components/404/404";
-import { ReferralOrdersPage } from "./ReferralOrdersPage";
+import { ReferralOrdersPage } from "./referral_orders";
 import ProfilePage from "./ProfilePage";
 import { PharmacyHome } from "./PharmacyHome";
 import { EyeShopHome } from "./EyeShopeHome";
 import HomeReception from "./HomeReception";
 import HomeClinician from "./HomeClinician";
 import PatientQueuePage from "./PatientQueuePage";
-import FollowUpOrdersPage from "./FollowUpOrdersPage";
+import { FollowUpOrdersPage } from "./follow_up_orders";
 
 export const HomePage: React.FC = () => {
   const history = useHistory();

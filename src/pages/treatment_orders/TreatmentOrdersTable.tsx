@@ -19,21 +19,18 @@
 import { format, parseISO } from "date-fns";
 import React from "react";
 import classnames from "classnames";
-import {
-  DiagnosticProcedureOrder,
-  DiagnosticProcedureOrderStatus,
-} from "../models/models";
-import { TablePagination } from "./TablePagination";
+import { TablePagination } from "@tensoremr/components";
+import { TreatmentOrder, TreatmentOrderStatus } from "@tensoremr/models";
 
 interface Props {
-  orders: Array<DiagnosticProcedureOrder>;
+  orders: Array<TreatmentOrder>;
   totalCount: number;
   onNext: () => void;
   onPrev: () => void;
-  onItemClick: (order: DiagnosticProcedureOrder) => void;
+  onItemClick: (order: TreatmentOrder) => void;
 }
 
-export const DiagnosticOrdersTable: React.FC<Props> = ({
+export const TreatmentOrdersTable: React.FC<Props> = ({
   orders,
   onItemClick,
   totalCount,
@@ -66,7 +63,6 @@ export const DiagnosticOrdersTable: React.FC<Props> = ({
                   >
                     Items
                   </th>
-
                   <th
                     scope="col"
                     className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -77,9 +73,7 @@ export const DiagnosticOrdersTable: React.FC<Props> = ({
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {orders?.map((e) => {
-                  const payments = e.diagnosticProcedures
-                    .map((p) => p.payments)
-                    .flat();
+                  const payments = e.treatments.map((p) => p.payments).flat();
 
                   return (
                     <tr
@@ -152,8 +146,7 @@ export const DiagnosticOrdersTable: React.FC<Props> = ({
                             "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
                             {
                               "bg-yellow-100 text-yellow-800":
-                                e?.status ===
-                                  DiagnosticProcedureOrderStatus.Ordered ||
+                                e?.status === TreatmentOrderStatus.Ordered ||
                                 payments.some(
                                   (e) =>
                                     e.status === "NOTPAID" ||

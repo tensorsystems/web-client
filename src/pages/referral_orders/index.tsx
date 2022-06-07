@@ -18,27 +18,29 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
-import { OrdersToolbar } from "../components/OrdersToolbar";
-import { useBottomSheetDispatch } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  OrdersToolbar,
+  CompleteReferralOrderForm,
+} from "@tensoremr/components";
 import {
   OrderFilterInput,
   PaginationInput,
   Query,
-  QuerySearchTreatmentOrdersArgs,
-  TreatmentOrder,
-} from "../models/models";
+  QuerySearchReferralOrdersArgs,
+  ReferralOrder,
+} from "@tensoremr/models";
 import { useLocation } from "react-router-dom";
-import CompleteTreatmentOrderForm from "../components/CompleteTreatmentOrderForm";
-import { TreatmentOrdersTable } from "../components/TreatmentOrdersTable";
+import ReferralOrdersTable from "./ReferralOrdersTable";
 
-const SEARCH_TREATMENT_ORDERS = gql`
-  query SearchTreatmentOrders(
+const SEARCH_REFERRAL_ORDERS = gql`
+  query SearchReferralOrders(
     $page: PaginationInput!
-    $filter: TreatmentOrderFilter
+    $filter: ReferralOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchTreatmentOrders(
+    searchReferralOrders(
       page: $page
       filter: $filter
       date: $date
@@ -64,23 +66,15 @@ const SEARCH_TREATMENT_ORDERS = gql`
               title
             }
           }
-          treatments {
+          referrals {
             id
-            treatmentType {
-              title
-            }
-            payments {
-              id
-              status
-              invoiceNo
-              billing {
-                id
-                item
-                code
-                price
-                credit
-              }
-            }
+            referralOrderId
+            patientChartId
+            reason
+            referredToId
+            referredToName
+            status
+            type
             receptionNote
           }
           status
@@ -95,7 +89,7 @@ function useRouterQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export const TreatmentOrdersPage: React.FC = () => {
+export const ReferralOrdersPage: React.FC = () => {
   const query = useRouterQuery();
   const queryUserId = query.get("userId");
   const queryStatus = query.get("status");
@@ -112,10 +106,11 @@ export const TreatmentOrdersPage: React.FC = () => {
     userId: queryUserId === null ? "all" : queryUserId,
     status: queryStatus === null ? "all" : queryStatus,
     searchTerm: "",
+    orderType: "PATIENT_IN_HOUSE_REFERRAL",
   });
 
-  const { data, refetch } = useQuery<Query, QuerySearchTreatmentOrdersArgs>(
-    SEARCH_TREATMENT_ORDERS,
+  const { data, refetch } = useQuery<Query, QuerySearchReferralOrdersArgs>(
+    SEARCH_REFERRAL_ORDERS,
     {
       variables: {
         page: paginationInput,
@@ -140,12 +135,12 @@ export const TreatmentOrdersPage: React.FC = () => {
       date: new Date(),
       userId: "all",
       status: "all",
-      orderType: "TREATMENT",
+      orderType: "",
     });
   };
 
   const handleNextClick = () => {
-    const totalPages = data?.searchTreatmentOrders.pageInfo.totalPages ?? 0;
+    const totalPages = data?.searchReferralOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -164,21 +159,23 @@ export const TreatmentOrdersPage: React.FC = () => {
     }
   };
 
-  const handleOrderClick = (order: TreatmentOrder) => {
-    bottomSheetDispatch({
-      type: "show",
-      snapPoint: 0,
-      children: (
-        <CompleteTreatmentOrderForm
-          selectedOrder={order}
-          onSuccess={() => {
-            refetch();
-          }}
-          onCancel={() => bottomSheetDispatch({ type: "hide" })}
-          onRefresh={() => {}}
-        />
-      ),
-    });
+  const handleOrderClick = (order: ReferralOrder) => {
+    if (order.status === "ORDERED") {
+      bottomSheetDispatch({
+        type: "show",
+        snapPoint: 0,
+        children: (
+          <CompleteReferralOrderForm
+            selectedOrder={order}
+            onSuccess={() => {
+              refetch();
+            }}
+            onCancel={() => bottomSheetDispatch({ type: "hide" })}
+            onRefresh={() => {}}
+          />
+        ),
+      });
+    }
   };
 
   return (
@@ -189,9 +186,9 @@ export const TreatmentOrdersPage: React.FC = () => {
         onChange={setFilter}
       />
 
-      <TreatmentOrdersTable
-        totalCount={data?.searchTreatmentOrders.totalCount ?? 0}
-        orders={data?.searchTreatmentOrders.edges.map((e) => e.node) ?? []}
+      <ReferralOrdersTable
+        totalCount={data?.searchReferralOrders.totalCount ?? 0}
+        orders={data?.searchReferralOrders.edges.map((e) => e.node) ?? []}
         onNext={handleNextClick}
         onPrev={handlePrevClick}
         onItemClick={handleOrderClick}

@@ -16,32 +16,31 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
-import { OrdersToolbar } from "../components/OrdersToolbar";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { useNotificationDispatch } from "@tensoremr/components";
-import { PAYMENT_WAIVER_REQUEST } from "./DiagnosticOrdersPage";
 import {
-  LabOrder,
-  MutationSavePaymentWaiverArgs,
+  useBottomSheetDispatch,
+  OrdersToolbar,
+  CompleteSurgicalOrderForm,
+} from "@tensoremr/components";
+import {
   OrderFilterInput,
   PaginationInput,
   Query,
-  QuerySearchLabOrdersArgs,
-} from "../models/models";
-import { CompleteLabOrderForm } from "../components/CompleteLabOrderForm";
-import { LabOrdersTable } from "../components/LabOrdersTable";
+  QuerySearchSurgicalOrdersArgs,
+  SurgicalOrder,
+} from "@tensoremr/models";
 import { useLocation } from "react-router-dom";
+import { SurgicalOrdersTable } from "./SurgicalOrdersTable";
 
-const SEARCH_LAB_ORDERS = gql`
-  query SearchLabOrders(
+const SEARCH_SURGICAL_ORDERS = gql`
+  query SearchSurgicalOrders(
     $page: PaginationInput!
-    $filter: LabOrderFilter
+    $filter: SurgicalOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchLabOrders(
+    searchSurgicalOrders(
       page: $page
       filter: $filter
       date: $date
@@ -64,14 +63,13 @@ const SEARCH_LAB_ORDERS = gql`
             firstName
             lastName
             userTypes {
-              id
               title
             }
           }
-          labs {
+          surgicalProcedures {
             id
-            labType {
-              id
+            receptionNote
+            surgicalProcedureType {
               title
             }
             payments {
@@ -86,7 +84,6 @@ const SEARCH_LAB_ORDERS = gql`
                 credit
               }
             }
-            receptionNote
           }
           status
           createdAt
@@ -100,13 +97,12 @@ function useRouterQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export const LabOrdersPage: React.FC = () => {
+export const SurgicalOrdersPage: React.FC = () => {
   const query = useRouterQuery();
   const queryUserId = query.get("userId");
   const queryStatus = query.get("status");
 
   const bottomSheetDispatch = useBottomSheetDispatch();
-  const notifDispatch = useNotificationDispatch();
 
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
     page: 1,
@@ -120,8 +116,8 @@ export const LabOrdersPage: React.FC = () => {
     searchTerm: "",
   });
 
-  const { data, refetch } = useQuery<Query, QuerySearchLabOrdersArgs>(
-    SEARCH_LAB_ORDERS,
+  const { data, refetch } = useQuery<Query, QuerySearchSurgicalOrdersArgs>(
+    SEARCH_SURGICAL_ORDERS,
     {
       variables: {
         page: paginationInput,
@@ -133,6 +129,7 @@ export const LabOrdersPage: React.FC = () => {
           filter.searchTerm?.length === 0 ? undefined : filter.searchTerm,
         date: filter.date,
       },
+      pollInterval: 10000,
     }
   );
 
@@ -145,34 +142,12 @@ export const LabOrdersPage: React.FC = () => {
       date: new Date(),
       userId: "all",
       status: "all",
+      orderType: "SURGICAL_PROCEDURE",
     });
   };
 
-  const [requestPaymentWaiver] = useMutation<
-    any,
-    MutationSavePaymentWaiverArgs
-  >(PAYMENT_WAIVER_REQUEST, {
-    onCompleted(data) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Success",
-        notifSubTitle: "Payment waiver requested",
-        variant: "success",
-      });
-      bottomSheetDispatch({ type: "hide" });
-    },
-    onError(error) {
-      notifDispatch({
-        type: "show",
-        notifTitle: "Error",
-        notifSubTitle: error.message,
-        variant: "failure",
-      });
-    },
-  });
-
   const handleNextClick = () => {
-    const totalPages = data?.orders.pageInfo.totalPages ?? 0;
+    const totalPages = data?.searchSurgicalOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -191,27 +166,18 @@ export const LabOrdersPage: React.FC = () => {
     }
   };
 
-  const handleOrderClick = (order: LabOrder) => {
+  const handleOrderClick = (order: SurgicalOrder) => {
     bottomSheetDispatch({
       type: "show",
       snapPoint: 0,
       children: (
-        <CompleteLabOrderForm
+        <CompleteSurgicalOrderForm
           selectedOrder={order}
           onSuccess={() => {
             refetch();
-            notifDispatch({
-              type: "show",
-              notifTitle: "Success",
-              notifSubTitle: "Receipt printed successfully",
-              variant: "success",
-            });
-            bottomSheetDispatch({ type: "hide" });
           }}
           onCancel={() => bottomSheetDispatch({ type: "hide" })}
-          onRefresh={() => {
-            refetch();
-          }}
+          onRefresh={() => {}}
         />
       ),
     });
@@ -225,9 +191,9 @@ export const LabOrdersPage: React.FC = () => {
         onChange={setFilter}
       />
 
-      <LabOrdersTable
-        totalCount={data?.searchLabOrders.totalCount ?? 0}
-        orders={data?.searchLabOrders.edges.map((e) => e.node) ?? []}
+      <SurgicalOrdersTable
+        totalCount={data?.searchSurgicalOrders.totalCount ?? 0}
+        orders={data?.searchSurgicalOrders.edges.map((e) => e.node) ?? []}
         onNext={handleNextClick}
         onPrev={handlePrevClick}
         onItemClick={handleOrderClick}

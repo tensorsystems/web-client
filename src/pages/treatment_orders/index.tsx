@@ -18,27 +18,29 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
-import { OrdersToolbar } from "../components/OrdersToolbar";
-import { useBottomSheetDispatch } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  OrdersToolbar,
+  CompleteTreatmentOrderForm,
+} from "@tensoremr/components";
 import {
   OrderFilterInput,
   PaginationInput,
   Query,
-  QuerySearchSurgicalOrdersArgs,
-  SurgicalOrder,
-} from "../models/models";
+  QuerySearchTreatmentOrdersArgs,
+  TreatmentOrder,
+} from "@tensoremr/models";
 import { useLocation } from "react-router-dom";
-import { SurgicalOrdersTable } from "../components/SurgicalOrdersTable";
-import CompleteSurgicalOrderForm from "../components/CompleteSurgicalOrderForm";
+import { TreatmentOrdersTable } from "./TreatmentOrdersTable";
 
-const SEARCH_SURGICAL_ORDERS = gql`
-  query SearchSurgicalOrders(
+const SEARCH_TREATMENT_ORDERS = gql`
+  query SearchTreatmentOrders(
     $page: PaginationInput!
-    $filter: SurgicalOrderFilter
+    $filter: TreatmentOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchSurgicalOrders(
+    searchTreatmentOrders(
       page: $page
       filter: $filter
       date: $date
@@ -64,10 +66,9 @@ const SEARCH_SURGICAL_ORDERS = gql`
               title
             }
           }
-          surgicalProcedures {
+          treatments {
             id
-            receptionNote
-            surgicalProcedureType {
+            treatmentType {
               title
             }
             payments {
@@ -82,6 +83,7 @@ const SEARCH_SURGICAL_ORDERS = gql`
                 credit
               }
             }
+            receptionNote
           }
           status
           createdAt
@@ -95,7 +97,7 @@ function useRouterQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export const SurgicalOrdersPage: React.FC = () => {
+export const TreatmentOrdersPage: React.FC = () => {
   const query = useRouterQuery();
   const queryUserId = query.get("userId");
   const queryStatus = query.get("status");
@@ -114,8 +116,8 @@ export const SurgicalOrdersPage: React.FC = () => {
     searchTerm: "",
   });
 
-  const { data, refetch } = useQuery<Query, QuerySearchSurgicalOrdersArgs>(
-    SEARCH_SURGICAL_ORDERS,
+  const { data, refetch } = useQuery<Query, QuerySearchTreatmentOrdersArgs>(
+    SEARCH_TREATMENT_ORDERS,
     {
       variables: {
         page: paginationInput,
@@ -140,12 +142,12 @@ export const SurgicalOrdersPage: React.FC = () => {
       date: new Date(),
       userId: "all",
       status: "all",
-      orderType: "SURGICAL_PROCEDURE",
+      orderType: "TREATMENT",
     });
   };
 
   const handleNextClick = () => {
-    const totalPages = data?.searchSurgicalOrders.pageInfo.totalPages ?? 0;
+    const totalPages = data?.searchTreatmentOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -164,12 +166,12 @@ export const SurgicalOrdersPage: React.FC = () => {
     }
   };
 
-  const handleOrderClick = (order: SurgicalOrder) => {
+  const handleOrderClick = (order: TreatmentOrder) => {
     bottomSheetDispatch({
       type: "show",
       snapPoint: 0,
       children: (
-        <CompleteSurgicalOrderForm
+        <CompleteTreatmentOrderForm
           selectedOrder={order}
           onSuccess={() => {
             refetch();
@@ -189,9 +191,9 @@ export const SurgicalOrdersPage: React.FC = () => {
         onChange={setFilter}
       />
 
-      <SurgicalOrdersTable
-        totalCount={data?.searchSurgicalOrders.totalCount ?? 0}
-        orders={data?.searchSurgicalOrders.edges.map((e) => e.node) ?? []}
+      <TreatmentOrdersTable
+        totalCount={data?.searchTreatmentOrders.totalCount ?? 0}
+        orders={data?.searchTreatmentOrders.edges.map((e) => e.node) ?? []}
         onNext={handleNextClick}
         onPrev={handlePrevClick}
         onItemClick={handleOrderClick}

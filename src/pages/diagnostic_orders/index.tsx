@@ -18,27 +18,30 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
-import { OrdersToolbar } from "../components/OrdersToolbar";
-import { useBottomSheetDispatch } from "@tensoremr/components";
+import { DiagnosticOrdersTable } from "./DiagnosticOrdersTable";
 import {
-  FollowUpOrder,
+  useNotificationDispatch,
+  useBottomSheetDispatch,
+  CompleteDiagnosticOrderForm,
+  OrdersToolbar
+} from "@tensoremr/components";
+import {
+  DiagnosticProcedureOrder,
   OrderFilterInput,
   PaginationInput,
   Query,
-  QuerySearchFollowUpOrdersArgs,
-} from "../models/models";
+  QuerySearchDiagnosticProcedureOrdersArgs,
+} from "@tensoremr/models";
 import { useLocation } from "react-router-dom";
-import { FollowUpOrdersTable } from "../components/FollowUpOrdersTable";
-import CompleteFollowUpOrderForm from "../components/CompleteFollowUpOrderForm";
 
-const SEARCH_FOLLOW_UP_ORDERS = gql`
-  query SearchFollowUpOrders(
+const SEARCH_DIAGNOSTIC_ORDERS = gql`
+  query SearchDiagnosticOrders(
     $page: PaginationInput!
-    $filter: FollowUpOrderFilter
+    $filter: DiagnosticProcedureOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchFollowUpOrders(
+    searchDiagnosticProcedureOrders(
       page: $page
       filter: $filter
       date: $date
@@ -64,10 +67,24 @@ const SEARCH_FOLLOW_UP_ORDERS = gql`
               title
             }
           }
-          followUps {
+          diagnosticProcedures {
             id
+            diagnosticProcedureType {
+              title
+            }
+            payments {
+              id
+              status
+              invoiceNo
+              billing {
+                id
+                item
+                code
+                price
+                credit
+              }
+            }
             receptionNote
-            status
           }
           status
           createdAt
@@ -77,16 +94,18 @@ const SEARCH_FOLLOW_UP_ORDERS = gql`
   }
 `;
 
+
 function useRouterQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const FollowUpOrdersPage: React.FC = () => {
+export const DiagnosticOrdersPage: React.FC = () => {
   const query = useRouterQuery();
   const queryUserId = query.get("userId");
   const queryStatus = query.get("status");
 
   const bottomSheetDispatch = useBottomSheetDispatch();
+  const notifDispatch = useNotificationDispatch();
 
   const [paginationInput, setPaginationInput] = useState<PaginationInput>({
     page: 1,
@@ -100,22 +119,22 @@ const FollowUpOrdersPage: React.FC = () => {
     searchTerm: "",
   });
 
-  const { data, refetch } = useQuery<Query, QuerySearchFollowUpOrdersArgs>(
-    SEARCH_FOLLOW_UP_ORDERS,
-    {
-      variables: {
-        page: paginationInput,
-        filter: {
-          orderedById: filter.userId === "all" ? undefined : filter.userId,
-          status: filter.status === "all" ? undefined : filter.status,
-        },
-        searchTerm:
-          filter.searchTerm?.length === 0 ? undefined : filter.searchTerm,
-        date: filter.date,
+  const { data, refetch } = useQuery<
+    Query,
+    QuerySearchDiagnosticProcedureOrdersArgs
+  >(SEARCH_DIAGNOSTIC_ORDERS, {
+    variables: {
+      page: paginationInput,
+      filter: {
+        orderedById: filter.userId === "all" ? undefined : filter.userId,
+        status: filter.status === "all" ? undefined : filter.status,
       },
-      pollInterval: 10000,
-    }
-  );
+      searchTerm:
+        filter.searchTerm?.length === 0 ? undefined : filter.searchTerm,
+      date: filter.date,
+    },
+    pollInterval: 10000,
+  });
 
   useEffect(() => {
     refetch();
@@ -126,12 +145,12 @@ const FollowUpOrdersPage: React.FC = () => {
       date: new Date(),
       userId: "all",
       status: "all",
-      orderType: "FOLLOW_UP",
     });
   };
 
   const handleNextClick = () => {
-    const totalPages = data?.searchFollowUpOrders.pageInfo.totalPages ?? 0;
+    const totalPages =
+      data?.searchDiagnosticProcedureOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -150,23 +169,30 @@ const FollowUpOrdersPage: React.FC = () => {
     }
   };
 
-  const handleOrderClick = (order: FollowUpOrder) => {
-    if (order.status === "ORDERED") {
-      bottomSheetDispatch({
-        type: "show",
-        snapPoint: 0,
-        children: (
-          <CompleteFollowUpOrderForm
-            selectedOrder={order}
-            onSuccess={() => {
-              refetch();
-            }}
-            onCancel={() => bottomSheetDispatch({ type: "hide" })}
-            onRefresh={() => {}}
-          />
-        ),
-      });
-    }
+  const handleOrderClick = (order: DiagnosticProcedureOrder) => {
+    bottomSheetDispatch({
+      type: "show",
+      snapPoint: 0,
+      children: (
+        <CompleteDiagnosticOrderForm
+          selectedOrder={order}
+          onSuccess={() => {
+            refetch();
+            notifDispatch({
+              type: "show",
+              notifTitle: "Success",
+              notifSubTitle: "Receipt printed successfully",
+              variant: "success",
+            });
+            bottomSheetDispatch({ type: "hide" });
+          }}
+          onCancel={() => bottomSheetDispatch({ type: "hide" })}
+          onRefresh={() => {
+            refetch();
+          }}
+        />
+      ),
+    });
   };
 
   return (
@@ -177,9 +203,11 @@ const FollowUpOrdersPage: React.FC = () => {
         onChange={setFilter}
       />
 
-      <FollowUpOrdersTable
-        totalCount={data?.searchFollowUpOrders.totalCount ?? 0}
-        orders={data?.searchFollowUpOrders.edges.map((e) => e.node) ?? []}
+      <DiagnosticOrdersTable
+        totalCount={data?.searchDiagnosticProcedureOrders.totalCount ?? 0}
+        orders={
+          data?.searchDiagnosticProcedureOrders.edges.map((e) => e.node) ?? []
+        }
         onNext={handleNextClick}
         onPrev={handlePrevClick}
         onItemClick={handleOrderClick}
@@ -187,5 +215,3 @@ const FollowUpOrdersPage: React.FC = () => {
     </div>
   );
 };
-
-export default FollowUpOrdersPage;

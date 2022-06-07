@@ -16,30 +16,41 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
-import { OrdersToolbar } from "../components/OrdersToolbar";
-import { DiagnosticOrdersTable } from "../components/DiagnosticOrdersTable";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { useNotificationDispatch } from "@tensoremr/components";
 import {
-  DiagnosticProcedureOrder,
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  OrdersToolbar,
+  CompleteLabOrderForm
+} from "@tensoremr/components";
+import {
+  LabOrder,
+  MutationSavePaymentWaiverArgs,
   OrderFilterInput,
   PaginationInput,
   Query,
-  QuerySearchDiagnosticProcedureOrdersArgs,
-} from "../models/models";
-import { CompleteDiagnosticOrderForm } from "../components/CompleteDiagnosticOrderForm";
+  QuerySearchLabOrdersArgs,
+} from "@tensoremr/models";
+import { LabOrdersTable } from "./LabOrdersTable";
 import { useLocation } from "react-router-dom";
 
-const SEARCH_DIAGNOSTIC_ORDERS = gql`
-  query SearchDiagnosticOrders(
+const PAYMENT_WAIVER_REQUEST = gql`
+  mutation PaymentWaiverRequest($input: PaymentWaiverInput!) {
+    savePaymentWaiver(input: $input) {
+      id
+    }
+  }
+`;
+
+const SEARCH_LAB_ORDERS = gql`
+  query SearchLabOrders(
     $page: PaginationInput!
-    $filter: DiagnosticProcedureOrderFilter
+    $filter: LabOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchDiagnosticProcedureOrders(
+    searchLabOrders(
       page: $page
       filter: $filter
       date: $date
@@ -62,12 +73,14 @@ const SEARCH_DIAGNOSTIC_ORDERS = gql`
             firstName
             lastName
             userTypes {
+              id
               title
             }
           }
-          diagnosticProcedures {
+          labs {
             id
-            diagnosticProcedureType {
+            labType {
+              id
               title
             }
             payments {
@@ -92,19 +105,11 @@ const SEARCH_DIAGNOSTIC_ORDERS = gql`
   }
 `;
 
-export const PAYMENT_WAIVER_REQUEST = gql`
-  mutation PaymentWaiverRequest($input: PaymentWaiverInput!) {
-    savePaymentWaiver(input: $input) {
-      id
-    }
-  }
-`;
-
 function useRouterQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export const DiagnosticOrdersPage: React.FC = () => {
+export const LabOrdersPage: React.FC = () => {
   const query = useRouterQuery();
   const queryUserId = query.get("userId");
   const queryStatus = query.get("status");
@@ -124,22 +129,21 @@ export const DiagnosticOrdersPage: React.FC = () => {
     searchTerm: "",
   });
 
-  const { data, refetch } = useQuery<
-    Query,
-    QuerySearchDiagnosticProcedureOrdersArgs
-  >(SEARCH_DIAGNOSTIC_ORDERS, {
-    variables: {
-      page: paginationInput,
-      filter: {
-        orderedById: filter.userId === "all" ? undefined : filter.userId,
-        status: filter.status === "all" ? undefined : filter.status,
+  const { data, refetch } = useQuery<Query, QuerySearchLabOrdersArgs>(
+    SEARCH_LAB_ORDERS,
+    {
+      variables: {
+        page: paginationInput,
+        filter: {
+          orderedById: filter.userId === "all" ? undefined : filter.userId,
+          status: filter.status === "all" ? undefined : filter.status,
+        },
+        searchTerm:
+          filter.searchTerm?.length === 0 ? undefined : filter.searchTerm,
+        date: filter.date,
       },
-      searchTerm:
-        filter.searchTerm?.length === 0 ? undefined : filter.searchTerm,
-      date: filter.date,
-    },
-    pollInterval: 10000,
-  });
+    }
+  );
 
   useEffect(() => {
     refetch();
@@ -153,9 +157,31 @@ export const DiagnosticOrdersPage: React.FC = () => {
     });
   };
 
+  const [requestPaymentWaiver] = useMutation<
+    any,
+    MutationSavePaymentWaiverArgs
+  >(PAYMENT_WAIVER_REQUEST, {
+    onCompleted(data) {
+      notifDispatch({
+        type: "show",
+        notifTitle: "Success",
+        notifSubTitle: "Payment waiver requested",
+        variant: "success",
+      });
+      bottomSheetDispatch({ type: "hide" });
+    },
+    onError(error) {
+      notifDispatch({
+        type: "show",
+        notifTitle: "Error",
+        notifSubTitle: error.message,
+        variant: "failure",
+      });
+    },
+  });
+
   const handleNextClick = () => {
-    const totalPages =
-      data?.searchDiagnosticProcedureOrders.pageInfo.totalPages ?? 0;
+    const totalPages = data?.orders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -174,12 +200,12 @@ export const DiagnosticOrdersPage: React.FC = () => {
     }
   };
 
-  const handleOrderClick = (order: DiagnosticProcedureOrder) => {
+  const handleOrderClick = (order: LabOrder) => {
     bottomSheetDispatch({
       type: "show",
       snapPoint: 0,
       children: (
-        <CompleteDiagnosticOrderForm
+        <CompleteLabOrderForm
           selectedOrder={order}
           onSuccess={() => {
             refetch();
@@ -208,11 +234,9 @@ export const DiagnosticOrdersPage: React.FC = () => {
         onChange={setFilter}
       />
 
-      <DiagnosticOrdersTable
-        totalCount={data?.searchDiagnosticProcedureOrders.totalCount ?? 0}
-        orders={
-          data?.searchDiagnosticProcedureOrders.edges.map((e) => e.node) ?? []
-        }
+      <LabOrdersTable
+        totalCount={data?.searchLabOrders.totalCount ?? 0}
+        orders={data?.searchLabOrders.edges.map((e) => e.node) ?? []}
         onNext={handleNextClick}
         onPrev={handlePrevClick}
         onItemClick={handleOrderClick}

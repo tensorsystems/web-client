@@ -18,27 +18,29 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect } from "react";
-import { OrdersToolbar } from "../components/OrdersToolbar";
-import { useBottomSheetDispatch } from "@tensoremr/components";
 import {
+  useBottomSheetDispatch,
+  CompleteFollowUpOrderForm,
+  OrdersToolbar,
+} from "@tensoremr/components";
+import {
+  FollowUpOrder,
   OrderFilterInput,
   PaginationInput,
   Query,
-  QuerySearchReferralOrdersArgs,
-  ReferralOrder,
-} from "../models/models";
+  QuerySearchFollowUpOrdersArgs,
+} from "@tensoremr/models";
 import { useLocation } from "react-router-dom";
-import ReferralOrdersTable from "../components/ReferralOrdersTable";
-import CompleteReferralOrderForm from "../components/CompleteReferralOrderForm";
+import { FollowUpOrdersTable } from "./FollowUpOrdersTable";
 
-const SEARCH_REFERRAL_ORDERS = gql`
-  query SearchReferralOrders(
+const SEARCH_FOLLOW_UP_ORDERS = gql`
+  query SearchFollowUpOrders(
     $page: PaginationInput!
-    $filter: ReferralOrderFilter
+    $filter: FollowUpOrderFilter
     $date: Time
     $searchTerm: String
   ) {
-    searchReferralOrders(
+    searchFollowUpOrders(
       page: $page
       filter: $filter
       date: $date
@@ -64,16 +66,10 @@ const SEARCH_REFERRAL_ORDERS = gql`
               title
             }
           }
-          referrals {
+          followUps {
             id
-            referralOrderId
-            patientChartId
-            reason
-            referredToId
-            referredToName
-            status
-            type
             receptionNote
+            status
           }
           status
           createdAt
@@ -87,7 +83,7 @@ function useRouterQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export const ReferralOrdersPage: React.FC = () => {
+export const FollowUpOrdersPage: React.FC = () => {
   const query = useRouterQuery();
   const queryUserId = query.get("userId");
   const queryStatus = query.get("status");
@@ -104,11 +100,10 @@ export const ReferralOrdersPage: React.FC = () => {
     userId: queryUserId === null ? "all" : queryUserId,
     status: queryStatus === null ? "all" : queryStatus,
     searchTerm: "",
-    orderType: "PATIENT_IN_HOUSE_REFERRAL",
   });
 
-  const { data, refetch } = useQuery<Query, QuerySearchReferralOrdersArgs>(
-    SEARCH_REFERRAL_ORDERS,
+  const { data, refetch } = useQuery<Query, QuerySearchFollowUpOrdersArgs>(
+    SEARCH_FOLLOW_UP_ORDERS,
     {
       variables: {
         page: paginationInput,
@@ -133,12 +128,12 @@ export const ReferralOrdersPage: React.FC = () => {
       date: new Date(),
       userId: "all",
       status: "all",
-      orderType: "",
+      orderType: "FOLLOW_UP",
     });
   };
 
   const handleNextClick = () => {
-    const totalPages = data?.searchReferralOrders.pageInfo.totalPages ?? 0;
+    const totalPages = data?.searchFollowUpOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({
@@ -157,13 +152,13 @@ export const ReferralOrdersPage: React.FC = () => {
     }
   };
 
-  const handleOrderClick = (order: ReferralOrder) => {
+  const handleOrderClick = (order: FollowUpOrder) => {
     if (order.status === "ORDERED") {
       bottomSheetDispatch({
         type: "show",
         snapPoint: 0,
         children: (
-          <CompleteReferralOrderForm
+          <CompleteFollowUpOrderForm
             selectedOrder={order}
             onSuccess={() => {
               refetch();
@@ -184,9 +179,9 @@ export const ReferralOrdersPage: React.FC = () => {
         onChange={setFilter}
       />
 
-      <ReferralOrdersTable
-        totalCount={data?.searchReferralOrders.totalCount ?? 0}
-        orders={data?.searchReferralOrders.edges.map((e) => e.node) ?? []}
+      <FollowUpOrdersTable
+        totalCount={data?.searchFollowUpOrders.totalCount ?? 0}
+        orders={data?.searchFollowUpOrders.edges.map((e) => e.node) ?? []}
         onNext={handleNextClick}
         onPrev={handlePrevClick}
         onItemClick={handleOrderClick}

@@ -42,3 +42,4 @@ export * from './CompleteLabOrderForm';
 export * from './CompleteReferralOrderForm';
 export * from './CompleteSurgicalOrderForm';
 export * from './CompleteTreatmentOrderForm';
+export * from './OrdersToolbar';
