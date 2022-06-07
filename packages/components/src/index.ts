@@ -32,3 +32,5 @@ export * from './PositiveFindings';
 export * from './AppointmentForm';
 export * from './PrintFileHeader';
 export * from './Modal';
+export * from './EyewearPrescriptionPrint';
+export * from './MedicalPrescriptionPrint';

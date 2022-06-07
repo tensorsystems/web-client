@@ -39,8 +39,10 @@ import { AddEyeGlassPrescriptionForm } from "./AddEyeGlassPrescriptionForm";
 import { UpdateEyewearPrescriptionForm } from "./UpdateEyeGlassPrescriptionForm";
 import { useReactToPrint } from "react-to-print";
 import { parseJwt } from "@tensoremr/util";
-import MedicalPrescriptionPrint from "../../../../components/MedicalPrescriptionPrint";
-import EyewearPrescriptionPrint from "../../../../components/EyewearPrescriptionPrint";
+import {
+  MedicalPrescriptionPrint,
+  EyewearPrescriptionPrint,
+} from "@tensoremr/components";
 
 const GET_DATA = gql`
   query GetData($patientChartId: ID!, $appointmentId: ID!, $userId: ID!) {

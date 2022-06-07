@@ -78,7 +78,8 @@
     "packages": [
       "packages/*",
       ".",
-      "src/pages/admin"
+      "src/pages/admin",
+      "src/pages/appointments"
     ]
   },
   "devDependencies": {
