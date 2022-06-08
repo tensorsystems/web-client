@@ -17,17 +17,17 @@
 */
 
 import React, { useCallback, useEffect, useState } from "react";
-import { StatCard } from "../components/StatCard";
 import classNames from "classnames";
-
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { TablePagination } from "../components/TablePagination";
+import {
+  useBottomSheetDispatch,
+  TablePagination,
+  CheckInForm,
+  AppointmentForm,
+  StatCard,
+} from "@tensoremr/components";
 import { useHistory } from "react-router-dom";
-import { PaginationInput, Query } from "../models/models";
+import { PaginationInput, Query, Page } from "@tensoremr/models";
 import { gql, useQuery } from "@apollo/client";
-import { Page } from "../models/page";
-import CheckInForm from "../components/CheckInForm";
-import { AppointmentForm } from "../components/AppointmentForm";
 import { debounce } from "lodash-es";
 
 const HOME_STATS = gql`
@@ -40,7 +40,7 @@ const HOME_STATS = gql`
   }
 `;
 
-const HomeReception = ({ onAddPage }: { onAddPage: (page: Page) => void }) => {
+export const HomeReception = ({ onAddPage }: { onAddPage: (page: Page) => void }) => {
   const history = useHistory();
   const { data } = useQuery<Query>(HOME_STATS);
 
@@ -431,5 +431,3 @@ const PatientsTable: React.FC = () => {
     </div>
   );
 };
-
-export default HomeReception;

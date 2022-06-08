@@ -26,9 +26,8 @@ import {
   MutationUpdateEyewearPrescriptionOrderArgs,
   Query,
   QueryAppointmentArgs,
-} from "../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
-import EyewearPrescriptionPrint from "./EyewearPrescriptionPrint";
+} from "@tensoremr/models";
+import { useNotificationDispatch, EyewearPrescriptionPrint } from "@tensoremr/components";
 
 const GET_DATA = gql`
   query GetData($patientChartId: ID!, $userId: ID!) {

@@ -11,7 +11,11 @@
     "src/pages/lab_orders",
     "src/pages/referral_orders",
     "src/pages/surgical_orders",
-    "src/pages/treatment_orders"
+    "src/pages/treatment_orders",
+    "src/pages/clinician_home",
+    "src/pages/eye_shope_home",
+    "src/pages/reception_home",
+    "src/pages/new_patient"
   ],
   "version": "0.0.0",
   "npmClient": "yarn",

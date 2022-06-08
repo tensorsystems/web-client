@@ -39,7 +39,7 @@ import {
 } from "react-router-dom";
 
 import { HomePages } from "../pages";
-import { NewPatientPage } from "./NewPatientPage";
+import { NewPatientPage } from "./new_patient";
 import { DiagnosticOrdersPage } from "./diagnostic_orders";
 import { Patients } from "./patients";
 import { parseJwt } from "../util";
@@ -54,9 +54,9 @@ import { Component404 } from "../components/404/404";
 import { ReferralOrdersPage } from "./referral_orders";
 import ProfilePage from "./ProfilePage";
 import { PharmacyHome } from "./PharmacyHome";
-import { EyeShopHome } from "./EyeShopeHome";
-import HomeReception from "./HomeReception";
-import HomeClinician from "./HomeClinician";
+import { EyeShopHome } from "./eye_shope_home";
+import { HomeReception } from "./reception_home";
+import { HomeClinician } from "./clinician_home";
 import PatientQueuePage from "./PatientQueuePage";
 import { FollowUpOrdersPage } from "./follow_up_orders";
 

@@ -19,28 +19,30 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { formatDate } from "../util";
-import { useNotificationDispatch } from "@tensoremr/components";
+import { formatDate } from "@tensoremr/util";
 import {
   PatientInput,
   MutationSavePatientArgs,
   FileUpload,
   Query,
   QueryFindSimilarPatientsArgs,
-} from "../models/models";
-import { subMonths, subYears } from "date-fns/esm";
-import { FileUploader } from "../components/FileUploaderComponent";
-import { Page } from "../models/page";
+  Page,
+} from "@tensoremr/models";
+import { subMonths, subYears } from "date-fns";
 import { useHistory } from "react-router-dom";
-import { PatientRegistrationLayout } from "../components/PatientRegistrationLayout";
-import { PatientRegistrationDemographicForm } from "../components/PatientRegistrationDemographicForm";
-import { PatientRegistrationContactInfoForm } from "../components/PatientRegistrationContactInfoForm";
-import { PatientRegistrationEmergencyInfoForm } from "../components/PatientRegistrationEmergencyInfoForm";
-import { PatientRegistrationDocumentsForm } from "../components/PatientRegistrationDocumentsForm";
-import { AppointmentForm } from "../components/AppointmentForm";
-import { useBottomSheetDispatch } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  useNotificationDispatch,
+  IFileUploader,
+  PatientRegistrationLayout,
+  PatientRegistrationDemographicForm,
+  PatientRegistrationContactInfoForm,
+  PatientRegistrationEmergencyInfoForm,
+  PatientRegistrationDocumentsForm,
+  AppointmentForm,
+} from "@tensoremr/components";
 import { useEffect } from "react";
-import { newPatientCache } from "../cache";
+import { newPatientCache } from "@tensoremr/cache";
 
 const SAVE_PATIENT = gql`
   mutation SavePatient($input: PatientInput!) {
@@ -119,9 +121,9 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
   const [paperRecord, setPaperRecord] = useState<"Yes" | "No">("No");
   const [scheduleOnSave, setScheduleSave] = useState<boolean>(false);
 
-  const [documents, setDocuments] = useState<Array<FileUploader>>([]);
+  const [documents, setDocuments] = useState<Array<IFileUploader>>([]);
   const [paperRecordDocument, setPaperRecordDocument] = useState<
-    Array<FileUploader>
+    Array<IFileUploader>
   >([]);
 
   const [similarPatientSearched, setSimilarPatientSearched] =
@@ -208,11 +210,11 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
     setScheduleSave(false);
   };
 
-  const handleDocumentsChange = (files: Array<FileUploader>) => {
+  const handleDocumentsChange = (files: Array<IFileUploader>) => {
     setDocuments(files);
   };
 
-  const handlePaperDocumentChange = (files: Array<FileUploader>) => {
+  const handlePaperDocumentChange = (files: Array<IFileUploader>) => {
     setPaperRecordDocument(files);
   };
 
@@ -382,6 +384,14 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
             paperRecordDocument={paperRecordDocument}
             setPaperRecordDocument={handlePaperDocumentChange}
             onPaperRecordDocumentDelete={handlePaperDocumentDelete}
+            onError={(message) => {
+              notifDispatch({
+                type: "show",
+                notifTitle: "Error",
+                notifSubTitle: message,
+                variant: "failure",
+              });
+            }}
           />
         }
       />

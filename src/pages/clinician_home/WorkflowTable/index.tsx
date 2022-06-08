@@ -27,10 +27,12 @@ import {
   PaginationInput,
   Query,
   QueryGetUserAppointmentsArgs,
-} from "../../models/models";
-import Modal from "../Modal";
-import { TablePagination } from "../TablePagination";
-import { useNotificationDispatch } from "@tensoremr/components";
+} from "@tensoremr/models";
+import {
+  useNotificationDispatch,
+  Modal,
+  TablePagination,
+} from "@tensoremr/components";
 import "./index.css";
 import cn from "classnames";
 import { Menu, Transition } from "@headlessui/react";

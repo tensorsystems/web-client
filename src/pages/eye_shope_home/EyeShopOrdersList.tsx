@@ -18,8 +18,8 @@
 
 import { format, parseISO } from "date-fns";
 import React from "react";
-import { EyewearPrescriptionOrder } from "../models/models";
-import { TablePagination } from "./TablePagination";
+import { EyewearPrescriptionOrder } from "@tensoremr/models";
+import { TablePagination } from "@tensoremr/components";
 
 interface Props {
   totalCount: number;

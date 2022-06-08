@@ -17,13 +17,12 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { StatCard } from "../components/StatCard";
-import { WorkflowTable } from "../components/WorkflowTable";
+import { StatCard } from "@tensoremr/components";
+import { WorkflowTable } from "./WorkflowTable";
 import { useHistory } from "react-router-dom";
-import { Page } from "../models/page";
-import { Appointment, Order, Query } from "../models/models";
+import { Page, Appointment, Order, Query } from "@tensoremr/models";
 import { gql, useQuery } from "@apollo/client";
-import { parseJwt } from "../util";
+import { parseJwt } from "@tensoremr/util";
 
 const HOME_STATS = gql`
   query HomeStats {
@@ -40,7 +39,7 @@ const HOME_STATS = gql`
   }
 `;
 
-const HomeClinician: React.FC<{ onAddPage: (page: Page) => void }> = ({
+export const HomeClinician: React.FC<{ onAddPage: (page: Page) => void }> = ({
   onAddPage,
 }) => {
   const history = useHistory();
@@ -197,5 +196,3 @@ const HomeClinician: React.FC<{ onAddPage: (page: Page) => void }> = ({
     </div>
   );
 };
-
-export default HomeClinician;

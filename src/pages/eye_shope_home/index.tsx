@@ -18,17 +18,19 @@
 
 import { gql, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import { CompleteEyewearPrescriptionOrder } from "../components/CompleteEyewearPrescriptionOrder";
-import { EyewearShopOrdersList } from "../components/EyeShopOrdersList";
-import { PrescriptionOrdersToolbar } from "../components/PrescriptionOrdersToolbar";
+import { CompleteEyewearPrescriptionOrder } from "./CompleteEyewearPrescriptionOrder";
+import { EyewearShopOrdersList } from "./EyeShopOrdersList";
 import {
   EyewearPrescriptionOrder,
   PaginationInput,
   Query,
   QuerySearchEyewearPrescriptionOrdersArgs,
-} from "../models/models";
-import { useNotificationDispatch } from "@tensoremr/components";
+} from "@tensoremr/models";
+import {
+  useNotificationDispatch,
+  PrescriptionOrdersToolbar,
+  useBottomSheetDispatch,
+} from "@tensoremr/components";
 
 const SEARCH_EYEWEAR_PRESCRIPTION_ORDERS = gql`
   query SearchEyewearPrescriptionOrders(
