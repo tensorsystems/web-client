@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import cn from "classnames";
 import { UserCircleIcon, TrashIcon, RssIcon } from "@heroicons/react/outline";
@@ -31,14 +31,15 @@ import {
   Query,
   QueryUserSubscriptionsArgs,
   QueueType,
-} from "../models/models";
-import { useEffect } from "react";
-import { useNotificationDispatch } from "@tensoremr/components";
-import { useBottomSheetDispatch } from "@tensoremr/components";
-import AddQueueForm from "../components/AddQueueForm";
-import { parseJwt } from "../util";
+} from "@tensoremr/models";
+import {
+  useNotificationDispatch,
+  useBottomSheetDispatch,
+} from "@tensoremr/components";
+import AddQueueForm from "./AddQueueForm";
+import { parseJwt } from "@tensoremr/util";
 import _ from "lodash";
-import AddToQueueForm from "../components/AddToQueueForm";
+import AddToQueueForm from "./AddToQueueForm";
 
 const GET_PATIENT_QUEUE = gql`
   query GetPatientQueues {
@@ -123,7 +124,7 @@ const UNSUBSCRIBE_QUEUE = gql`
   }
 `;
 
-const PatientQueuePage: React.FC = () => {
+export const PatientQueuePage: React.FC = () => {
   const bottomSheetDispatch = useBottomSheetDispatch();
   const notifDispatch = useNotificationDispatch();
 
@@ -753,5 +754,3 @@ const PatientQueuePage: React.FC = () => {
     </div>
   );
 };
-
-export default PatientQueuePage;

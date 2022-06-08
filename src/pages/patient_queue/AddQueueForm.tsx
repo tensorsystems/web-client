@@ -22,7 +22,7 @@ import {
   MutationSavePatientQueueArgs,
   PatientQueueInput,
   QueueType,
-} from "../models/models";
+} from "@tensoremr/models";
 
 const SAVE_PATIENT_QUEUE = gql`
   mutation SavePatientQueue($input: PatientQueueInput!) {

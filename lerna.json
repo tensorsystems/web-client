@@ -15,7 +15,10 @@
     "src/pages/clinician_home",
     "src/pages/eye_shope_home",
     "src/pages/reception_home",
-    "src/pages/new_patient"
+    "src/pages/new_patient",
+    "src/pages/patient_queue",
+    "src/pages/pharmacy_home",
+    "src/pages/profile_page"
   ],
   "version": "0.0.0",
   "npmClient": "yarn",

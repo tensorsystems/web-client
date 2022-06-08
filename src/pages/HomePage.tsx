@@ -52,12 +52,12 @@ import { AdminHome } from "./admin";
 import { UpdatePatientPage } from "./UpdatePatientPage";
 import { Component404 } from "../components/404/404";
 import { ReferralOrdersPage } from "./referral_orders";
-import ProfilePage from "./ProfilePage";
-import { PharmacyHome } from "./PharmacyHome";
+import { ProfilePage } from "./ProfilePage";
+import { PharmacyHome } from "./pharmacy_home";
 import { EyeShopHome } from "./eye_shope_home";
 import { HomeReception } from "./reception_home";
 import { HomeClinician } from "./clinician_home";
-import PatientQueuePage from "./PatientQueuePage";
+import { PatientQueuePage } from "./patient_queue";
 import { FollowUpOrdersPage } from "./follow_up_orders";
 
 export const HomePage: React.FC = () => {

@@ -117,7 +117,7 @@ const CHANGE_PASSWORD = gql`
   }
 `;
 
-export default function ProfilePage() {
+export const ProfilePage: React.FC = () => {
   const { profileId } = useParams<{ profileId: string }>();
 
   const notifDispatch = useNotificationDispatch();
@@ -446,4 +446,4 @@ export default function ProfilePage() {
       </Modal>
     </div>
   );
-}
+};

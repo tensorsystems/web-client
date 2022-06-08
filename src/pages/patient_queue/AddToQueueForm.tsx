@@ -17,15 +17,15 @@
 */
 
 import { useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import {
   Appointment,
   Query,
   QueryFindTodaysCheckedInAppointmentsArgs,
-} from "../models/models";
+} from "@tensoremr/models";
 import cn from "classnames";
-import { FIND_TODAYS_CHECKED_IN_APPOINTMENTS } from "../api";
+import { FIND_TODAYS_CHECKED_IN_APPOINTMENTS } from "@tensoremr/api";
 
 interface Props {
   onSuccess: (appointment: Appointment) => void;
