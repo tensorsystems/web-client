@@ -1,6 +1,6 @@
 {
   "name": "@tensoremr/components",
-  "version": "0.1.10",
+  "version": "0.1.12",
   "description": "",
   "keywords": [],
   "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
@@ -33,11 +33,9 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
-    "tailwindcss": "^3.0.23",
     "typescript": "^4.3.5",
     "typescript-plugin-css-modules": "^3.4.0",
-    "qrcode.react": "^3.0.2",
-    "@tailwindcss/forms": "^0.5.0"
+    "qrcode.react": "^3.0.2"
   },
   "peerDependencies": {
     "@apollo/client": "^3.5.6",

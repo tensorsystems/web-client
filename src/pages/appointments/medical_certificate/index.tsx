@@ -18,7 +18,6 @@
 
 import React, { useState, useRef, useEffect, Fragment } from "react";
 import { Transition } from "@headlessui/react";
-import PrintFileHeader from "../../../components/PrintFileHeader";
 import {
   Appointment,
   MutationUpdatePatientChartArgs,
@@ -31,7 +30,7 @@ import { format, parseISO } from "date-fns";
 import { useForm } from "react-hook-form";
 import { useExitPrompt } from "@tensoremr/hooks";
 import _ from "lodash";
-import { useNotificationDispatch } from "@tensoremr/components";
+import { useNotificationDispatch, PrintFileHeader } from "@tensoremr/components";
 import { Prompt } from "react-router-dom";
 import { getPatientAge } from "@tensoremr/util";
 

@@ -30,7 +30,7 @@ export default [
             typescript({ tsconfig: "./tsconfig.json" }),
             postcss({
                 //minimize: true,
-                extract: true,
+                // extract: true,
                 config: {
                     path: './postcss.config.js'
                 },

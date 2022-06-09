@@ -19,6 +19,7 @@
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+    "./packages/**/*.{js,jsx,ts,tsx}",
   ],
   important: true,
   theme: {

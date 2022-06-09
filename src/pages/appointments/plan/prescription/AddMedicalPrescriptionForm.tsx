@@ -517,6 +517,7 @@ export const AddMedicalPrescriptionForm: React.FC<Props> = ({
                 onClick={() => setPrescribeAnother(true)}
               >
                 {loading ? (
+                  // @ts-ignore
                   <ReactLoading
                     type={"spinningBubbles"}
                     color={"teal"}
@@ -536,6 +537,7 @@ export const AddMedicalPrescriptionForm: React.FC<Props> = ({
               className="inline-flex items-center justify-center w-full py-2 px-4 mt-4 border border-teal-600 shadow-sm text-sm font-medium rounded-md focus:outline-none text-teal-700 hover:bg-teal-600 hover:text-white "
             >
               {loading ? (
+                // @ts-ignore
                 <ReactLoading
                   type={"spinningBubbles"}
                   color={"teal"}

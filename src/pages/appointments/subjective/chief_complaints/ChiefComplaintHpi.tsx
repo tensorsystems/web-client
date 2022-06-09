@@ -233,6 +233,7 @@ export const ChiefComplaintHpi: React.FC<Props> = ({ values, onChange }) => {
                     <a data-tip data-for={hpiComponentType?.node.title}>
                       {hpiComponentType?.node.title}
                     </a>
+                    {/* @ts-ignore */}
                     <ReactTooltip id={hpiComponentType?.node.title} type="info">
                       {hpiComponentType?.node.description}
                     </ReactTooltip>
@@ -285,6 +286,7 @@ export const ChiefComplaintHpi: React.FC<Props> = ({ values, onChange }) => {
                   <div className="mt-3 ml-4">
                     {hpiComponentLazyQuery[1].loading ? (
                       <div className="p-6">
+                         {/* @ts-ignore */}
                         <ReactLoading
                           type="spin"
                           color="teal"

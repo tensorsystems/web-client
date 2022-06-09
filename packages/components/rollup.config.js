@@ -32,7 +32,7 @@ export default [
             image(),
             postcss({
                 // minimize: true,
-                extract: true,
+                // extract: true,
                 config: {
                     path: './postcss.config.js'
                 },

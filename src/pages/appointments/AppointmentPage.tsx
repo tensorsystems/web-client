@@ -486,6 +486,7 @@ export const AppointmentPage: React.FC<{
   ) {
     return (
       <div className="flex justify-center mt-10 h-screen">
+        {/* @ts-ignore */}
         <ReactLoading
           type={"spinningBubbles"}
           color={"gray"}

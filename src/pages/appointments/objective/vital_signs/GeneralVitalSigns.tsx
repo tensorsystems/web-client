@@ -273,6 +273,7 @@ export const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, pat
             <div data-tip data-for={"temperature"}>
               <InformationCircleIcon className="h-6 w-6 text-yellow-400" />
             </div>
+             {/* @ts-ignore */}
             <ReactTooltip id={"temperature"} type="warning">
               Abnormal
             </ReactTooltip>
@@ -300,6 +301,7 @@ export const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, pat
             <div data-tip data-for={"pulse"}>
               <InformationCircleIcon className="h-6 w-6 text-yellow-400" />
             </div>
+             {/* @ts-ignore */}
             <ReactTooltip id={"pulse"} type="warning">
               Abnormal
             </ReactTooltip>
@@ -341,6 +343,7 @@ export const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, pat
               <div data-tip data-for={"bloodPressure"}>
                 <InformationCircleIcon className="h-6 w-6 text-yellow-400" />
               </div>
+               {/* @ts-ignore */}
               <ReactTooltip id={"bloodPressure"} type="warning">
                 Abnormal
               </ReactTooltip>
@@ -368,6 +371,7 @@ export const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, pat
             <div data-tip data-for={"rpm"}>
               <InformationCircleIcon className="h-6 w-6 text-yellow-400" />
             </div>
+             {/* @ts-ignore */}
             <ReactTooltip id={"rpm"} type="warning">
               Abnormal
             </ReactTooltip>
@@ -395,6 +399,7 @@ export const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, pat
             <div data-tip data-for={"oxygenSaturation"}>
               <InformationCircleIcon className="h-6 w-6 text-yellow-400" />
             </div>
+             {/* @ts-ignore */}
             <ReactTooltip id={"oxygenSaturation"} type="warning">
               Abnormal
             </ReactTooltip>
@@ -456,6 +461,7 @@ export const GeneralVitalSigns: React.FC<Props> = ({ locked, patientChartId, pat
             <div data-tip data-for={"bmi"}>
               <InformationCircleIcon className="h-6 w-6 text-yellow-400" />
             </div>
+             {/* @ts-ignore */}
             <ReactTooltip id={"bmi"} type="warning">
               Abnormal
             </ReactTooltip>

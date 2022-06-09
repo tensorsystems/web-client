@@ -31,7 +31,7 @@ export const Appointments: React.FC<{
   const match = useRouteMatch();
   const [userType, setUserType] = useState<string>("");
 
-  useEffect(() => { 
+  useEffect(() => {
     const token = sessionStorage.getItem("accessToken");
 
     if (token !== null) {

@@ -884,6 +884,7 @@ export const PatientDashboard: React.FC<{
               <div className="mt-4">
                 {progressNotesQuery.loading ? (
                   <div className="flex items-center justify-center my-4">
+                     {/* @ts-ignore */}
                     <ReactLoading
                       type={"spinningBubbles"}
                       color={"gray"}
@@ -930,6 +931,7 @@ export const PatientDashboard: React.FC<{
                             {progressNotesQuery.loading ||
                             vitalSignsProgressQuery[1].loading ? (
                               <div className="flex items-center justify-center my-4">
+                                 {/* @ts-ignore */}
                                 <ReactLoading
                                   type={"spinningBubbles"}
                                   color={"gray"}

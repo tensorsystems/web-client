@@ -233,6 +233,7 @@ export const OphthalmologyVitalSigns: React.FC<{
 
       {error?.message === "record not found" || loading ? (
         <div className="flex justify-center mt-10 h-screen">
+           {/* @ts-ignore */}
           <ReactLoading
             type={"spinningBubbles"}
             color={"gray"}

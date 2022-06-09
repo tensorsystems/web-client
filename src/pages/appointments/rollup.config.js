@@ -5,6 +5,7 @@ import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss'
+import image from '@rollup/plugin-image';
 
 const packageJson = require("./package.json");
 
@@ -27,10 +28,11 @@ export default [
             peerDepsExternal(),
             resolve(),
             commonjs(),
+            image(),
             typescript({ tsconfig: "./tsconfig.json" }),
             postcss({
-                //minimize: true,
-                extract: true,
+                // minimize: true,
+                // extract: true,
                 config: {
                     path: './postcss.config.js'
                 },

@@ -29,8 +29,7 @@ export default [
             commonjs(),
             typescript({ tsconfig: "./tsconfig.json" }),
             postcss({
-                //minimize: true,
-                extract: true,
+                // minimize: true,
                 config: {
                     path: './postcss.config.js'
                 },
