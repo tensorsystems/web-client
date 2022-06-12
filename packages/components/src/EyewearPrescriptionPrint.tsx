@@ -27,7 +27,7 @@ import {
   User,
 } from "@tensoremr/models";
 import { getEyewearRxNames, getFileUrl, getPatientAge } from "@tensoremr/util";
-import {PrintFileHeader} from "./PrintFileHeader";
+import { PrintFileHeader } from "./PrintFileHeader";
 
 interface Props {
   refraction: DiagnosticProcedure | undefined | null;
@@ -48,6 +48,10 @@ export const EyewearPrescriptionPrint: React.FC<Props> = ({
     content: () => componentRef.current,
   });
 
+  const namePrefix = user.userTypes.some((e) => e?.title === "Physician")
+    ? "Dr. "
+    : "";
+
   return (
     <div
       onMouseEnter={() => setShowPrintButton(true)}
@@ -58,7 +62,7 @@ export const EyewearPrescriptionPrint: React.FC<Props> = ({
       <div className="relative mt-5">
         <div className="bg-white p-6" ref={componentRef}>
           <PrintFileHeader
-           // @ts-ignore
+            // @ts-ignore
             qrUrl={`http://${process.env.REACT_APP_SERVER_URL}/#/appointments/${patient.id}/patient-dashboard`}
           />
           <hr className="border border-solid border-teal-500 bg-teal-400 mt-5" />
@@ -311,7 +315,7 @@ export const EyewearPrescriptionPrint: React.FC<Props> = ({
               <p className="font-bold">Prescriber</p>
               <div className="mt-2">
                 <span className="font-semibold">Name: </span>
-                <span>{`Dr. ${user.firstName} ${user.lastName}`}</span>
+                <span>{`${namePrefix} ${user.firstName} ${user.lastName}`}</span>
               </div>
               <div>
                 <span className="font-semibold">Qualification: </span>
@@ -339,7 +343,7 @@ export const EyewearPrescriptionPrint: React.FC<Props> = ({
                   <img
                     className="h-auto w-32"
                     src={getFileUrl({
-                       // @ts-ignore
+                      // @ts-ignore
                       baseUrl: process.env.REACT_APP_SERVER_URL,
                       fileName: user?.signature.fileName,
                       hash: user?.signature.hash,

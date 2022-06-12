@@ -27,7 +27,10 @@ import {
   Query,
   QueryAppointmentArgs,
 } from "@tensoremr/models";
-import { useNotificationDispatch, EyewearPrescriptionPrint } from "@tensoremr/components";
+import {
+  useNotificationDispatch,
+  EyewearPrescriptionPrint,
+} from "@tensoremr/components";
 
 const GET_DATA = gql`
   query GetData($patientChartId: ID!, $userId: ID!) {
@@ -115,6 +118,10 @@ const GET_DATA = gql`
         extension
         contentType
         createdAt
+      }
+      userTypes {
+        id
+        title
       }
     }
 
