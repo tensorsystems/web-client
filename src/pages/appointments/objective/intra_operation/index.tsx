@@ -49,6 +49,7 @@ const GET_INTRA_OP = gql`
       ga
       retrobulbar
       peribulbar
+      subtenones
       topical
       conjFlapLimbal
       conjFlapFornix
@@ -163,6 +164,7 @@ export const IntraOpPage: React.FC<Props> = ({ locked, patientChartId }) => {
         ga: surgicalProcedure.ga,
         retrobulbar: surgicalProcedure.retrobulbar,
         peribulbar: surgicalProcedure.peribulbar,
+        subtenones: surgicalProcedure.subtenones,
         topical: surgicalProcedure.topical,
         conjFlapLimbal: surgicalProcedure.conjFlapLimbal,
         conjFlapFornix: surgicalProcedure.conjFlapFornix,

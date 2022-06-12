@@ -10,12 +10,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Thu Jun  9 11:06:20 2022
+# Make data base, printed on Sat Jun 11 22:49:30 2022
 
 # Variables
 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -46,7 +45,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-db9ec19f-8e04-471a-a0cc-d7e540b48d68.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-05a48f97-a34a-4efb-bc58-b7bff722a0b5.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -86,7 +85,7 @@ VSCODE_CODE_CACHE_PATH = /Users/kidustiliksew/Library/Application Support/Code/C
 # environment
 LOGNAME = kidustiliksew
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 TELEMETRY_ID = 3651249d-30b6-46df-bb82-e5ad17244d9b
 # environment
@@ -135,7 +134,6 @@ XPC_SERVICE_NAME = application.com.microsoft.VSCode.67930424.67930430
 RECOMMENDER_API_URL = https://gw.api.openshift.io//api/v2
 # automatic
 +F = $(notdir $+)
- 
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
 # environment
@@ -167,9 +165,9 @@ VSCODE_PID = 928
 
 # Directories
 
-# . (device 16777233, inode 69516877): 31 files, no impossibilities.
+# . (device 16777233, inode 69516877): 30 files, no impossibilities.
 
-# 31 files, no impossibilities in 1 directories.
+# 30 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -239,7 +237,6 @@ build-image:
 # VPATH Search Paths
 
 # No `vpath' search paths.
- 
 
 # No general (`VPATH' variable) search path.
 
@@ -248,6 +245,7 @@ build-image:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Jun  9 11:06:20 2022
+ 
+# Finished Make data base on Sat Jun 11 22:49:30 2022
 
  

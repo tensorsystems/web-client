@@ -38,11 +38,11 @@ import {
   IntraOpForm,
   TreatmentForm,
   IFileUploader,
+  useNotificationDispatch
 } from "@tensoremr/components";
 import corneaImage from "./cornea.png";
 import irisImage from "./iris.png";
 import circleImage from "./circle.png";
-import { useNotificationDispatch } from "@tensoremr/components";
 
 import { getFileUrl, groupByHpiComponentType } from "@tensoremr/util";
 
@@ -458,6 +458,7 @@ const GET_SURGERY = gql`
       ga
       retrobulbar
       peribulbar
+      subtenones
       topical
       conjFlapLimbal
       conjFlapFornix
@@ -634,6 +635,7 @@ export const PositiveFindingsPrint: React.FC<Props> = ({
         ga: surgicalProcedure.ga,
         retrobulbar: surgicalProcedure.retrobulbar,
         peribulbar: surgicalProcedure.peribulbar,
+        subtenones: surgicalProcedure.subtenones,
         topical: surgicalProcedure.topical,
         conjFlapLimbal: surgicalProcedure.conjFlapLimbal,
         conjFlapFornix: surgicalProcedure.conjFlapFornix,

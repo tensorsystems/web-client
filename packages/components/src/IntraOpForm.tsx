@@ -122,6 +122,17 @@ export const IntraOpForm: React.FC<Props> = ({ register, handleChanges, aclolUnp
               <input
                 type="checkbox"
                 disabled={locked}
+                name="subtenones"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Subtenones</span>
+            </label>
+            
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
                 name="topical"
                 ref={register}
                 onChange={handleChanges}
