@@ -287,7 +287,7 @@ export const MedicalCertificatePage: React.FC<{
 
           <CertificateDetail
             title="Patient"
-            body={`${appointment.patient.firstName} ${appointment.patient.firstName}`}
+            body={`${appointment.patient.firstName} ${appointment.patient.lastName}`}
           />
           <CertificateDetail
             title="Electronic ID"

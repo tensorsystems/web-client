@@ -629,7 +629,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
               ref={register({ required: true })}
               className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-              {lookupQuery.data?.visitTypes.edges.map((e: any) => (
+              {lookupQuery.data?.visitTypes.edges.filter((e) => e?.node.title !== 'Surgery' && e?.node.title !== 'Treatment').map((e: any) => (
                 <option key={e?.node.id} value={e?.node.id}>
                   {e?.node.title}
                 </option>
