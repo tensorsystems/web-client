@@ -35,6 +35,6 @@
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "@tensoremr/models": "^0.1.0"
+    "@tensoremr/models": "^0.1.1"
   }
 }

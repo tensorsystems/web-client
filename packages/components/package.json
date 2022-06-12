@@ -1,6 +1,6 @@
 {
   "name": "@tensoremr/components",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "",
   "keywords": [],
   "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
@@ -40,7 +40,7 @@
   "peerDependencies": {
     "@apollo/client": "^3.5.6",
     "@headlessui/react": "^1.2.0",
-    "@tensoremr/models": "^0.1.0",
+    "@tensoremr/models": "^0.1.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
     "file-saver": "^2.0.5",
