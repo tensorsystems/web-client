@@ -48,7 +48,7 @@ export const EyewearPrescriptionPrint: React.FC<Props> = ({
     content: () => componentRef.current,
   });
 
-  const namePrefix = user.userTypes.some((e) => e?.title === "Physician")
+  const namePrefix = user?.userTypes?.some((e) => e?.title === "Physician")
     ? "Dr. "
     : "";
 

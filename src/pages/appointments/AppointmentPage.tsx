@@ -66,9 +66,9 @@ import { useNotificationDispatch, Modal } from "@tensoremr/components";
 import { MedicalCertificatePage } from "./medical_certificate";
 import { ReviewOfSystemsPage } from "./subjective/review_of_systems";
 import { GeneralVitalSigns } from "./objective/vital_signs/GeneralVitalSigns";
-import {GeneralExamination} from "./objective/physical_examination/GeneralExamination";
+import { GeneralExamination } from "./objective/physical_examination/GeneralExamination";
 import { useForm } from "react-hook-form";
-import {DiagnosticProcedurePage} from "./objective/diagnostic_procedure";
+import { DiagnosticProcedurePage } from "./objective/diagnostic_procedure";
 import { format, parseISO } from "date-fns";
 
 export const GET_APPOINTMENT = gql`
@@ -79,6 +79,7 @@ export const GET_APPOINTMENT = gql`
       emergency
       medicalDepartment
       queueId
+      userId
       patient {
         id
         firstName

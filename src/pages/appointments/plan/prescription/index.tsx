@@ -170,6 +170,10 @@ const GET_DATA = gql`
         contentType
         createdAt
       }
+      userTypes {
+        id
+        title
+      }
     }
   }
 `;

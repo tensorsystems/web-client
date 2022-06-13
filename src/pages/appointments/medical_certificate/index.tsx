@@ -30,9 +30,12 @@ import { format, parseISO } from "date-fns";
 import { useForm } from "react-hook-form";
 import { useExitPrompt } from "@tensoremr/hooks";
 import _ from "lodash";
-import { useNotificationDispatch, PrintFileHeader } from "@tensoremr/components";
+import {
+  useNotificationDispatch,
+  PrintFileHeader,
+} from "@tensoremr/components";
 import { Prompt } from "react-router-dom";
-import { getPatientAge } from "@tensoremr/util";
+import { getFileUrl, getPatientAge, parseJwt } from "@tensoremr/util";
 
 const AUTO_SAVE_INTERVAL = 1000;
 
@@ -52,6 +55,7 @@ const GET_DETAILS = gql`
     $details: Boolean
     $page: PaginationInput!
     $filter: OrderFilterInput
+    $userId: ID!
   ) {
     patientChart(id: $patientChartId, details: $details) {
       id
@@ -133,6 +137,25 @@ const GET_DETAILS = gql`
         }
       }
     }
+
+    user(id: $userId) {
+      id
+      firstName
+      lastName
+      signature {
+        id
+        size
+        hash
+        fileName
+        extension
+        contentType
+        createdAt
+      }
+      userTypes {
+        id
+        title
+      }
+    }
   }
 `;
 
@@ -166,8 +189,11 @@ export const MedicalCertificatePage: React.FC<{
       filter: {
         patientChartId: appointment.patientChart.id,
       },
+      userId: appointment.userId,
     },
   });
+
+  console.log("Data", data);
 
   useEffect(() => {
     refetch();
@@ -365,6 +391,25 @@ export const MedicalCertificatePage: React.FC<{
             title="Provider"
             body={`Dr. ${appointment.providerName}`}
           />
+          <div className="mt-3">
+            <div className="w-full bg-gray-100 p-2">Signature</div>
+            <div className="mt-1 ml-1">
+            {data?.user?.signature && (
+                <div className="mt-5">
+                  <img
+                    className="h-auto w-32"
+                    src={getFileUrl({
+                      // @ts-ignore
+                      baseUrl: process.env.REACT_APP_SERVER_URL,
+                      fileName: data?.user?.signature.fileName,
+                      hash: data?.user?.signature.hash,
+                      extension: data?.user?.signature.extension,
+                    })}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
         <Transition.Root
           show={showPrintButton}
