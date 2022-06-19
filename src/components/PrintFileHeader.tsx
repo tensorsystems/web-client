@@ -66,8 +66,8 @@ const PrintFileHeader = ({ qrUrl }: { qrUrl: string }) => {
       <div className="flex-1">
         {hasLogo ? (
           <img
-           // @ts-ignore
-            src={`${process.env.REACT_APP_SERVER_URL}/files/${data?.organizationDetails?.logo?.fileName}_${data?.organizationDetails?.logo?.hash}.${data?.organizationDetails?.logo?.extension}`}
+            // @ts-ignore
+            src={`${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/files/${data?.organizationDetails?.logo?.fileName}_${data?.organizationDetails?.logo?.hash}.${data?.organizationDetails?.logo?.extension}`}
             alt="Logo"
             className="h-auto w-36"
           />

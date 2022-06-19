@@ -585,7 +585,7 @@ export const PrescriptionPage: React.FC<Props> = ({
                 if (appointmentId) {
                   window.open(
                     // @ts-ignore
-                    `${process.env.REACT_APP_SERVER_URL}/pdf_medical_prescription?appointmentId=${appointmentId}`
+                    `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/pdf_medical_prescription?appointmentId=${appointmentId}`
                   );
                 }
               }}
@@ -661,7 +661,7 @@ export const PrescriptionPage: React.FC<Props> = ({
                 if (appointmentId) {
                   window.open(
                     // @ts-ignore
-                    `${process.env.REACT_APP_SERVER_URL}/pdf_eyeglass_prescription?appointmentId=${appointmentId}`
+                    `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/pdf_eyeglass_prescription?appointmentId=${appointmentId}`
                   );
                 }
               }}

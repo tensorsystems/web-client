@@ -165,7 +165,7 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
       id: e?.id,
       fileUrl: getFileUrl({
         // @ts-ignore
-        baseUrl: process.env.REACT_APP_SERVER_URL,
+        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
         extension: e?.extension,
@@ -181,7 +181,7 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
       id: e?.id,
       fileUrl: getFileUrl({
         // @ts-ignore
-        baseUrl: process.env.REACT_APP_SERVER_URL,
+        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
         extension: e?.extension,
@@ -210,7 +210,7 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
           id: e?.id,
           fileUrl: getFileUrl({
             // @ts-ignore
-            baseUrl: process.env.REACT_APP_SERVER_URL,
+            baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
             fileName: e?.fileName,
             hash: e?.hash,
             extension: e?.extension,
@@ -229,7 +229,7 @@ const DiagnosticProcedureComponent: React.FC<Props> = ({
           id: e?.id,
           fileUrl: getFileUrl({
             // @ts-ignore
-            baseUrl: process.env.REACT_APP_SERVER_URL,
+            baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
             fileName: e?.fileName,
             hash: e?.hash,
             extension: e?.extension,

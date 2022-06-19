@@ -46,11 +46,12 @@
     "react-swipeable-views": "^0.14.0",
     "react-to-print": "^2.13.0",
     "react-tooltip": "^4.2.21",
+    "runtime-env-cra": "^0.2.4",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

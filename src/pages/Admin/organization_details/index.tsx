@@ -122,7 +122,7 @@ export const OrganizationDetails: React.FC = () => {
           id: organizationDetails?.logo.id,
           fileUrl: getFileUrl({
             // @ts-ignore
-            baseUrl: process.env.REACT_APP_SERVER_URL,
+            baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
             fileName: organizationDetails?.logo.fileName,
             hash: organizationDetails?.logo.hash,
             extension: organizationDetails?.logo.extension,

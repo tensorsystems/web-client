@@ -1,6 +1,6 @@
 {
   "name": "@tensoremr/admin-ui",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "",
   "keywords": [],
   "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
@@ -45,10 +45,10 @@
     "@apollo/client": "^3.5.6",
     "react-select": "^4.3.1",
     "classnames": "^2.2.6",
-    "@tensoremr/api": "^0.1.2",
-    "@tensoremr/components": "^0.1.14",
-    "@tensoremr/models": "^0.1.1",
-    "@tensoremr/util": "^0.1.0",
+    "@tensoremr/api": "latest",
+    "@tensoremr/components": "latest",
+    "@tensoremr/models": "latest",
+    "@tensoremr/util": "latest",
     "react-router-dom": "^5.2.0"
   }
 }

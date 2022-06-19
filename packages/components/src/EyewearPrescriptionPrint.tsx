@@ -63,7 +63,7 @@ export const EyewearPrescriptionPrint: React.FC<Props> = ({
         <div className="bg-white p-6" ref={componentRef}>
           <PrintFileHeader
             // @ts-ignore
-            qrUrl={`http://${process.env.REACT_APP_SERVER_URL}/#/appointments/${patient.id}/patient-dashboard`}
+            qrUrl={`http://${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/#/appointments/${patient.id}/patient-dashboard`}
           />
           <hr className="border border-solid border-teal-500 bg-teal-400 mt-5" />
 
@@ -344,7 +344,7 @@ export const EyewearPrescriptionPrint: React.FC<Props> = ({
                     className="h-auto w-32"
                     src={getFileUrl({
                       // @ts-ignore
-                      baseUrl: process.env.REACT_APP_SERVER_URL,
+                      baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
                       fileName: user?.signature.fileName,
                       hash: user?.signature.hash,
                       extension: user?.signature.extension,

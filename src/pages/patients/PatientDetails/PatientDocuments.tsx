@@ -36,7 +36,7 @@ export const PatientDocuments: React.FC<{
     id: data?.paperRecordDocument?.id,
     fileUrl: getFileUrl({
       // @ts-ignore
-      baseUrl: process.env.REACT_APP_SERVER_URL,
+      baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
       fileName: data?.paperRecordDocument?.fileName ?? "",
       hash: data?.paperRecordDocument?.hash ?? "",
       extension: data?.paperRecordDocument?.extension ?? "",
@@ -52,7 +52,7 @@ export const PatientDocuments: React.FC<{
       id: e?.id,
       fileUrl: getFileUrl({
         // @ts-ignore
-        baseUrl: process.env.REACT_APP_SERVER_URL,
+        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
         extension: e?.extension,

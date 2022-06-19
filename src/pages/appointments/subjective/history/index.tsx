@@ -201,7 +201,7 @@ export const HistoryPage: React.FC<{
         id: paperRecordDocument.id,
         fileUrl: getFileUrl({
           // @ts-ignore
-          baseUrl: process.env.REACT_APP_SERVER_URL,
+          baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
           fileName: paperRecordDocument.fileName,
           hash: paperRecordDocument.hash,
           extension: paperRecordDocument.extension,

@@ -376,7 +376,7 @@ export const PatientDashboard: React.FC<{
       id: e?.id,
       fileUrl: getFileUrl({
         // @ts-ignore
-        baseUrl: process.env.REACT_APP_SERVER_URL,
+        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
         fileName: e?.fileName,
         hash: e?.hash,
         extension: e?.extension,
@@ -393,7 +393,7 @@ export const PatientDashboard: React.FC<{
         id: appointment?.patient.paperRecordDocument?.id,
         fileUrl: getFileUrl({
           // @ts-ignore
-          baseUrl: process.env.REACT_APP_SERVER_URL,
+          baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
           fileName: appointment?.patient.paperRecordDocument?.fileName ?? "",
           hash: appointment?.patient.paperRecordDocument?.hash ?? "",
           extension: appointment?.patient.paperRecordDocument?.extension ?? "",
@@ -884,7 +884,7 @@ export const PatientDashboard: React.FC<{
               <div className="mt-4">
                 {progressNotesQuery.loading ? (
                   <div className="flex items-center justify-center my-4">
-                     {/* @ts-ignore */}
+                    {/* @ts-ignore */}
                     <ReactLoading
                       type={"spinningBubbles"}
                       color={"gray"}
@@ -931,7 +931,7 @@ export const PatientDashboard: React.FC<{
                             {progressNotesQuery.loading ||
                             vitalSignsProgressQuery[1].loading ? (
                               <div className="flex items-center justify-center my-4">
-                                 {/* @ts-ignore */}
+                                {/* @ts-ignore */}
                                 <ReactLoading
                                   type={"spinningBubbles"}
                                   color={"gray"}

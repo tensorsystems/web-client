@@ -188,7 +188,7 @@ export const ProfilePage: React.FC = () => {
     if (user?.signature) {
       const fileUrl = getFileUrl({
         // @ts-ignore
-        baseUrl: process.env.REACT_APP_SERVER_URL,
+        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
         fileName: user?.signature.fileName,
         hash: user?.signature.hash,
         extension: user?.signature.extension,
@@ -209,7 +209,7 @@ export const ProfilePage: React.FC = () => {
     if (user?.profilePic) {
       const fileUrl = getFileUrl({
         // @ts-ignore
-        baseUrl: process.env.REACT_APP_SERVER_URL,
+        baseUrl: window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL,
         fileName: user?.profilePic.fileName,
         hash: user?.profilePic.hash,
         extension: user?.profilePic.extension,

@@ -48,7 +48,7 @@ export const LoginPage: React.FC = () => {
   useEffect(() => {
     fetch(
       // @ts-ignore
-      `${process.env.REACT_APP_SERVER_URL}/organizationDetails`,
+      `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/organizationDetails`,
       {
         method: "GET",
       }
@@ -65,7 +65,7 @@ export const LoginPage: React.FC = () => {
 
     fetch(
       // @ts-ignore
-      `${process.env.REACT_APP_SERVER_URL}/organizationDetails`,
+      `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/organizationDetails`,
       {
         method: "GET",
       }
@@ -75,7 +75,7 @@ export const LoginPage: React.FC = () => {
         if (isLegacy) {
           fetch(
             // @ts-ignore
-            `${process.env.REACT_APP_SERVER_URL}/legacy-login`,
+            `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/legacy-login`,
             {
               method: "POST",
               body: JSON.stringify(data),
@@ -124,7 +124,7 @@ export const LoginPage: React.FC = () => {
         } else {
           fetch(
             // @ts-ignore
-            `${process.env.REACT_APP_SERVER_URL}/login`,
+            `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/login`,
             {
               method: "POST",
               body: JSON.stringify(data),

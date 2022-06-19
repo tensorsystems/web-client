@@ -55,12 +55,12 @@ const authLink = setContext((_, { headers }) => {
 });
 
 /*const httpLink = createHttpLink({
-  uri: `${process.env.REACT_APP_SERVER_URL}/query`,
+  uri: `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/query`,
 });*/
 
 const terminatingLink = createUploadLink({
   // @ts-ignore
-  uri: `${process.env.REACT_APP_SERVER_URL}/query`,
+  uri: `${window.__RUNTIME_CONFIG__.REACT_APP_SERVER_URL}/query`,
 });
 
 export const typeDefs = gql`
