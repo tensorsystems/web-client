@@ -53,5 +53,14 @@
     "react-select": "^4.3.1",
     "react-sketch2": "^0.5.7",
     "react-to-print": "^2.13.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "./dist"
+        ]
+      }
+    }
   }
 }
