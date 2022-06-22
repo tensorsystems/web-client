@@ -15,5 +15,8 @@
       "packages/*",
       "core"
     ]
+  },
+  "scripts": {
+    "start": "cd core && NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js && react-scripts start"
   }
 }

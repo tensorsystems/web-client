@@ -342,7 +342,8 @@ export const HomePage: React.FC = () => {
           snapPoints={[snapPoint]}
         >
           <Sheet.Container
-            onUnmount={() => {
+            // @ts-ignore
+            onClose={() => {
               bottomSheetDispatch({ type: "hide" });
             }}
             onViewportBoxUpdate={() => {}}
@@ -353,7 +354,8 @@ export const HomePage: React.FC = () => {
             </Sheet.Content>
           </Sheet.Container>
           <Sheet.Backdrop
-            onUnmount={() => {
+            // @ts-ignore
+            onClose={() => {
               bottomSheetDispatch({ type: "hide" });
             }}
             onViewportBoxUpdate={() => {}}

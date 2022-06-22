@@ -12377,7 +12377,7 @@ react-merge-refs@1.1.0:
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
 
-react-modal-sheet@^1.4.1:
+react-modal-sheet@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/react-modal-sheet/-/react-modal-sheet-1.5.2.tgz#9cbaa9e109457088f3901049e0e20e7bc1f7956e"
   integrity sha512-zFwqBgyudRhMJfSbomZggrTdJLcTGx9zSVFdM8bSENuWhMJp3oy+W5kYOl6+KESV3AqrUHj3crUzB/5laHW97w==

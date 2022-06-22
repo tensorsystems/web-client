@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Wed Jun 22 09:12:13 2022
+# Make data base, printed on Wed Jun 22 15:53:50 2022
 
 # Variables
 
@@ -41,7 +41,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-c5c45c2e-8c65-4693-8b2a-56296a9826bc.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-8b262801-0ed0-4cbd-b989-88a67a367208.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -55,7 +55,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.oflNsrk8hr/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.tZ5PsfoFBf/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -101,6 +101,7 @@ MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # default
 .VARIABLES := 
 # environment
+ 
 TMPDIR = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/
 # automatic
 *F = $(notdir $*)
@@ -139,7 +140,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 887
+VSCODE_PID = 737
 # variable set hash-table stats:
 # Load=63/1024=6%, Rehash=0, Collisions=1/84=1%
 
@@ -149,9 +150,9 @@ VSCODE_PID = 887
 
 # Directories
 
-# . (device 16777230, inode 69516877): 16 files, no impossibilities.
+# . (device 16777233, inode 69516877): 17 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -203,7 +204,6 @@ makefile:
 # Not a target:
 GNUmakefile:
 #  A default, MAKEFILES, or -include/sinclude makefile.
- 
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
@@ -224,6 +224,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Wed Jun 22 09:12:13 2022
+# Finished Make data base on Wed Jun 22 15:53:50 2022
 
  
