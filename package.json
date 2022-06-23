@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Tensor-Systems/tensoremr-web-client"
