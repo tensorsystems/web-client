@@ -9,8 +9,10 @@
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tensor-Systems/tensoremr-web-client"
+    "url": "git://github.com/tensoremr/web-client"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "files": [
     "dist"

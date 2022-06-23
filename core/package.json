@@ -6,8 +6,10 @@
   "private": true,
   "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tensor-Systems/tensoremr-web-client"
+    "url": "git://github.com/tensoremr/web-client"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
