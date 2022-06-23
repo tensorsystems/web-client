@@ -4,8 +4,7 @@
   "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
   "version": "0.1.1",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tensor-Systems/tensoremr-web-client"
+    "url": "git://github.com/tensoremr/web-client"
   },
   "devDependencies": {
     "lerna": "^5.1.4",
