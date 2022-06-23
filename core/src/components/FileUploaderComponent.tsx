@@ -21,7 +21,7 @@ import classnames from "classnames";
 import { FileViewer } from "./FileViewer";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 import { gql, useMutation } from "@apollo/client";
-import { FileUpdateInput, MutationUpdateFileArgs } from "../models/models";
+import { FileUpdateInput, MutationUpdateFileArgs } from "@tensoremr/models";
 import { useNotificationDispatch } from "@tensoremr/components";
 
 const UPDATE_FILE = gql`

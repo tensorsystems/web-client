@@ -37,7 +37,7 @@ import {
   MutationUpdateUserArgs,
   Query,
   QueryUserArgs,
-} from "../models/models";
+} from "@tensoremr/models";
 import { format } from "date-fns";
 import { parseISO } from "date-fns/esm";
 import { useNotificationDispatch } from "@tensoremr/components";
@@ -45,7 +45,7 @@ import { ProfileTabs } from "./ProfileTabs";
 import { Tabs } from "../components/Tabs";
 import ReactLoading from "react-loading";
 import { useForm } from "react-hook-form";
-import { getFileUrl } from "../util";
+import { getFileUrl } from "@tensoremr/util";
 
 const customStyles = {
   content: {

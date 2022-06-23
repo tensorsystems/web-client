@@ -20,9 +20,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
 import { gql, useQuery } from "@apollo/client";
-import { Query } from "../../models/models";
+import { Query } from "@tensoremr/models";
 import { fromJS, List, Map } from "immutable";
-import { parseJwt } from "../../util";
+import { parseJwt } from "@tensoremr/util";
 
 export const GET_NOTIFS = gql`
   query GetNotifs {

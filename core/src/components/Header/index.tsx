@@ -18,13 +18,13 @@
 
 import React, { useState } from "react";
 import classnames from "classnames";
-import { Page } from "../../models/page";
+import { Page } from "@tensoremr/models";
 import { useApolloClient } from "@apollo/client";
-import { isLoggedInVar } from "../../cache";
+import { isLoggedInVar } from "@tensoremr/cache";
 import Logo from "../../img/logo.png";
 import { SearchBar } from "../SearchBar";
 import { useHistory } from "react-router-dom";
-import { parseJwt } from "../../util";
+import { parseJwt } from "@tensoremr/util";
 import { Menu, Transition } from "@headlessui/react";
 interface Props {
   setSearchFocused: (focused: boolean) => void;

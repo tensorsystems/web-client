@@ -28,7 +28,7 @@ import {
   gql,
   ApolloLink,
 } from "@apollo/client";
-import { cache } from "./cache";
+import { cache } from "@tensoremr/cache";
 import { createUploadLink } from "apollo-upload-client";
 import {
   NotificationProvider,

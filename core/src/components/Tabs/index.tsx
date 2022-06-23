@@ -18,7 +18,7 @@
 
 import React from "react";
 import cn from "classnames";
-import { Tab } from "../../models/tab";
+import { Tab } from "@tensoremr/models";
 import {
   useRouteMatch,
   useHistory,

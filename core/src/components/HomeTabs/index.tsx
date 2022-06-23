@@ -17,7 +17,7 @@
 */
 
 import React from "react";
-import { Page } from "../../models/page";
+import { Page } from "@tensoremr/models";
 import "./index.css";
 
 interface Props {

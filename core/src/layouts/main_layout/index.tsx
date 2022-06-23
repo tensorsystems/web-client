@@ -21,7 +21,7 @@ import { Footer } from "./footer";
 import { Header } from "../../components/Header";
 import { Actionbar } from "../../components/ActionBar";
 import classNames from "classnames";
-import { Page } from "../../models/page";
+import { Page } from "@tensoremr/models";
 interface Props {
   children: JSX.Element;
   onPageSelect: (route: string) => void;

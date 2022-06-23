@@ -34,10 +34,10 @@ import {
   MutationUpdatePatientArgs,
   PatientUpdateInput,
   Query,
-} from "../models/models";
-import { Page } from "../models/page";
+  Page
+} from "@tensoremr/models";
 import { useNotificationDispatch } from "@tensoremr/components";
-import { formatDate, getFileUrl } from "../util";
+import { formatDate, getFileUrl } from "@tensoremr/util";
 
 const PATIENT_DETAILS = gql`
   query PatientDetails($id: ID!) {

@@ -21,8 +21,14 @@ import { parseISO } from "date-fns";
 import { debounce } from "lodash-es";
 import React, { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { QuerySearchArgs, Maybe, Patient, Query, User } from "../models/models";
-import { Page } from "../models/page";
+import {
+  QuerySearchArgs,
+  Maybe,
+  Patient,
+  Query,
+  User,
+  Page,
+} from "@tensoremr/models";
 import SearchBarAppointments from "./SearchBarAppointments";
 import SearchBarMedications from "./SearchBarMedications";
 import ReactLoading from "react-loading";

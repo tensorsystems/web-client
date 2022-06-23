@@ -19,7 +19,7 @@
 import { Menu } from "@headlessui/react";
 import { CalendarIcon, PencilIcon } from "@heroicons/react/outline";
 import React from "react";
-import { PatientInput, PatientUpdateInput } from "../models/models";
+import { PatientInput, PatientUpdateInput } from "@tensoremr/models";
 import MenuComponent from "./MenuComponent";
 
 interface Props {

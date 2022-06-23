@@ -17,8 +17,8 @@
 */
 
 import classnames from "classnames";
-import { format, isSameDay, parseISO } from "date-fns";
-import { Appointment } from "../models/models";
+import { format, parseISO } from "date-fns";
+import { Appointment } from "@tensoremr/models";
 
 interface Props {
   currentDateTime: Date;

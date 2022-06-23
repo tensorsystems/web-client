@@ -18,13 +18,13 @@
 
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { isLoggedInVar, accessToken } from "../cache";
+import { isLoggedInVar, accessToken } from "@tensoremr/cache";
 import { useNotificationDispatch } from "@tensoremr/components";
 import { useHistory } from "react-router-dom";
-import Logo from "../img/logo-dark.png";
+import Logo from "../img/logo_dark.png";
 import ReactLoading from "react-loading";
 import classnames from "classnames";
-import { OrganizationDetails } from "../models/models";
+import { OrganizationDetails } from "@tensoremr/models";
 
 export const LoginPage: React.FC = () => {
   const history = useHistory();

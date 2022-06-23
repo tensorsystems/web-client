@@ -24,9 +24,9 @@ import { useNotificationDispatch, useNotificationState } from "@tensoremr/compon
 import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
-import { parseJwt } from "./util";
+import { parseJwt } from "@tensoremr/util";
 import { isAfter } from "date-fns";
-import { isLoggedInVar } from "./cache";
+import { isLoggedInVar } from "@tensoremr/cache";
 import { useApolloClient } from "@apollo/client";
 import "./App_styles.css";
 

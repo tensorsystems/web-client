@@ -17,7 +17,7 @@
 */
 
 import React from "react";
-import { SimilarPatients } from "../models/models";
+import { SimilarPatients } from "@tensoremr/models";
 import { Spinner } from "./Spinner";
 
 interface Props {

@@ -17,7 +17,7 @@
 */
 
 import { format, parseISO } from "date-fns";
-import { MedicalPrescription } from "../models/models";
+import { MedicalPrescription } from "@tensoremr/models";
 
 interface Props {
   medicalPrescriptions: Array<MedicalPrescription | undefined> | undefined;

@@ -17,7 +17,7 @@
 */
 
 import React, { useState, useEffect } from "react";
-import { Page } from "../models/page";
+import { Page } from "@tensoremr/models";
 import { MainLayout } from "../layouts/main_layout";
 import { HomeTabs } from "../components/HomeTabs";
 
@@ -42,7 +42,7 @@ import { HomePages } from "../pages";
 import { NewPatientPage } from "./new_patient";
 import { DiagnosticOrdersPage } from "./diagnostic_orders";
 import { Patients } from "./patients";
-import { parseJwt } from "../util";
+import { parseJwt } from "@tensoremr/util";
 import { Appointments } from "./appointments";
 import { SurgicalOrdersPage } from "./surgical_orders";
 import { TreatmentOrdersPage } from "./treatment_orders";

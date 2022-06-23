@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { Page } from "./models/page";
+import { Page } from "@tensoremr/models";
 
 export const HomePages: Array<Page> = [
   {
