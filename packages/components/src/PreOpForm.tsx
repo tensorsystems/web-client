@@ -155,6 +155,9 @@ export const PreOpForm: React.FC<Props> = ({
       </div>
 
       <div className="mt-4">
+        <label htmlFor="bloodPressure" className="block text-sm text-gray-700">
+          Blood Pressure
+        </label>
         <input
           type="text"
           name="bloodPressure"
@@ -167,6 +170,9 @@ export const PreOpForm: React.FC<Props> = ({
       </div>
 
       <div className="mt-4">
+        <label htmlFor="bloodSugar" className="block text-sm text-gray-700">
+          Blood Sugar
+        </label>
         <input
           type="text"
           name="bloodSugar"
@@ -179,6 +185,9 @@ export const PreOpForm: React.FC<Props> = ({
       </div>
 
       <div className="mt-4">
+        <label htmlFor="uriAnalysis" className="block text-sm text-gray-700">
+          Uri analysis
+        </label>
         <input
           type="text"
           name="uriAnalysis"
@@ -195,6 +204,9 @@ export const PreOpForm: React.FC<Props> = ({
       </div>
 
       <div className="mt-4">
+        <label htmlFor="diabetes" className="block text-sm text-gray-700">
+          Diabetes
+        </label>
         <input
           type="text"
           name="diabetes"
@@ -207,6 +219,9 @@ export const PreOpForm: React.FC<Props> = ({
       </div>
 
       <div className="mt-4">
+        <label htmlFor="asthma" className="block text-sm text-gray-700">
+          Asthma
+        </label>
         <input
           type="text"
           name="asthma"
@@ -219,6 +234,9 @@ export const PreOpForm: React.FC<Props> = ({
       </div>
 
       <div className="mt-4">
+        <label htmlFor="hpn" className="block text-sm text-gray-700">
+          HPN
+        </label>
         <input
           type="text"
           name="hpn"
@@ -231,6 +249,9 @@ export const PreOpForm: React.FC<Props> = ({
       </div>
 
       <div className="mt-4">
+        <label htmlFor="cardiacDisease" className="block text-sm text-gray-700">
+          Cardiac Disease
+        </label>
         <input
           type="text"
           name="cardiacDisease"
@@ -243,6 +264,9 @@ export const PreOpForm: React.FC<Props> = ({
       </div>
 
       <div className="mt-4">
+        <label htmlFor="allergies" className="block text-sm text-gray-700">
+          Allergies
+        </label>
         <input
           type="text"
           name="allergies"
