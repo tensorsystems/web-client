@@ -22,11 +22,13 @@ import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { formatDate } from "@tensoremr/util";
 import {
   PatientInput,
-  MutationSavePatientArgs,
   FileUpload,
   Query,
   QueryFindSimilarPatientsArgs,
   Page,
+  MutationSavePatientV2Args,
+  DateOfBirthInput,
+  DateOfBirthInputType,
 } from "@tensoremr/models";
 import { subMonths, subYears } from "date-fns";
 import { useHistory } from "react-router-dom";
@@ -47,6 +49,20 @@ import { newPatientCache } from "@tensoremr/cache";
 const SAVE_PATIENT = gql`
   mutation SavePatient($input: PatientInput!) {
     savePatient(input: $input) {
+      id
+      idNo
+      firstName
+      lastName
+    }
+  }
+`;
+
+const SAVE_PATIENT_V2 = gql`
+  mutation SavePatientV2(
+    $input: PatientInputV2!
+    $dateOfBirthInput: DateOfBirthInput!
+  ) {
+    savePatientV2(input: $input, dateOfBirthInput: $dateOfBirthInput) {
       id
       idNo
       firstName
@@ -114,9 +130,8 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
     }
   }, []);
 
-  const [ageInput, setAgeInput] = useState<"default" | "manual" | "months">(
-    "default"
-  );
+  const [ageInput, setAgeInput] =
+    useState<"default" | "manual" | "months">("default");
 
   const [paperRecord, setPaperRecord] = useState<"Yes" | "No">("No");
   const [scheduleOnSave, setScheduleSave] = useState<boolean>(false);
@@ -134,11 +149,11 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
     QueryFindSimilarPatientsArgs
   >(FIND_SIMILAR_PATIENTS);
 
-  const [save, { loading }] = useMutation<any, MutationSavePatientArgs>(
-    SAVE_PATIENT,
+  const [save, { loading }] = useMutation<any, MutationSavePatientV2Args>(
+    SAVE_PATIENT_V2,
     {
       onCompleted(data) {
-        const patient = data.savePatient;
+        const patient = data.savePatientV2;
 
         notifDispatch({
           type: "show",
@@ -191,6 +206,7 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
         }
       },
       onError(error) {
+        console.log("Error hererererererer", error.message);
         notifDispatch({
           type: "show",
           notifTitle: "Error",
@@ -291,16 +307,6 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
     //   return;
     // }
 
-    let dateOfBirth;
-    if (ageInput === "default") {
-      dateOfBirth = formatDate(data.dateOfBirth);
-    } else if (ageInput === "manual") {
-      dateOfBirth = subYears(new Date(), data.dateOfBirth);
-    } else if (ageInput === "months") {
-      dateOfBirth = subMonths(new Date(), data.dateOfBirth);
-    }
-    data.dateOfBirth = dateOfBirth;
-
     if (paperRecord === "Yes") {
       data.paperRecord = true;
     } else {
@@ -343,7 +349,29 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
     data.firstName = firstName;
     data.lastName = lastName;
 
-    save({ variables: { input: data } });
+    let dateOfBirthInputType: DateOfBirthInputType;
+
+    if (ageInput === "manual") {
+      dateOfBirthInputType = DateOfBirthInputType.AgeYear;
+    } else if (ageInput === "months") {
+      dateOfBirthInputType = DateOfBirthInputType.AgeMonth;
+    } else {
+      dateOfBirthInputType = DateOfBirthInputType.Date;
+    }
+
+    const dateOfBirthInput: DateOfBirthInput = {
+      inputType: dateOfBirthInputType,
+      dateOfBirth:
+        ageInput === "default" ? formatDate(data.dateOfBirth) : undefined,
+      ageInYears:
+        ageInput === "manual" ? (data.dateOfBirth as number) : undefined,
+      ageInMonths:
+        ageInput === "months" ? (data.dateOfBirth as number) : undefined,
+    };
+
+    data.dateOfBirth = undefined;
+
+    save({ variables: { input: data, dateOfBirthInput: dateOfBirthInput } });
   };
 
   const similarPatients = findSimilarPatientsQuery[1].data?.findSimilarPatients;

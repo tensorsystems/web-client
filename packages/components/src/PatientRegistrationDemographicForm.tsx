@@ -17,7 +17,7 @@
 */
 
 import { Menu } from "@headlessui/react";
-import { CalendarIcon, PencilIcon } from "@heroicons/react/outline";
+import { CalendarIcon, CalculatorIcon } from "@heroicons/react/outline";
 import React from "react";
 import { PatientInput, PatientUpdateInput } from "@tensoremr/models";
 import { MenuComponent } from "./MenuComponent";
@@ -87,11 +87,16 @@ export const PatientRegistrationDemographicForm: React.FC<Props> = ({
                   htmlFor="dateOfBirth"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Date of Birth <span className="text-red-600">*</span>
+                 <span>
+                    {ageInput === "default" && "Date of Birth"}
+                    {ageInput === "manual" && "Age In Years"}
+                    {ageInput === "months" && "Age In Months"}
+                  </span> <span className="text-red-600">*</span>
                 </label>
                 <div className="flex mt-1">
                   <input
                     required
+                    autoComplete="off"
                     name="dateOfBirth"
                     type={ageInput === "default" ? "date" : "number"}
                     ref={register({ required: true })}
@@ -116,7 +121,7 @@ export const PatientRegistrationDemographicForm: React.FC<Props> = ({
                               className="w-5 h-5 mr-2 text-teal-700"
                               aria-hidden="true"
                             />
-                            Default Input
+                            Date of Birth
                           </button>
                         </Menu.Item>
                         <Menu.Item>
@@ -128,11 +133,11 @@ export const PatientRegistrationDemographicForm: React.FC<Props> = ({
                             } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                             onClick={() => setAgeInput("manual")}
                           >
-                            <PencilIcon
+                            <CalculatorIcon
                               className="w-5 h-5 mr-2 text-teal-700"
                               aria-hidden="true"
                             />
-                            Enter age manually
+                            Enter Age In Years
                           </button>
                         </Menu.Item>
                         <Menu.Item>
@@ -144,11 +149,11 @@ export const PatientRegistrationDemographicForm: React.FC<Props> = ({
                             } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                             onClick={() => setAgeInput("months")}
                           >
-                            <PencilIcon
+                            <CalculatorIcon
                               className="w-5 h-5 mr-2 text-teal-700"
                               aria-hidden="true"
                             />
-                            Enter age in months
+                            Enter Age In Months
                           </button>
                         </Menu.Item>
                       </div>

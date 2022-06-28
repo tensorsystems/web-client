@@ -590,6 +590,19 @@ export type Connection = {
   totalCount: Scalars['Int'];
 };
 
+export type DateOfBirthInput = {
+  ageInMonths?: InputMaybe<Scalars['Int']>;
+  ageInYears?: InputMaybe<Scalars['Int']>;
+  dateOfBirth?: InputMaybe<Scalars['Time']>;
+  inputType: DateOfBirthInputType;
+};
+
+export enum DateOfBirthInputType {
+  AgeMonth = 'AGE_MONTH',
+  AgeYear = 'AGE_YEAR',
+  Date = 'DATE'
+}
+
 export enum Destination {
   Physician = 'PHYSICIAN',
   Preexam = 'PREEXAM',
@@ -2881,6 +2894,7 @@ export type Mutation = {
   savePatientDiagnosis: PatientDiagnosis;
   savePatientEncounterLimit: PatientEncounterLimit;
   savePatientQueue: PatientQueue;
+  savePatientV2: Patient;
   savePayment: Payment;
   savePaymentWaiver: PaymentWaiver;
   savePhysicalExamFinding: PhysicalExamFinding;
@@ -3696,6 +3710,12 @@ export type MutationSavePatientEncounterLimitArgs = {
 
 export type MutationSavePatientQueueArgs = {
   input: PatientQueueInput;
+};
+
+
+export type MutationSavePatientV2Args = {
+  dateOfBirthInput: DateOfBirthInput;
+  input: PatientInputV2;
 };
 
 
@@ -5075,6 +5095,39 @@ export type PatientInput = {
   credit?: InputMaybe<Scalars['Boolean']>;
   creditCompany?: InputMaybe<Scalars['String']>;
   dateOfBirth: Scalars['Time'];
+  documents?: InputMaybe<Array<InputMaybe<FileUpload>>>;
+  email?: InputMaybe<Scalars['String']>;
+  emergencyContactMemo?: InputMaybe<Scalars['String']>;
+  emergencyContactName?: InputMaybe<Scalars['String']>;
+  emergencyContactPhone?: InputMaybe<Scalars['String']>;
+  emergencyContactPhone2?: InputMaybe<Scalars['String']>;
+  emergencyContactRel?: InputMaybe<Scalars['String']>;
+  firstName: Scalars['String'];
+  gender: Scalars['String'];
+  homePhone?: InputMaybe<Scalars['String']>;
+  houseNo?: InputMaybe<Scalars['String']>;
+  idNo?: InputMaybe<Scalars['String']>;
+  idType?: InputMaybe<Scalars['String']>;
+  kebele?: InputMaybe<Scalars['String']>;
+  lastName: Scalars['String'];
+  martialStatus?: InputMaybe<Scalars['String']>;
+  memo?: InputMaybe<Scalars['String']>;
+  occupation?: InputMaybe<Scalars['String']>;
+  paperRecord: Scalars['Boolean'];
+  paperRecordDocument?: InputMaybe<FileUpload>;
+  phoneNo: Scalars['String'];
+  phoneNo2?: InputMaybe<Scalars['String']>;
+  region: Scalars['String'];
+  subCity?: InputMaybe<Scalars['String']>;
+  woreda: Scalars['String'];
+  zone?: InputMaybe<Scalars['String']>;
+};
+
+export type PatientInputV2 = {
+  cardNo?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  credit?: InputMaybe<Scalars['Boolean']>;
+  creditCompany?: InputMaybe<Scalars['String']>;
   documents?: InputMaybe<Array<InputMaybe<FileUpload>>>;
   email?: InputMaybe<Scalars['String']>;
   emergencyContactMemo?: InputMaybe<Scalars['String']>;
