@@ -1,6 +1,6 @@
 {
   "name": "@tensoremr/appointment-ui",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "",
   "keywords": [],
   "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
@@ -13,8 +13,10 @@
     "dev": "tsc -w"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tensor-Systems/tensoremr-web-client"
+    "url": "git://github.com/tensoremr/web-client"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "files": [
     "dist"

@@ -14,8 +14,10 @@
     "typegen": "graphql-codegen --config codegen.yml"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tensor-Systems/tensoremr-web-client"
+    "url": "git://github.com/tensoremr/web-client"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "files": [
     "dist"

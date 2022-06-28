@@ -26,9 +26,395 @@ interface Props {
   handleChanges: (value: any) => void;
 }
 
-export const IntraOpForm: React.FC<Props> = ({ register, handleChanges, aclolUnplanned, locked }) => {
+export const IntraOpForm: React.FC<Props> = ({
+  register,
+  handleChanges,
+  aclolUnplanned,
+  locked,
+}) => {
   return (
     <div>
+      <div className="mt-4 shadow-md bg-white rounded-md p-4">
+        <div className="text-xl text-gray-600 font-semibold">PPV</div>
+
+        <hr className="mt-2" />
+
+        <div className="text-gray-600">
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">20G</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">23G</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">25G</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">TCA</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Brilliant Blue</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">ILMP</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Membrane Peeling</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Membrane Segmentation</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Membrane Deliniation</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Retinotomy</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* Retinoctomy</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">FAX</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">PFLL</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Silicon oil injunction</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Silicon oil-PFLL x-change</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Silicon oil 1000CSK</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Silicon oil 5000CSK</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Endolaser</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* at breaks</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">360</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">PRP</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* Cryopexy at breaks</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* Endodiathermy</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Encircling band</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Sclerotomy stitches</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            Complications
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* Chrodial</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Intraocilar hemorrhage</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* Suprachorodial hemorrhage</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Intraocilar hemorrhage</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* breaks</span>
+            </label>
+          </div>
+
+          <div className="mt-2">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="la"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* Lens touch</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* PFLL</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">* oil</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
       <div className="mt-4">
         <label
           htmlFor="assistantName"
@@ -128,7 +514,7 @@ export const IntraOpForm: React.FC<Props> = ({ register, handleChanges, aclolUnp
               />
               <span className="ml-2">Subtenones</span>
             </label>
-            
+
             <label className="inline-flex items-center ml-4">
               <input
                 type="checkbox"
