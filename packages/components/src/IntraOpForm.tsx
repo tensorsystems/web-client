@@ -158,7 +158,7 @@ export const IntraOpForm: React.FC<Props> = ({
                 ref={register}
                 onChange={handleChanges}
               />
-              <span className="ml-2">* Retinoctomy</span>
+              <span className="ml-2">* Retinectomy</span>
             </label>
           </div>
 
@@ -181,7 +181,7 @@ export const IntraOpForm: React.FC<Props> = ({
                 ref={register}
                 onChange={handleChanges}
               />
-              <span className="ml-2">PFLL</span>
+              <span className="ml-2">PFCL</span>
             </label>
             <label className="inline-flex items-center ml-4">
               <input
@@ -204,7 +204,7 @@ export const IntraOpForm: React.FC<Props> = ({
                 ref={register}
                 onChange={handleChanges}
               />
-              <span className="ml-2">Silicon oil-PFLL x-change</span>
+              <span className="ml-2">Silicon oil-PFCL x-change</span>
             </label>
           </div>
 
@@ -283,7 +283,7 @@ export const IntraOpForm: React.FC<Props> = ({
                 ref={register}
                 onChange={handleChanges}
               />
-              <span className="ml-2">* Cryopexy at breaks</span>
+              <span className="ml-2">* Cryopexy</span>
             </label>
             <label className="inline-flex items-center ml-4">
               <input
@@ -333,7 +333,7 @@ export const IntraOpForm: React.FC<Props> = ({
                 ref={register}
                 onChange={handleChanges}
               />
-              <span className="ml-2">* Chrodial</span>
+              <span className="ml-2">* Chrodial effusion</span>
             </label>
             <label className="inline-flex items-center ml-4">
               <input
@@ -376,7 +376,17 @@ export const IntraOpForm: React.FC<Props> = ({
                 ref={register}
                 onChange={handleChanges}
               />
-              <span className="ml-2">* breaks</span>
+              <span className="ml-2">Iatrogenic breaks</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Retinal detachment</span>
             </label>
           </div>
 
@@ -399,7 +409,7 @@ export const IntraOpForm: React.FC<Props> = ({
                 ref={register}
                 onChange={handleChanges}
               />
-              <span className="ml-2">* PFLL</span>
+              <span className="ml-2">PFCL</span>
             </label>
             <label className="inline-flex items-center ml-4">
               <input
@@ -409,7 +419,27 @@ export const IntraOpForm: React.FC<Props> = ({
                 ref={register}
                 onChange={handleChanges}
               />
-              <span className="ml-2">* oil</span>
+              <span className="ml-2">Subretial PFCL</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Subretial oil</span>
+            </label>
+            <label className="inline-flex items-center ml-4">
+              <input
+                type="checkbox"
+                disabled={locked}
+                name="ga"
+                ref={register}
+                onChange={handleChanges}
+              />
+              <span className="ml-2">Macular fold</span>
             </label>
           </div>
         </div>

@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Tue Jun 28 12:25:51 2022
+# Make data base, printed on Tue Jul  5 17:48:01 2022
 
 # Variables
 
@@ -41,7 +38,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-a5a5c55d-11ca-4d75-8097-0244d1984b7a.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-9f553f20-e69a-4cda-bc02-5afd85dc9b7c.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -55,7 +52,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.vZdzzTu8hA/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.MqMZT1Q4wf/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -100,7 +97,6 @@ USER = kidustiliksew
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # default
 .VARIABLES := 
- 
 # environment
 TMPDIR = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/
 # automatic
@@ -140,7 +136,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 862
+VSCODE_PID = 3025
 # variable set hash-table stats:
 # Load=63/1024=6%, Rehash=0, Collisions=1/84=1%
 
@@ -150,9 +146,9 @@ VSCODE_PID = 862
 
 # Directories
 
-# . (device 16777232, inode 69516877): 16 files, no impossibilities.
+# . (device 16777231, inode 69516877): 17 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -224,6 +220,8 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Tue Jun 28 12:25:51 2022
+# Finished Make data base on Tue Jul  5 17:48:01 2022
 
  
+make: *** No rule to make target `all'.  Stop.
+
