@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Tue Jul  5 17:48:01 2022
+# Make data base, printed on Wed Jul 13 15:53:36 2022
 
 # Variables
 
@@ -15,8 +15,6 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
-# environment
-VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -34,11 +32,7 @@ _ = /usr/bin/make
 # makefile
 MAKEFILE_LIST := 
 # environment
-VSCODE_VERBOSE_LOGGING = true
-# environment
 __CFBundleIdentifier = com.microsoft.VSCode
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/vscode-ipc-9f553f20-e69a-4cda-bc02-5afd85dc9b7c.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -46,17 +40,13 @@ PATH = /opt/homebrew/bin:/opt/homebrew/bin:/Users/kidustiliksew/google-cloud-sdk
 # environment
 GOPATH = /Users/kidustiliksew/go
 # environment
-VSCODE_LOG_STACK = false
-# environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.MqMZT1Q4wf/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.h8FuW4TWPe/Listeners
 # automatic
 %F = $(notdir $%)
-# environment
-VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /Users/kidustiliksew/Desktop/work/emr/emr-2020/tensoremr-web-client
 # environment
@@ -68,7 +58,7 @@ HOME = /Users/kidustiliksew
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/kidustiliksew/Library/Application Support/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /Users/kidustiliksew/Library/Application Support/Code/CachedData/92d25e35d9bf1a6b16f7d0758f25d48ace11e5b9
 # environment
 LOGNAME = kidustiliksew
 # environment
@@ -102,7 +92,9 @@ TMPDIR = /var/folders/bc/bldhvp756414fq3sjrp6941w0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/kidustiliksew/Library/Application Support/Code/1.68.1-main.sock
+VSCODE_IPC_HOOK = /Users/kidustiliksew/Library/Application Support/Code/1.69.0-main.sock
+# environment
+MallocNanoZone = 0
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -110,7 +102,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.73089102.73089108
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.74768022.74768028
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -136,9 +128,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3025
+VSCODE_PID = 818
 # variable set hash-table stats:
-# Load=63/1024=6%, Rehash=0, Collisions=1/84=1%
+# Load=59/1024=6%, Rehash=0, Collisions=1/80=1%
 
 # Pattern-specific Variable Values
 
@@ -146,7 +138,7 @@ VSCODE_PID = 3025
 
 # Directories
 
-# . (device 16777231, inode 69516877): 17 files, no impossibilities.
+# . (device 16777232, inode 69516877): 17 files, no impossibilities.
 
 # 17 files, no impossibilities in 1 directories.
 
@@ -220,7 +212,7 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Tue Jul  5 17:48:01 2022
+# Finished Make data base on Wed Jul 13 15:53:36 2022
 
  
 make: *** No rule to make target `all'.  Stop.
