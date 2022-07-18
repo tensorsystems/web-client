@@ -30,6 +30,7 @@ export * from './PreOpForm';
 export * from './AccordionItem';
 export * from './PositiveFindings';
 export * from './AppointmentForm';
+export * from './AppointmentFormContainer';
 export * from './PrintFileHeader';
 export * from './Modal';
 export * from './EyewearPrescriptionPrint';

@@ -22,8 +22,8 @@ import {
   useBottomSheetDispatch,
   TablePagination,
   CheckInForm,
-  AppointmentForm,
   StatCard,
+  AppointmentFormContainer,
 } from "@tensoremr/components";
 import { useHistory } from "react-router-dom";
 import { PaginationInput, Query, Page } from "@tensoremr/models";
@@ -313,7 +313,7 @@ const PatientsTable: React.FC = () => {
                                     type: "show",
                                     snapPoint: 1000,
                                     children: (
-                                      <AppointmentForm
+                                      <AppointmentFormContainer
                                         patientId={patientId}
                                         updateId={appointmentId}
                                         onSuccess={() => {

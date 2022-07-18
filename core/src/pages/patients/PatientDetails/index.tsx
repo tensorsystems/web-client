@@ -22,14 +22,21 @@ import React, { useEffect, useState } from "react";
 import {
   useBottomSheetDispatch,
   TablePagination,
-  AppointmentForm,
+
   CheckInForm,
   Tabs,
+  AppointmentFormContainer,
 } from "@tensoremr/components";
 import { format, parseISO } from "date-fns";
 import classNames from "classnames";
 import { PatientTabs } from "../PatientTabs";
-import { Appointment, PaginationInput, Query, Page } from "@tensoremr/models";
+import {
+  Appointment,
+  PaginationInput,
+  Query,
+  Page,
+
+} from "@tensoremr/models";
 import { parseJwt } from "@tensoremr/util";
 import { PatientBasicInfo } from "./PatientBasicInfo";
 import { PatientContactInfo } from "./PatientContactInfo";
@@ -44,6 +51,7 @@ import {
 import { PatientDocuments } from "./PatientDocuments";
 import { CalendarIcon, LoginIcon } from "@heroicons/react/outline";
 import PatientOrders from "../PatientOrders";
+import _ from "lodash";
 
 export const GET_DATA = gql`
   query Data(
@@ -212,7 +220,7 @@ export const PatientDetails: React.FC<{
             type: "show",
             snapPoint: 1000,
             children: (
-              <AppointmentForm
+              <AppointmentFormContainer
                 patientId={data?.patient.id}
                 updateId={appointment.id}
                 onSuccess={() => refetch()}
@@ -292,7 +300,7 @@ export const PatientDetails: React.FC<{
             tabs={PatientTabs}
           />
         </ul>
-        <div className="">
+        <div>
           <Switch>
             <Route path={`${match.path}/appointments`}>
               <div className="bg-white p-4">
@@ -306,7 +314,7 @@ export const PatientDetails: React.FC<{
                           type: "show",
                           snapPoint: 1000,
                           children: (
-                            <AppointmentForm
+                            <AppointmentFormContainer
                               patientId={data?.patient.id}
                               onSuccess={() => refetch()}
                               onCancel={() =>
@@ -353,7 +361,7 @@ export const PatientDetails: React.FC<{
                                       type: "show",
                                       snapPoint: 1000,
                                       children: (
-                                        <AppointmentForm
+                                        <AppointmentFormContainer
                                           patientId={patientId}
                                           updateId={appointmentId}
                                           onSuccess={() => {
@@ -520,3 +528,4 @@ export const PatientDetails: React.FC<{
     </div>
   );
 };
+

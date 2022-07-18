@@ -31,7 +31,7 @@ import {
 } from "@tensoremr/models";
 import { useHistory, useLocation } from "react-router-dom";
 import { parseJwt } from "@tensoremr/util";
-import { useBottomSheetDispatch, TablePagination, AppointmentForm } from "@tensoremr/components";
+import { useBottomSheetDispatch, TablePagination, AppointmentFormContainer } from "@tensoremr/components";
 
 const TOOLBAR_LOOKUPS = gql`
   query ToolbarLookups($userTypeTitle: String!) {
@@ -227,7 +227,7 @@ export const AppointmentsListPage: React.FC<{
             type: "show",
             snapPoint: 1000,
             children: (
-              <AppointmentForm
+              <AppointmentFormContainer
                 patientId={appointment?.patient.id}
                 updateId={appointment.id}
                 onSuccess={() => refetch()}

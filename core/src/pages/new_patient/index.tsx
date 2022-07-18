@@ -30,7 +30,6 @@ import {
   DateOfBirthInput,
   DateOfBirthInputType,
 } from "@tensoremr/models";
-import { subMonths, subYears } from "date-fns";
 import { useHistory } from "react-router-dom";
 import {
   useBottomSheetDispatch,
@@ -41,7 +40,7 @@ import {
   PatientRegistrationContactInfoForm,
   PatientRegistrationEmergencyInfoForm,
   PatientRegistrationDocumentsForm,
-  AppointmentForm,
+  AppointmentFormContainer,
 } from "@tensoremr/components";
 import { useEffect } from "react";
 import { newPatientCache } from "@tensoremr/cache";
@@ -169,7 +168,7 @@ export const NewPatientPage: React.FC<Props> = ({ onAddPage }) => {
             type: "show",
             snapPoint: 1000,
             children: (
-              <AppointmentForm
+              <AppointmentFormContainer
                 patientId={patient?.id}
                 onSuccess={() => {}}
                 onCancel={() => {

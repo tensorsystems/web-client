@@ -1,6 +1,6 @@
 {
   "name": "@tensoremr/components",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "",
   "keywords": [],
   "author": "Kidus Tiliksew <kidus@tensorsystems.net>",
@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "build": "rm -rf dist && rollup -c",
-    "dev": "tsc -w",
+    "dev": "rollup -w",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
