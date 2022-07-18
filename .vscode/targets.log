@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Mon Jul 18 10:20:02 2022
+# Make data base, printed on Mon Jul 18 13:37:14 2022
 
 # Variables
 
@@ -40,11 +40,13 @@ PATH = /opt/homebrew/bin:/opt/homebrew/bin:/Users/kidustiliksew/google-cloud-sdk
 # environment
 GOPATH = /Users/kidustiliksew/go
 # environment
+LaunchInstanceID = 0C8B70B2-C40A-4708-846E-BD67653F7F23
+# environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.vS9jPAcrk8/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Qx0WgmMAJK/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -117,6 +119,8 @@ MAKEFILES :=
 <F = $(notdir $<)
 # environment
 LC_ALL = C
+# environment
+SECURITYSESSIONID = 186ae
 # automatic
 ^F = $(notdir $^)
 # default
@@ -128,9 +132,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2393
+VSCODE_PID = 2782
 # variable set hash-table stats:
-# Load=59/1024=6%, Rehash=0, Collisions=1/80=1%
+# Load=61/1024=6%, Rehash=0, Collisions=1/82=1%
 
 # Pattern-specific Variable Values
 
@@ -138,7 +142,7 @@ VSCODE_PID = 2393
 
 # Directories
 
-# . (device 16777230, inode 69516877): 17 files, no impossibilities.
+# . (device 16777232, inode 69516877): 17 files, no impossibilities.
 
 # 17 files, no impossibilities in 1 directories.
 
@@ -212,7 +216,7 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Mon Jul 18 10:20:02 2022
+# Finished Make data base on Mon Jul 18 13:37:14 2022
 
  
 make: *** No rule to make target `all'.  Stop.

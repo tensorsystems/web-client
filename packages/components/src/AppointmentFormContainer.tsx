@@ -309,14 +309,18 @@ export const AppointmentFormContainer: React.FC<Props> = ({
   }, [appointmentInput.checkInTime]);
 
   useEffect(() => {
-    if (shouldPayForConsultationQuery[1].called) {
-      if (shouldPayForConsultationQuery[1].data?.payForConsultation) {
-        setShouldPayForConsultation(true);
-      } else {
-        setShouldPayForConsultation(false);
+    if (!updateId) {
+      if (shouldPayForConsultationQuery[1].called) {
+        if (shouldPayForConsultationQuery[1].data?.payForConsultation) {
+          setShouldPayForConsultation(true);
+        } else {
+          setShouldPayForConsultation(false);
+        }
       }
+    } else {
+      setShouldPayForConsultation(false);
     }
-  }, [shouldPayForConsultationQuery[1].data?.payForConsultation]);
+  }, [shouldPayForConsultationQuery[1].data?.payForConsultation, updateId]);
 
   const patientQuery = useQuery<Query, QueryPatientArgs>(GET_PATIENT, {
     variables: { id: patientId },

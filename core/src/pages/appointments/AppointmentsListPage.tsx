@@ -27,11 +27,15 @@ import {
   PaginationInput,
   Query,
   QuerySearchAppointmentsArgs,
-  Page
+  Page,
 } from "@tensoremr/models";
 import { useHistory, useLocation } from "react-router-dom";
 import { parseJwt } from "@tensoremr/util";
-import { useBottomSheetDispatch, TablePagination, AppointmentFormContainer } from "@tensoremr/components";
+import {
+  useBottomSheetDispatch,
+  TablePagination,
+  AppointmentFormContainer,
+} from "@tensoremr/components";
 
 const TOOLBAR_LOOKUPS = gql`
   query ToolbarLookups($userTypeTitle: String!) {
