@@ -181,7 +181,7 @@ export const LabOrdersPage: React.FC = () => {
   });
 
   const handleNextClick = () => {
-    const totalPages = data?.orders.pageInfo.totalPages ?? 0;
+    const totalPages = data?.searchLabOrders.pageInfo.totalPages ?? 0;
 
     if (totalPages > paginationInput.page) {
       setPaginationInput({

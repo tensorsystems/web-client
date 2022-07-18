@@ -26,7 +26,6 @@ import classnames from "classnames";
 import { format, parseISO } from "date-fns";
 import { TreatmentTypesComponent } from "./TreatmentTypes";
 import {
-  MutationDeleteOrderArgs,
   PatientChart,
   Query,
   QueryTreatmentOrderArgs,
@@ -86,7 +85,7 @@ export const TreatmentPlanPage: React.FC<{
     }
   );
 
-  const [cancelOrder] = useMutation<any, MutationDeleteOrderArgs>(
+  const [cancelOrder] = useMutation<any, any>(
     CANCEL_ORDER,
     {
       onCompleted(data) {

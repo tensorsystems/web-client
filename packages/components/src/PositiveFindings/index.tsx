@@ -393,47 +393,6 @@ export const GET_PATIENT_CHART = gql`
   }
 `;
 
-const GET_ORDERS = gql`
-  query Orders($page: PaginationInput!, $filter: OrderFilterInput) {
-    orders(page: $page, filter: $filter) {
-      totalCount
-      pageInfo {
-        totalPages
-      }
-      edges {
-        node {
-          id
-          user {
-            id
-            firstName
-            lastName
-          }
-          firstName
-          lastName
-          phoneNo
-          patientId
-          emergency
-          note
-          status
-          orderType
-          payments {
-            id
-            invoiceNo
-            status
-            billing {
-              id
-              item
-              code
-              price
-              credit
-            }
-          }
-          createdAt
-        }
-      }
-    }
-  }
-`;
 interface Props {
   patientChartId: string;
   forPrint?: boolean;
@@ -462,15 +421,6 @@ export const PositiveFindings: React.FC<Props> = ({
   useEffect(() => {
     refetch();
   }, []);
-
-  const ordersQuery = useQuery<Query, QueryOrdersArgs>(GET_ORDERS, {
-    variables: {
-      page: { page: 0, size: 100 },
-      filter: {
-        patientChartId,
-      },
-    },
-  });
 
   const [selectedColor] = useState("#000000");
   const [selectedLineWeight] = useState(3);

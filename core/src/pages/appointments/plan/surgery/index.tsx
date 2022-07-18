@@ -27,7 +27,6 @@ import { SurgicalProcedureTypes } from "./SurgicalProcedureTypes";
 import { format, parseISO } from "date-fns";
 import { OrderSurgicalProcedureForm } from "./OrderSurgicalProcedureForm";
 import {
-  MutationDeleteOrderArgs,
   PatientChart,
   Query,
   QuerySurgicalOrderArgs,
@@ -86,7 +85,7 @@ export const SurgeryPage: React.FC<{
     }
   );
 
-  const [cancelOrder] = useMutation<any, MutationDeleteOrderArgs>(
+  const [cancelOrder] = useMutation<any, any>(
     CANCEL_ORDER,
     {
       onCompleted(data) {

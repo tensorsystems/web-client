@@ -126,6 +126,7 @@ export const GET_APPOINTMENT = gql`
         leftSummarySketch
         medicalRecommendation
         sickLeave
+        illnessType
         bloodPressure
         locked
         lockedDate
@@ -225,9 +226,8 @@ export const AppointmentPage: React.FC<{
   const [isNurse, setIsNurse] = useState<boolean>(false);
   const [isPhysician, setIsPhysician] = useState<boolean>(false);
   const [showQueueModel, setShowQueueModal] = useState<boolean>(false);
-  const [soapType, setSoapType] = useState<
-    "regular" | "surgical" | "treatment"
-  >("regular");
+  const [soapType, setSoapType] =
+    useState<"regular" | "surgical" | "treatment">("regular");
   const [showExampleAlert] = useState<boolean>(false);
   const [userType, setUserType] = useState<string>("");
   const [lockPatientChart, setLockPatientChart] = useState({

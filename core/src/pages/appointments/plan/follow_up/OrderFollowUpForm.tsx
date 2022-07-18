@@ -20,7 +20,6 @@ import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import {
-  OrderFollowupInput,
   OrderFollowUpInput,
   MutationOrderFollowUpArgs,
 } from "@tensoremr/models";
@@ -48,7 +47,7 @@ export const OrderFollowUpForm: React.FC<Props> = ({
   onError,
   onCancel,
 }) => {
-  const { register, handleSubmit } = useForm<OrderFollowupInput>();
+  const { register, handleSubmit } = useForm<OrderFollowUpInput>();
 
   const [orderFollowup, { error }] = useMutation<
     any,

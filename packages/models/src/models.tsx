@@ -265,6 +265,7 @@ export type AppointmentUpdateInput = {
   patientChartId?: InputMaybe<Scalars['ID']>;
   patientId?: InputMaybe<Scalars['ID']>;
   paymentIds?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  providerName?: InputMaybe<Scalars['String']>;
   roomId?: InputMaybe<Scalars['ID']>;
   userId?: InputMaybe<Scalars['ID']>;
   visitTypeId?: InputMaybe<Scalars['ID']>;
@@ -513,12 +514,6 @@ export type ChiefComplaintUpdateInput = {
   id: Scalars['ID'];
   patientChartId?: InputMaybe<Scalars['ID']>;
   title?: InputMaybe<Scalars['String']>;
-};
-
-export type ConfirmFollowOrderInput = {
-  checkInTime: Scalars['Time'];
-  orderId: Scalars['ID'];
-  roomId: Scalars['ID'];
 };
 
 export type ConfirmFollowUpOrderInput = {
@@ -2758,7 +2753,6 @@ export type Mutation = {
   confirmDiagnosticProcedureOrder: DiagnosticProcedureOrder;
   confirmFollowUpOrder: ConfirmFollowUpOrderResult;
   confirmLabOrder: LabOrder;
-  confirmOrder: Order;
   confirmPayment: Payment;
   confirmPayments: Scalars['Boolean'];
   confirmReferralOrder: ConfirmReferralOrderResult;
@@ -2808,7 +2802,6 @@ export type Mutation = {
   deleteLifestyle: Scalars['Boolean'];
   deleteLifestyleType: Scalars['Boolean'];
   deleteMedicalPrescription: Scalars['Boolean'];
-  deleteOrder: Scalars['Boolean'];
   deletePastHospitalization: Scalars['Boolean'];
   deletePastIllness: Scalars['Boolean'];
   deletePastIllnessType: Scalars['Boolean'];
@@ -2846,7 +2839,6 @@ export type Mutation = {
   orderAndConfirmSurgery: SurgicalOrder;
   orderDiagnosticProcedure: DiagnosticProcedureOrder;
   orderFollowUp: FollowUpOrder;
-  orderFollowup: Order;
   orderLab: LabOrder;
   orderReferral: ReferralOrder;
   orderSurgicalProcedure: SurgicalOrder;
@@ -2880,7 +2872,6 @@ export type Mutation = {
   saveLifestyleTypes: LifestyleType;
   saveMedicationPrescription: MedicalPrescriptionOrder;
   saveOphthalmologyExam: OpthalmologyExam;
-  saveOrder: Order;
   saveOrganizationDetails: OrganizationDetails;
   savePastHospitalization: PastHospitalization;
   savePastIllness: PastIllness;
@@ -2910,8 +2901,6 @@ export type Mutation = {
   saveUserType: UserType;
   saveVisitType: VisitType;
   saveVitalSigns: VitalSigns;
-  scheduleSurgery: Order;
-  scheduleTreatment: Order;
   sendMessage: ChatMessage;
   signup: User;
   subscribeQueue: QueueSubscription;
@@ -2947,7 +2936,6 @@ export type Mutation = {
   updateMedicationPrescription: MedicalPrescription;
   updateMedicationPrescriptionOrder: MedicalPrescriptionOrder;
   updateOphthalmologyExam: OpthalmologyExam;
-  updateOrder: Order;
   updatePastHospitalization: PastHospitalization;
   updatePastIllness: PastIllness;
   updatePastIllnessType: PastIllnessType;
@@ -3017,12 +3005,6 @@ export type MutationConfirmFollowUpOrderArgs = {
 export type MutationConfirmLabOrderArgs = {
   id: Scalars['ID'];
   invoiceNo: Scalars['String'];
-};
-
-
-export type MutationConfirmOrderArgs = {
-  invoiceNo: Scalars['String'];
-  orderId: Scalars['ID'];
 };
 
 
@@ -3274,11 +3256,6 @@ export type MutationDeleteMedicalPrescriptionArgs = {
 };
 
 
-export type MutationDeleteOrderArgs = {
-  id: Scalars['ID'];
-};
-
-
 export type MutationDeletePastHospitalizationArgs = {
   id: Scalars['ID'];
 };
@@ -3469,11 +3446,6 @@ export type MutationOrderFollowUpArgs = {
 };
 
 
-export type MutationOrderFollowupArgs = {
-  input: OrderFollowupInput;
-};
-
-
 export type MutationOrderLabArgs = {
   input: OrderLabInput;
 };
@@ -3643,11 +3615,6 @@ export type MutationSaveOphthalmologyExamArgs = {
 };
 
 
-export type MutationSaveOrderArgs = {
-  input: OrderInput;
-};
-
-
 export type MutationSaveOrganizationDetailsArgs = {
   input: OrganizationDetailsInput;
 };
@@ -3791,16 +3758,6 @@ export type MutationSaveVisitTypeArgs = {
 
 export type MutationSaveVitalSignsArgs = {
   input: VitalSignsInput;
-};
-
-
-export type MutationScheduleSurgeryArgs = {
-  input: ScheduleSurgeryInput;
-};
-
-
-export type MutationScheduleTreatmentArgs = {
-  input: ScheduleTreatmentInput;
 };
 
 
@@ -3980,11 +3937,6 @@ export type MutationUpdateMedicationPrescriptionOrderArgs = {
 
 export type MutationUpdateOphthalmologyExamArgs = {
   input: OpthalmologyExamUpdateInput;
-};
-
-
-export type MutationUpdateOrderArgs = {
-  input: OrderUpdateInput;
 };
 
 
@@ -4388,42 +4340,6 @@ export type OpthalmologyExamUpdateInput = {
   slitLampExamNote?: InputMaybe<Scalars['String']>;
 };
 
-/**
- * Copyright 2021 Kidus Tiliksew
- *
- * This file is part of Tensor EMR.
- *
- * Tensor EMR is free software: you can redistribute it and/or modify
- * it under the terms of the version 2 of GNU General Public License as published by
- * the Free Software Foundation.
- *
- * Tensor EMR is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-export type Order = {
-  __typename?: 'Order';
-  appointmentId?: Maybe<Scalars['ID']>;
-  createdAt?: Maybe<Scalars['Time']>;
-  emergency?: Maybe<Scalars['Boolean']>;
-  firstName?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  lastName?: Maybe<Scalars['String']>;
-  note: Scalars['String'];
-  orderType: Scalars['String'];
-  patientChartId?: Maybe<Scalars['ID']>;
-  patientId?: Maybe<Scalars['ID']>;
-  payments: Array<Payment>;
-  phoneNo?: Maybe<Scalars['String']>;
-  status: Scalars['String'];
-  user: User;
-  userId: Scalars['ID'];
-};
-
 export type OrderAndConfirmDiagnosticProcedureInput = {
   appointmentId: Scalars['ID'];
   billingId: Scalars['ID'];
@@ -4455,13 +4371,6 @@ export type OrderAndConfirmSurgicalProcedureInput = {
   visitTypeId: Scalars['ID'];
 };
 
-export type OrderConnection = Connection & {
-  __typename?: 'OrderConnection';
-  edges: Array<Maybe<OrderEdge>>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int'];
-};
-
 export type OrderDiagnosticProcedureInput = {
   appointmentId: Scalars['ID'];
   billingId: Scalars['ID'];
@@ -4477,11 +4386,6 @@ export enum OrderDirection {
   Desc = 'desc'
 }
 
-export type OrderEdge = {
-  __typename?: 'OrderEdge';
-  node: Order;
-};
-
 export type OrderFilterInput = {
   appointmentId?: InputMaybe<Scalars['ID']>;
   date?: InputMaybe<Scalars['Time']>;
@@ -4496,20 +4400,6 @@ export type OrderFollowUpInput = {
   patientChartId: Scalars['ID'];
   patientId: Scalars['ID'];
   receptionNote: Scalars['String'];
-};
-
-export type OrderFollowupInput = {
-  appointmentId: Scalars['ID'];
-  note?: InputMaybe<Scalars['String']>;
-};
-
-export type OrderInput = {
-  emergency?: InputMaybe<Scalars['Boolean']>;
-  note: Scalars['String'];
-  orderType: Scalars['String'];
-  paymentIds: Array<InputMaybe<Scalars['ID']>>;
-  status: Scalars['String'];
-  userId: Scalars['ID'];
 };
 
 export type OrderLabInput = {
@@ -4550,15 +4440,6 @@ export type OrderTreatmentInput = {
   patientId: Scalars['ID'];
   treatmentNote: Scalars['String'];
   treatmentTypeId: Scalars['ID'];
-};
-
-export type OrderUpdateInput = {
-  emergency?: InputMaybe<Scalars['Boolean']>;
-  id: Scalars['ID'];
-  note?: InputMaybe<Scalars['String']>;
-  orderType?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Scalars['String']>;
-  userId?: InputMaybe<Scalars['ID']>;
 };
 
 export type OrdersCount = {
@@ -4844,6 +4725,7 @@ export type PatientChart = {
   followUpOrder?: Maybe<FollowUpOrder>;
   hpiNote?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  illnessType?: Maybe<Scalars['String']>;
   labOrder?: Maybe<LabOrder>;
   leftSummarySketch?: Maybe<Scalars['String']>;
   locked?: Maybe<Scalars['Boolean']>;
@@ -4888,6 +4770,7 @@ export type PatientChartInput = {
   differentialDiagnosisNote?: InputMaybe<Scalars['String']>;
   height?: InputMaybe<Scalars['Float']>;
   hpiNote?: InputMaybe<Scalars['String']>;
+  illnessType?: InputMaybe<Scalars['String']>;
   leftSummarySketch?: InputMaybe<Scalars['String']>;
   medicalRecommendation?: InputMaybe<Scalars['String']>;
   oxygenSaturation?: InputMaybe<Scalars['Float']>;
@@ -4912,6 +4795,7 @@ export type PatientChartUpdateInput = {
   height?: InputMaybe<Scalars['Float']>;
   hpiNote?: InputMaybe<Scalars['String']>;
   id: Scalars['ID'];
+  illnessType?: InputMaybe<Scalars['String']>;
   leftSummarySketch?: InputMaybe<Scalars['String']>;
   medicalRecommendation?: InputMaybe<Scalars['String']>;
   oxygenSaturation?: InputMaybe<Scalars['Float']>;
@@ -5504,8 +5388,6 @@ export type Query = {
   notifs: Notif;
   nurseHomeStats: HomeStats;
   opthalmologyExam: OpthalmologyExam;
-  order: Order;
-  orders: OrderConnection;
   organizationDetails: OrganizationDetails;
   pastHospitalizations: Array<Maybe<PastHospitalization>>;
   pastIllnessType: PastIllnessType;
@@ -5533,7 +5415,6 @@ export type Query = {
   physicalExamFinding: PhysicalExamFinding;
   physicalExamFindings: PhysicalExamFindingConnection;
   physicianHomeStats: HomeStats;
-  providerOrders: OrderConnection;
   receptionHomeStats: HomeStats;
   referral: Referral;
   referralOrder: ReferralOrder;
@@ -5907,17 +5788,6 @@ export type QueryOpthalmologyExamArgs = {
 };
 
 
-export type QueryOrderArgs = {
-  id: Scalars['ID'];
-};
-
-
-export type QueryOrdersArgs = {
-  filter?: InputMaybe<OrderFilterInput>;
-  page: PaginationInput;
-};
-
-
 export type QueryPastHospitalizationsArgs = {
   patientHistoryId: Scalars['ID'];
 };
@@ -6040,12 +5910,6 @@ export type QueryPhysicalExamFindingArgs = {
 export type QueryPhysicalExamFindingsArgs = {
   filter?: InputMaybe<PhysicalExamFindingFilter>;
   page: PaginationInput;
-};
-
-
-export type QueryProviderOrdersArgs = {
-  page: PaginationInput;
-  searchTerm?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -6519,20 +6383,6 @@ export type RoomInput = {
 export type RoomOrder = {
   direction: OrderDirection;
   field: Scalars['String'];
-};
-
-export type ScheduleSurgeryInput = {
-  checkInTime: Scalars['Time'];
-  invoiceNo: Scalars['String'];
-  orderId: Scalars['ID'];
-  roomId: Scalars['ID'];
-};
-
-export type ScheduleTreatmentInput = {
-  checkInTime: Scalars['Time'];
-  invoiceNo: Scalars['String'];
-  orderId: Scalars['ID'];
-  roomId: Scalars['ID'];
 };
 
 /**

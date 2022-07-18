@@ -43,6 +43,8 @@ const UPDATE_PATIENT_CHART = gql`
   mutation UpdatePatientChart($input: PatientChartUpdateInput!) {
     updatePatientChart(input: $input) {
       id
+      sickLeave
+      illnessType
       rightSummarySketch
       leftSummarySketch
     }
@@ -50,13 +52,7 @@ const UPDATE_PATIENT_CHART = gql`
 `;
 
 const GET_DETAILS = gql`
-  query GetPatientChart(
-    $patientChartId: ID!
-    $details: Boolean
-    $page: PaginationInput!
-    $filter: OrderFilterInput
-    $userId: ID!
-  ) {
+  query GetPatientChart($patientChartId: ID!, $details: Boolean, $userId: ID!) {
     patientChart(id: $patientChartId, details: $details) {
       id
       diagnosisNote
@@ -64,6 +60,7 @@ const GET_DETAILS = gql`
       summaryNote
       medicalRecommendation
       sickLeave
+      illessType
 
       diagnosticProcedureOrder {
         status
@@ -97,44 +94,6 @@ const GET_DETAILS = gql`
         diagnosisCode
         fullCode
         fullDescription
-      }
-    }
-
-    orders(page: $page, filter: $filter) {
-      totalCount
-      pageInfo {
-        totalPages
-      }
-      edges {
-        node {
-          id
-          user {
-            id
-            firstName
-            lastName
-          }
-          firstName
-          lastName
-          phoneNo
-          patientId
-          emergency
-          note
-          status
-          orderType
-          payments {
-            id
-            invoiceNo
-            status
-            billing {
-              id
-              item
-              code
-              price
-              credit
-            }
-          }
-          createdAt
-        }
       }
     }
 
@@ -174,6 +133,7 @@ export const MedicalCertificatePage: React.FC<{
     defaultValues: {
       medicalRecommendation: appointment.patientChart.medicalRecommendation,
       sickLeave: appointment.patientChart.sickLeave,
+      illnessType: appointment.patientChart.illnessType,
     },
   });
 
@@ -192,8 +152,6 @@ export const MedicalCertificatePage: React.FC<{
       userId: appointment.userId,
     },
   });
-
-  console.log("Data", data);
 
   useEffect(() => {
     refetch();
@@ -241,20 +199,6 @@ export const MedicalCertificatePage: React.FC<{
       .join(", ");
   const labs = data?.patientChart.labOrder?.labs
     .map((e) => e.labType.title.trim())
-    .join(", ");
-
-  const orders = data?.orders?.edges
-    .filter(
-      (e) =>
-        e?.node.orderType === "TREATMENT" ||
-        e?.node.orderType === "SURGICAL_PROCEDURE"
-    )
-    .map(
-      (e) =>
-        `${e?.node.payments
-          .map((p) => p.billing.item)
-          .join(", ")} (${getOrderTypeName(e?.node.orderType)})`
-    )
     .join(", ");
 
   let treatments = [];
@@ -348,6 +292,7 @@ export const MedicalCertificatePage: React.FC<{
                 .join(", ") ?? ""
             }
           />
+
           <CertificateDetail
             title="Treatments/Procedures"
             body={treatments.join(", ")}
@@ -363,6 +308,44 @@ export const MedicalCertificatePage: React.FC<{
                 onChange={handleChanges}
                 placeholder="Recommendations"
               />
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <div className="w-full bg-gray-100 p-2">Illness Type</div>
+            <div className="mt-1 flex space-x-6 ml-2">
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="illnessType"
+                  value={"Natural Illness"}
+                  ref={register}
+                  onChange={handleChanges}
+                />
+                <span className="ml-2">Natural Illness</span>
+              </label>
+
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="illnessType"
+                  value={"Industrial Accident"}
+                  ref={register}
+                  onChange={handleChanges}
+                />
+                <span className="ml-2">Industrial Accident</span>
+              </label>
+
+              <label className="inline-flex items-center">
+                <input
+                  type="radio"
+                  name="illnessType"
+                  value={"Non-Industrial Accident"}
+                  ref={register}
+                  onChange={handleChanges}
+                />
+                <span className="ml-2">Non-Industrial Accident</span>
+              </label>
             </div>
           </div>
 

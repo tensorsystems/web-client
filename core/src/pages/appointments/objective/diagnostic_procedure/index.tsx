@@ -27,7 +27,6 @@ import { DiagnosticProcedureTypes } from "./DiagnosticProcedureTypes";
 import {
   DiagnosticProcedureStatus,
   DiagnosticProcedureType,
-  MutationDeleteOrderArgs,
   PatientChart,
   Query,
   QueryDiagnosticProcedureOrderArgs,
@@ -168,7 +167,7 @@ export const DiagnosticProcedurePage: React.FC<{
     }
   }, [data]);
 
-  const [cancelOrder] = useMutation<any, MutationDeleteOrderArgs>(
+  const [cancelOrder] = useMutation<any, any>(
     CANCEL_ORDER,
     {
       onCompleted(data) {

@@ -28,7 +28,6 @@ import {
 import {
   LabStatus,
   LabType,
-  MutationDeleteOrderArgs,
   PatientChart,
   Query,
   QueryLabOrderArgs,
@@ -340,7 +339,7 @@ export const LabPage: React.FC<{
     }
   );
 
-  const [cancelOrder] = useMutation<any, MutationDeleteOrderArgs>(
+  const [cancelOrder] = useMutation<any, any>(
     CANCEL_ORDER,
     {
       onCompleted(data) {

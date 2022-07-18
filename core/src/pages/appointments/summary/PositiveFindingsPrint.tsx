@@ -389,48 +389,6 @@ export const GET_PATIENT_CHART = gql`
   }
 `;
 
-const GET_ORDERS = gql`
-  query Orders($page: PaginationInput!, $filter: OrderFilterInput) {
-    orders(page: $page, filter: $filter) {
-      totalCount
-      pageInfo {
-        totalPages
-      }
-      edges {
-        node {
-          id
-          user {
-            id
-            firstName
-            lastName
-          }
-          firstName
-          lastName
-          phoneNo
-          patientId
-          emergency
-          note
-          status
-          orderType
-          payments {
-            id
-            invoiceNo
-            status
-            billing {
-              id
-              item
-              code
-              price
-              credit
-            }
-          }
-          createdAt
-        }
-      }
-    }
-  }
-`;
-
 const GET_SURGERY = gql`
   query GetSurgery($patientChartId: ID!) {
     surgicalProcedure(patientChartId: $patientChartId) {

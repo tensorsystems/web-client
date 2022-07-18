@@ -20,7 +20,7 @@ import React, { useEffect, useState } from "react";
 import { StatCard } from "@tensoremr/components";
 import { WorkflowTable } from "./WorkflowTable";
 import { useHistory } from "react-router-dom";
-import { Page, Appointment, Order, Query } from "@tensoremr/models";
+import { Page, Appointment, Query } from "@tensoremr/models";
 import { gql, useQuery } from "@apollo/client";
 import { parseJwt } from "@tensoremr/util";
 
@@ -91,33 +91,6 @@ export const HomeClinician: React.FC<{ onAddPage: (page: Page) => void }> = ({
 
     onAddPage(page);
     history.replace(route);
-  };
-
-  const handleOrderClick = (e: Order) => {
-    const page: Page = {
-      title: `Appointment - ${e.firstName} ${e.lastName}`,
-      cancellable: true,
-      route: `/appointments/${e.appointmentId}/diagnostics`,
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          className="h-4 w-4"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          />
-        </svg>
-      ),
-    };
-
-    onAddPage(page);
-    history.replace(`/appointments/${e.appointmentId}/diagnostics`);
   };
 
   const handleStatClick = (status: string) => {
